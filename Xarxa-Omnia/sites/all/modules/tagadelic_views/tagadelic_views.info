@@ -1,0 +1,13 @@
+name = Tagadelic Views
+description = Adds a Tagadelic View to the Views module
+dependencies[] = views
+dependencies[] = tagadelic
+package = Views
+core = 6.x
+
+; Information added by drupal.org packaging script on 2011-02-25
+version = "6.x-1.x-dev"
+core = "6.x"
+project = "tagadelic_views"
+datestamp = "1298620327"
+

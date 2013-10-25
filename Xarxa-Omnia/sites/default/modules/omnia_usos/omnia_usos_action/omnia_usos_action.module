@@ -1,0 +1,141 @@
+<?php
+
+/**
+ * @file
+ * Provide actions for simplenews.
+ *
+ * @ingroup simplenews
+ */
+
+/*
+ * Implementation of hook_action_info().
+ */
+function omnia_usos_action_info() {
+  return array(
+    'omnia_usos_update_user_action' => array(
+      'description' => t('Usos Omnia: Actualitza els usuaris de la taula d\'usos'),
+      'type' => 'node',
+      'configurable' => FALSE,
+    	'hooks' => array(
+    		'nodeapi' => array('presave', 'delete', 'insert', 'update'),
+    	)
+    ),
+  	'omnia_usos_update_activity_action' => array(
+  		'description' => t('Usos Omnia: Actualitza les activitats de la taula d\'usos'),
+  		'type' => 'node',
+  		'configurable' => FALSE,
+  		'hooks' => array(
+  			'nodeapi' => array('presave', 'delete', 'insert', 'update'),
+  		)
+  	),
+  	'omnia_usos_update_entity_action' => array(
+  		'description' => t('Usos Omnia: Actualitza les entitats de la taula d\'usos'),
+  		'type' => 'node',
+  		'configurable' => FALSE,
+  		'hooks' => array(
+  			'nodeapi' => array('presave', 'delete', 'insert', 'update'),
+  		)
+  	),
+  	'omnia_usos_check_use_action' => array(
+  		'description' => t('Usos Omnia: Comprova que l\'ús s\'ha creat concretament'),
+  		'type' => 'node',
+  		'configurable' => FALSE,
+  		'hooks' => array(
+  			'nodeapi' => array('presave', 'delete', 'insert', 'update'),
+  		)
+  	),
+  );
+}
+
+
+function omnia_usos_update_user_action(&$object, $context = array()) {
+	// Get values
+	$uid = $object->nid;
+	$bday = new DateTime($object->field_usuari_omnia_naixement[0]['value']);
+	$today = new DateTime('00:00:00');
+	$diff = $today->diff($bday);
+	$uage = $diff->y;
+	$upai = $object->field_usuari_omnia_pais_origen[0]['value'];
+	$usex = $object->field_usuari_omnia_sexe[0]['value'];
+	$uany = date('Y',strtotime($object->field_usuari_omnia_arribada[0]['value']));
+	
+	$query = "UPDATE {omnia_usos} SET uage={$uage}, upai={$upai}, usex={$usex}, uany={$uany} WHERE uid={$uid}";
+	$res = db_query($query);
+}
+
+function omnia_usos_update_activity_action(&$object, $context = array()) {
+	// Get values
+	$aid = $object->nid;
+	$adur = $object->field_activitat_omnia_durada[0]['value'];
+	$ases = $object->field_activitat_omnia_sessions[0]['value'];
+	$aobj = $object->field_activitat_omnia_objectius[0]['value'];
+	$acom = $object->field_activitat_omnia_competenci[0]['value'];
+	$astd = $object->field_activitat_omnia_estrat[0]['value'];
+	$acol = $object->field_activitat_omnia_collectiu[0]['value'];
+	$afor = $object->field_activitat_omnia_format[0]['value'];
+	$apla = $object->field_activitat_omnia_places[0]['value'];
+	$aorg = $object->field_activitat_omnia_organit[0]['value'];
+	$aixp = $object->field_activitat_omnia_eix[0]['value'];
+	$aixs = $object->field_activitat_omnia_eix_sec[0]['value'];
+	$astc = $object->field_activitat_omnia_estrat_coo[0]['value'];
+		
+	$eid = $object->field_activitat_omnia_entitat[0]['nid'];
+	if (!is_null($eid)) $entity_node = node_load($eid);
+	$etip = (!is_null($eid)) ? $entity_node->field_entitat_omnia_tipus[0]['value'] : null;
+	$eder = (!is_null($eid)) ? $entity_node->field_entitat_omnia_deriva[0]['value'] : null;
+	$ecoo = (!is_null($eid)) ? $entity_node->field_entitat_omnia_coord[0]['value'] : null;
+	$epro = (!is_null($eid)) ? $entity_node->field_entitat_omnia_protocol[0]['value'] : null;
+	$efre = (!is_null($eid)) ? $entity_node->field_entitat_omnia_frequencia[0]['value'] : null;
+
+	$values = array($aid,$adur,$ases,$aobj,$acom,$astd,$acol,$afor,$apla,$aorg,$aixp,$aixs,$astc,$eid,$etip,$eder,$ecoo,$epro,$efre);
+		
+	// Clean null values
+	foreach ($values as $key => $value) {
+		$values[$key] = ((string)$value == '') ? 'null' : $value;
+	}
+	$query = "UPDATE {omnia_usos} SET adur={$values[1]}, ases={$values[2]}, aobj={$values[3]}, acom={$values[4]}, astd={$values[5]}, acol={$values[6]}, afor={$values[7]}, apla={$values[8]}, aorg={$values[9]}, aixp={$values[10]}, aixs={$values[11]}, astc={$values[12]}, eid={$values[13]}, etip={$values[14]}, eder={$values[15]}, ecoo={$values[16]}, epro={$values[17]}, efre={$values[18]} WHERE aid={$values[0]}"; 
+	$res = db_query($query);
+	
+	$query = "SELECT nid, usin, usgr FROM {omnia_usos} WHERE aid={$values[0]} GROUP BY nid";
+	$res = db_query($query);
+	$updated = array();
+	while ($row = db_fetch_array($res)) {
+		if (!in_array($row['nid'], $updated)) {
+			$updated[] = $row['nid'];
+			$grup = ($row['usgr'] != '') ? ' - Grup/Edició:'.$row['usgr'] : '';
+			$date = date('d/m/Y', $row['usin']);
+			$name = str_replace('"', "'", $object->title);
+			$title = $name.' - '.$date.$grup;
+			db_query("UPDATE {node} SET title = \"{$title}\" WHERE nid = {$row['nid']}");
+			db_query("UPDATE {node_revisions} SET title = \"{$title}\" WHERE nid = {$row['nid']}");
+		}
+	}
+	
+}
+
+function omnia_usos_update_entity_action(&$object, $context = array()) {
+	// Get values
+	$eid = $object->nid;
+	$etip = $object->field_entitat_omnia_tipus[0]['value'];
+	$eder = $object->field_entitat_omnia_deriva[0]['value'];
+	$ecoo = $object->field_entitat_omnia_coord[0]['value'];
+	$epro = $object->field_entitat_omnia_protocol[0]['value'];
+	$efre = $object->field_entitat_omnia_frequencia[0]['value'];
+	$efre = ($efre == '') ? 'null' : $efre;
+	
+	$query = "UPDATE {omnia_usos} SET etip={$etip}, eder={$eder}, ecoo={$ecoo}, epro={$epro}, efre={$efre} WHERE eid={$eid}";
+	$res = db_query($query);
+}
+
+function omnia_usos_check_use_action(&$object, $context = array()) {
+	$error = false;
+	// Check if the title is empty
+	if ($object->title == '') $error = true;
+	// Check if it's created by guest
+	if ($object->uid == 0) $error = true;
+	// Check if it's unpublished
+	if ($object->status == 0) $error = true;
+	
+	if ($error) watchdog('omnia-usos', 'L\'ús no s\'ha registrat correctament', array(), WATCHDOG_NOTICE, '/node/'.$object->nid);
+}
+

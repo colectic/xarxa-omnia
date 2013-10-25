@@ -1,0 +1,46 @@
+@charset "utf-8";
+/* CSS Document */
+/* Fulla d'estil per a navegadors IE 6 o inferiors */
+}
+#panell{
+	background: none !important;
+	background-image: none;
+}
+
+/* ********* */
+/* CAP ALERA */
+/* ********* */
+#secondary li.menu-2-8-93{
+	width:150px;
+}
+
+/* CONTINGUT PORTADA */
+#contingut-portada .node .links{
+	margin-left:10px !important;
+}
+
+#contingut-portada .node > .links{
+	margin-left:10px !important;
+}
+
+#contingut-portada .node .links .links{	
+	margin-left:0px !important;
+}
+
+.node.intern .bloc_esquerra .image-attach-teaser{
+	float:left !important;
+}
+.node.intern .bloc_esquerra .image-thumbnail{
+	margin:0px !important;
+	padding:0px !important;
+	float:none;
+}
+
+.node .all-attached-images {
+float: left !important;
+background: red;
+}
+/* thumbnail dins dun node*/
+.node .image-attach-body .image.image-thumbnail {
+display: none !important;
+}

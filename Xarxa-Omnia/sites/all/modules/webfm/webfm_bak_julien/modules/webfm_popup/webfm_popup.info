@@ -1,0 +1,12 @@
+; $Id: webfm_popup.info,v 1.1 2009/02/08 06:27:11 robmilne Exp $
+name = WebFM Popup
+description = Places the WebFM browser into a popup window for Rich Text Editors
+package = WebFM
+core = 6.x
+dependencies[] = webfm
+; Information added by drupal.org packaging script on January 1, 1970 - 00:00
+version = "6.x-2.x-dev"
+core = "6.x"
+project = "webfm"
+datestamp = "1295225025"
+

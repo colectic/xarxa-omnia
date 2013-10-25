@@ -1,0 +1,94 @@
+<?php
+// $Id: wordcount.module,v 1.1.2.2.2.4 2009/09/21 20:26:56 crookednumber Exp $
+
+/**
+ * @file
+ * View number of words contributed by each user.
+ *
+ */
+
+/**
+ * Implementation of hook_perm().
+ */
+function wordcount_perm() {
+  return array('view word count');
+}
+
+/**
+ * Implementation of hook_menu().
+ */
+function wordcount_menu() {
+  $items['admin/reports/wordcount'] = array(
+    'title' => 'Word count',
+    'description' => 'View number of words contributed by each user.',
+    'page callback' => 'wordcount_show_count',
+    'access arguments' => array('view word count'),
+  );
+  return $items;
+}
+
+function wordcount_show_count() {
+  drupal_add_js(drupal_get_path('module', 'wordcount') . '/js/jquery.tablesorter.min.js', 'module');
+  drupal_add_js(drupal_get_path('module', 'wordcount') . '/js/wordcount.js', 'module');
+  drupal_add_css(drupal_get_path('module', 'wordcount') . '/themes/blue/wordcount-blue-style.css', 'module');  
+  // Count words.
+  $row = array();
+  
+  $posts = db_query("SELECT nr.title, nr.body, n.uid, u.name FROM {node_revisions} AS nr INNER JOIN {node} AS n ON nr.vid = n.vid INNER JOIN {users} AS u ON n.uid = u.uid");
+  while ($post = db_fetch_object($posts)) {
+    $id = $post->uid;
+    if (!isset($row[$id])) {
+      $row[$id]['id'] = $id;
+      $row[$id]['name'] = ($id) ? $post->name : variable_get('anonymous', 'Anonymous');
+      $row[$id]['posts'] = 0;
+      $row[$id]['num_words_post'] = 0;
+      $row[$id]['avg_post'] = 0;
+      $row[$id]['comments'] = 0;
+      $row[$id]['num_words_comment'] = 0;
+      $row[$id]['avg_comment'] = 0;
+      $row[$id]['total'] = 0;
+    }
+    $row[$id]['posts']++;
+    $row[$id]['num_words_post'] += str_word_count(strip_tags($post->body)) + str_word_count($post->title);
+  }
+
+  $comments = db_query("SELECT c.comment, u.uid, u.name FROM {comments} AS c, {users} AS u WHERE u.uid=c.uid");
+    
+  while ($comment = db_fetch_object($comments)) {
+  $id = $comment->uid;
+    if (!isset($row[$id])) {
+      $row[$id]['id'] = $id;
+      $row[$id]['name'] = ($id) ? $comment->name : variable_get('anonymous', 'Anonymous');
+      $row[$id]['posts'] = 0;
+      $row[$id]['num_words_post'] = 0;
+      $row[$id]['avg_post'] = 0; 
+      $row[$id]['comments'] = 0;
+      $row[$id]['num_words_comment'] = 0;
+      $row[$id]['avg_comment'] = 0;
+      $row[$id]['total'] = 0;
+    }
+    $row[$id]['comments']++;
+    $row[$id]['num_words_comment'] += str_word_count(strip_tags($comment->comment));
+  }
+  
+  foreach ($row as $k=>$v) {
+    $row[$k]['avg_post'] = ($row[$k]['posts']) ? number_format($row[$k]['num_words_post']/$row[$k]['posts'], 1) : 0;
+    $row[$k]['avg_comment'] = ($row[$k]['comments']) ? number_format($row[$k]['num_words_comment']/$row[$k]['comments'],1) : 0;
+    $row[$k]['total'] = $row[$k]['num_words_post'] + $row[$k]['num_words_comment'];
+  }
+  
+  $header = array(
+    array ('data' => 'id'),
+    array ('data' => 'name'),
+    array ('data' => 'nodes'),
+    array ('data' => 'words in nodes'),
+    array ('data' => 'words per node'),
+    array ('data' => 'comments'),
+    array ('data' => 'words in comments'),
+    array ('data' => 'words per comment'),
+    array ('data' => 'total words'),
+    );
+  $output = theme('table', $header, $row, array('id' => 'wordcount', 'class' => 'tablesorter'));
+  
+  return $output;
+}

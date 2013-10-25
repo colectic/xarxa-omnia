@@ -1,0 +1,19 @@
+<?php
+
+/**
+ * @file
+ * Subscriptions_cck module installation.
+ */
+
+/**
+ * Implementation of hook_install().
+ */
+function subscriptions_cck_install() {
+}
+
+/**
+ * Implementation of hook_uninstall().
+ */
+function subscriptions_cck_uninstall() {
+}
+

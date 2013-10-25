@@ -1,0 +1,4011 @@
+/* $Id: fusion-acquia-slate-style.css,v 1.2 2010/07/02 23:14:21 eternalistic Exp $ */
+
+/* Basic Typography & Colors
+-------------------------------------------------------------- */
+
+
+
+
+/* HTML Elements
+-------------------------------------------------------------- */
+/* Add padding here if desired so edges of theme aren't flush with browser window */
+html {
+  background: #FFFEFF;
+}
+
+body {
+  background: #FFFEFF;
+  color: #000;
+  font-size:81.3%;
+  font-family: Verdana, Arial, Helvetica, sans-serif;
+}
+
+body #page .contingut-central { font-size:100%; }
+
+/* Default link styles - separate a:visited for a different visited link style */
+h1,h2,h3,h4,h5,h6{color:#000 !important; letter-spacing:0.05em;}
+#page a,
+#page a:link {
+  color: #006699 !important;
+  text-decoration: none !important;
+  font-weight:normal !important;
+}
+#page a:visited {
+  color: #0099cc !important;
+  text-decoration: none !important;
+  font-weight:normal !important;
+}
+/* Hover/active link styles. Don't forget :focus for accessibility */
+#page a:hover
+{
+  color: #006699 !important;
+  text-decoration: underline !important;
+  font-weight:normal !important;
+}
+#page a:focus
+{
+  color: #004363 !important;
+  text-decoration: underline !important;
+  font-weight:normal !important;
+}
+#page a.active {
+  text-decoration: none !important;
+  color: #006699 !important;
+  font-weight:bold !important;
+}
+
+h1 { font-size: 1.615em;font-weight:normal;font-family: Myriad Pro,Myriad Web Pro Regular,Lucida Grande,Geneva,Trebuchet MS,sans-serif;}
+h2 { font-size: 1.385em;font-weight:normal;}
+h3 { font-size: 1.231em;font-weight:normal;}
+h4 { font-size: 0.846em;font-weight:normal;}
+h5 { font-size: 0.846em;font-weight:normal;}
+h6 { font-size: 0.769em;font-weight:normal;}
+h2.block-title{font-family: Myriad Pro,Myriad Web Pro Regular,Lucida Grande,Geneva,Trebuchet MS,sans-serif;}
+h1.title{font-family: Verdana, Arial, Helvetica, sans-serif;}
+input.form-text{
+	background-color: #CAE5F3 !important;
+	border-right:1px solid #aaa ;
+	border-bottom:1px solid #aaa ;
+	border-left:1px solid #5A8499 ;
+	border-top:1px solid #5A8499 ;
+	color:#444 !important;
+}
+input.form-text:focus{
+	background-color: #f1f1f1 !important;
+	border-right:1px solid #aaa ;
+	border-bottom:1px solid #aaa ;
+	border-left:1px solid #5A8499 ;
+	border-top:1px solid #5A8499 ;
+	color:#333 !important;
+}
+
+abbr, acronym
+{
+border-bottom: .1em dotted;
+cursor: help;
+}
+cite{
+font-style:italic;
+}
+/* Specific Typography
+-------------------------------------------------------------- */
+#site-name {
+  color: #525252;
+  float: left;
+  font-family: Verdana, Arial, Helvetica, sans-serif;
+  font-size: 215.38%; /* 28px/13px */
+  font-weight: normal;
+  letter-spacing: 3px;
+  line-height: 100%;
+  position: relative;
+  text-transform: uppercase;
+  top: 8px;
+  white-space: nowrap;
+}
+
+#site-name.with-slogan {
+  border-right: 1px solid #ddd;
+  padding-right: 15px;
+}
+
+.footer-message {
+  font-size: 90%;
+}
+
+
+
+
+/* avisos de Drupal 
+ missatges d'informacio (fons verd) */
+#contingut-central-inner .messages.status {
+background-color:#d8fab6;
+border:1px solid #3d7903;
+margin:15px 0;
+padding:10px;
+}
+
+/* missatges d'error (fons vermell) */
+#contingut-central-inner .messages.error {
+margin:15px 0;
+padding:10px;
+}
+
+/* ajuda al principi d'un formulari de creacio de contingut */
+#contingut-central-inner .help {
+background-color:#FFC;
+border:1px solid #FC0;
+margin:15px 0;
+padding:5px;
+}
+
+#contingut-central-inner .help a,
+#contingut-central-inner .help a:hover {
+font-weight:700;
+color:#900;
+}
+
+#contingut-central-inner .help ul li {
+padding-left:15px;
+background:url(/sites/xarxa-omnia.org/themes/omniaV3/css/item.gif) no-repeat 0 3px;
+list-style:none;
+}
+
+
+/* Site Info
+-------------------------------------------------------------- */
+/* Wrapper around logo, site name, and slogan */
+#header-site-info {
+  width: 100%;
+}
+
+/* Add float here to put logo and site name side by side, also add margins as
+  needed */
+#logo {
+  float: left;
+  margin: 0 10px 0 10px;
+}
+
+/* Link and hover styles for site name */
+#site-name a:link,
+#site-name a:visited,
+#site-name a:hover,
+#site-name a:active {
+  color: #525252;
+}
+
+/* Typography for site slogan */
+#slogan {
+  color: #525252;
+  display: block;
+  float: left;
+  margin: 40px 15px 0 35px;
+  font-size: 115.38%;
+  padding-top: 5px;
+}
+
+
+/* Regions
+-------------------------------------------------------------- */
+#page {
+  padding: 0;
+}
+
+.page-inner {
+  border: 0;
+  margin-bottom: 0;
+  padding: 0;
+}
+
+
+/* Header Regions
+-------------------------------------------------------------- */
+
+
+#header-site-info-inner {
+
+  height: 100%;
+  padding: 30px 20px 30px 0;
+}
+
+
+#header-wrapper {
+  clear: right;
+}
+
+.header-wrapper {
+  color: #666;
+}
+
+
+
+/* Header - Search
+-------------------------------------------------------------- */
+#search-box {
+  float: right;
+  position: relative;
+  top: 10px;
+  width: auto;
+}
+
+#search-box.block .inner {
+  margin: 0;
+  text-align: right;
+}
+
+#search-input .form-text {
+  border: 1px solid #d5d5d5;
+  color: #292929;
+  float: left;
+  margin-right: 10px;
+  width: 150px;
+}
+
+#search-button {
+  position: absolute;
+  right: 0;
+  top: 3px;
+}
+
+
+/*  Preface Regions
+-------------------------------------------------------------- */
+
+
+#preface-top .preface-top-inner .inner  {
+  padding: 30px 10px 0 ;
+}
+
+
+/*  Main Area (content + sidebars + preface bottom + postscript top)
+-------------------------------------------------------------- */
+.main-wrapper {
+  margin-bottom: 20px;
+}
+
+
+
+/* Content Regions
+-------------------------------------------------------------- */
+.content {
+  margin-bottom: 20px;
+}
+
+
+/*  Postscript & Footer Regions
+-------------------------------------------------------------- */
+.postscript-top {
+  margin-top: 1.5em;
+}
+
+.footer-wrapper {
+  background: #FFF;
+  color: #777;
+  padding: 0;
+  border-top: 1px solid #8F8F8F;
+}
+
+.footer-message-wrapper {
+  background: #FFF;
+  color: #777;
+  padding: 20px 0 0 0;
+  text-align: center;
+}
+.footer-wrapper ul {
+  text-align: center;
+}
+.footer-wrapper ul li {
+  list-style: none;
+  display: inline;
+  padding-right: 15px;
+}
+.footer-wrapper ul li a {
+  color: #8F8F8F;
+}
+
+/* Default node styles
+/-------------------------------------------------------------- */
+/* Change unpublished and preview colors for dark background themes */
+.node-unpublished {
+  background-color: #fff4f4;
+}
+.preview .node {
+  background-color: #ffffea;
+}
+/* Links for nodes (taxonomy, commenting, read more, etc) */
+div.links,
+.node div.links,
+div.terms {
+  background: #444;
+  /*font-size: 107.6%;*/ /* 14px/13px */
+  margin: 0 0 10px 0;
+  padding: 5px 10px;
+}
+div.links, .node div.links {background: #444;}
+div.terms {background: #CCC}
+
+div.links ul,
+div.terms ul {
+  margin: 0;
+  padding: 0;
+}
+
+div.links ul li,
+div.terms ul li {
+  color: #C6C6C6;
+  font-weight: normal;
+  line-height: 130%;
+}
+
+.picture {
+  float: right;
+  margin: 0 0 15px 15px;
+}
+
+.picture img {
+  border: 1px solid #444;
+}
+
+/* Just more/read more links */
+blockquote {
+  color: #999;
+  font-style: italic;
+  margin: 1.5em;
+}
+
+hr {
+  height: 1px;
+  border: 1px solid gray;
+}
+
+
+/* Default block styles
+/-------------------------------------------------------------- */
+h2.block-title {
+  font-size: 1.231em; 
+}
+
+
+/* Drupal messages
+/-------------------------------------------------------------- */
+/* Error that appears when a required form field is not filled out */
+.form-item input.error,
+.form-item textarea.error,
+.form-item select.error {
+  border: 1px solid #aa1144;
+}
+
+/* Required field */
+.marker,
+.form-required {
+  color: #aa1144;
+}
+
+
+/* Forms
+/-------------------------------------------------------------- */
+/* Typography and backgrounds for all form buttons */
+form input.form-submit {
+  background-color: #4D4D4D;
+  border: 1px solid #000;
+  color: #FFF;
+  /*font-size: 85%;*/ /* 13px/13px */
+  font-weight: normal;
+  height: 25px;
+  margin: 0;
+  padding: 0 6px 2px 6px;
+}
+
+/* Hover style for form buttons */
+form input.form-submit:hover,
+form input.form-submit.hover,
+form input.form-submit:focus {
+  background: #3D3D3D;
+  cursor: pointer;
+}
+
+/* Grippie */
+.form-item .resizable-textarea .grippie {
+  background-color: #4D4D4D;
+  border: 1px solid #6D6D6D;
+  border-top: none;
+}
+
+/* Typography, background, borders, padding for form fields */
+.form-item input,
+.form-item select,
+.form-item textarea {
+  background: #fff;
+  border: 1px solid #6D6D6D;
+  color: #777;
+  margin: 0;
+  padding: 2px;
+}
+
+.form-item input.error,
+.form-item textarea.error,
+.form-item select.error {
+  border: 1px solid #DD7777;
+  background: #FFCCCC;
+  color: #8A1F11;
+}
+
+.form-item .description {
+  /*font-size: 84.6%;*/ /* 11px/13px */
+  line-height: 150%;
+}
+
+/* Remove backgrounds and border on radios and checkboxes */
+.form-item .form-radio,
+.form-item .form-checkbox {
+  background: inherit;
+  border: none !important;
+}
+
+/* Fieldset wrapper around groups of form elements -- add border here */
+fieldset {
+  background: transparent;
+  border: 1px solid #555;
+  margin: 15px 0;
+  padding: 0 15px 15px 15px;
+}
+
+/* Typography and spacing for legend of fieldsets */
+fieldset legend {
+  display: block;
+  font-size: 100%; 
+  background: transparent;
+  border: 1px solid #555;
+  font-weight: bold;
+  padding: 0 5px;
+}
+
+html.js fieldset.collapsed {
+  background: none;
+  margin-bottom: 20px;
+}
+
+html.js fieldset.collapsible legend a {
+  background: transparent url(../images/menu-expanded.png) no-repeat 0% 50%;
+  text-decoration: none;
+}
+
+html.js fieldset.collapsed legend a {
+  background: transparent url(../images/menu-collapsed.png) no-repeat 0% 50%;
+}
+
+html.js fieldset legend:hover,
+html.js fieldset legend.hover{
+  /*background-color: #f1f1f1;*/
+  border: 1px solid #000;
+}
+
+html.js input.form-autocomplete {
+  background-position: 100% 5px;
+  max-width: 96%;
+}
+
+input.text:focus, 
+input.title:focus,
+textarea:focus, 
+select:focus {
+  border: 1px solid #666;
+}
+
+html.js input.form-autocomplete {
+  background-position: 100% 2px;
+  background-image: url(../images/throbber-small.gif);
+  max-width: 96%;
+}
+
+html.js input.throbbing {
+  background-position: 100% -16px;
+}
+
+
+/* Buttons
+-------------------------------------------------------------- */
+span.button-wrapper {
+  cursor: pointer;
+}
+
+span.button {
+  background: transparent url(../images/submit-button-right.png) no-repeat right top;
+  display: inline-block;
+  height: 33px;
+  padding: 0 10px 0 0;
+  position: relative;
+}
+
+span.button span {
+  background: transparent url(../images/submit-button.png) no-repeat left top;
+  display: inline-block;
+  height: 33px;
+  margin-right: -2px;
+  padding: 0 0 0 9px;
+}
+
+span.button span input {
+  background-color: transparent;
+  border: 0;
+  color: #fff;
+  cursor: pointer;        /* for Opera */
+  /*font-size: 107.6%;*/ /* 14px/13px */
+  height: 33px;
+  margin: 0 !important;
+  padding: 0;
+  white-space: nowrap !important;
+}
+
+span.button-wrapper:hover span.button {
+  background-position: right -33px;
+}
+
+span.button-wrapper:hover span.button span {
+  background-position: left -33px;
+}
+
+span.button span input:hover {
+  background-color: transparent;
+}
+
+
+/* Tables
+-------------------------------------------------------------- */
+/* Body of tables */
+tbody {
+  border-top: 1px solid #ccc;
+}
+
+/* Header of tables */
+thead th,
+th {
+  border-bottom: 3px solid #000;
+}
+
+tbody th {
+  border-bottom: 1px solid #ccc;
+}
+
+/* Alternating row background styles */
+tr.even,
+tr.even td {
+  background-color: #EEE;
+  border-bottom: 1px solid #000;
+}
+
+tr.odd,
+tr.odd td {
+  background-color: #FFF;
+  border-bottom: 1px solid #000;
+}
+
+tr.drag td,
+tr.drag-previous td {
+  color: #E09010;
+}
+
+td {
+  padding: 3px 8px;
+}
+
+/* Log files pages */
+tr.selected a,
+#admin-dblog tbody a,
+table.system-status-report a,
+table.update a,
+.update table.version a {
+  color: #0D57A3;
+  text-decoration: none;
+}
+
+table.update tr.error td {
+  background: #FFFFDD;
+}
+
+tr.selected a:hover,
+#admin-dblog tbody a:hover,
+table.system-status-report a:hover,
+table.update a:hover,
+.update table.version a:hover {
+  text-decoration: underline;
+}
+  
+table.system-status-report th {
+  border-bottom: 1px solid #000;
+}
+
+tr.info,
+tr.info td {
+  background: #4D4D4D;
+}
+
+tr.ok.even,
+tr.ok.odd,
+tr.ok.even td,
+tr.ok.odd td {
+  background: #C2F5C2;
+  color: #000;
+}
+
+tr.dblog-notice {
+  background: #E4EEF8;
+  color: #000;
+}
+
+tr.warning.even,
+tr.warning.odd,
+tr.warning.even td,
+tr.warning.odd td,
+tr.dblog-warning.even,
+tr.dblog-warning.odd, 
+tr.dblog-warning.even td,
+tr.dblog-warning.odd td {
+  background: #FFFFDD;
+  color: #000;
+}
+
+tr.error.even,
+tr.error.odd,
+tr.dblog-error.odd,
+tr.dblog-error.even {
+  background: #FBDBDB;
+  color: #8A1F11;
+}
+
+/* Sticky header */
+table.sticky-header {
+  background: #000;
+}
+
+table.sticky-header thead th {
+  padding: 5px;
+}
+
+
+/*--------------------------------------------------------------*/
+/* Module styles
+/-------------------------------------------------------------- */
+
+
+/* Book
+/-------------------------------------------------------------- */
+.book-navigation .menu {
+  border-top: 1px solid #ccc;
+}
+
+.book-navigation .page-links {
+  border-top: 1px solid #ccc;
+  border-bottom: 1px solid #ccc;
+}
+
+
+/* Comments
+/-------------------------------------------------------------- */
+h2.comments-header {
+  background: url(../images/icon-commentbubble.png) no-repeat 0 7px;
+  border-bottom: 1px dotted #98846C;
+  font-family: Arial Narrow, Helvetica, Arial, sans-serif;
+  font-size: 153.8%; /* 20px/13px */
+  font-weight: bold;
+  padding: 0 0 10px 25px;
+  text-transform: uppercase;
+}
+
+/* Subject (title) of each comment */
+div.comment h3.title {
+  font-size: 123.1%; /* 16px/13px */
+  font-weight: normal;
+  margin: 0 0 5px 0;
+}
+
+.comment h3.title a:link,
+.comment h3.title a:visited {
+  text-decoration: none;
+}
+
+.comment .submitted {
+  color: #E8DCC4;
+  margin-bottom: 10px;
+}
+
+div.comment .submitted a {
+  font-weight: bold;
+}
+
+/* Alternating styles for even/odd comments */
+
+/* A special highlight style for a comment by the author of the node */
+.comments div.comment-by-author {
+  background-color: #444;
+  border: 3px solid #212121;
+}
+#comments .comment{margin-bottom:20px !important; padding:10px !important; width:95%;}
+#comments div.odd {
+  background-color: #f1f1f1;
+border:1px dashed #ccc !important;
+}
+#comments div.even {
+  background-color: #f9f9f9;
+border:1px dashed #ccc !important;
+}
+#content-content #comments .comment-unpublished {
+  background-color:#FFF4F4 !important;
+  border:1px dashed #FF0000 !important;
+}
+#content-content #comments .comment-unpublished:before{content:"COMENTARI EN CUA DE MODERACIO"; color:#DFA7D9; letter-spacing:0.1em; font-weight:bold; font-size:1.3em; float: right; }
+
+#comments .comment .submitted{
+color:#888;
+
+}
+/* Comment signatures */
+.signature {
+  border-top: 1px solid #d6ddb9;
+}
+
+/* User avatars in comments */
+.comment-wrapper .picture img {
+}
+
+.comments div.links {
+  background: none;
+}
+
+.comment div.links a:link,
+.comment div.links a:visited {
+  color: #E2B57C;
+  padding: 0;
+  text-decoration: underline;
+}
+
+.comment div.links ul li {
+  border-right: 1px solid #E2B57C;
+  font-size: 84.6%; /* 11px/13px */
+  line-height: 100%;
+  padding: 0 8px 0 5px;
+}
+
+.comment div.links ul li.first {
+  padding-left: 0;
+}
+
+.comment div.links ul li.last {
+  border: none;
+  padding-right: 0;
+}
+
+
+/* Forum
+/-------------------------------------------------------------- */
+.forum-topic-navigation {
+  border-top: 1px solid #888;
+  border-bottom: 1px solid #888;
+}
+
+
+/* Poll
+/-------------------------------------------------------------- */
+div.poll div.bar {
+  background-color: #ddd;
+}
+
+div.poll div.bar div.foreground {
+  background-color: #999;
+}
+
+
+/* Profiles
+/-------------------------------------------------------------- */
+/* Styles for sub-headings on user profiles */
+.profile .picture {
+  float: none;
+}
+
+.profile dt {
+  background-color: transparent;
+  padding: 0;
+}
+
+
+/* Tab Menus
+/-------------------------------------------------------------- */
+#content-tabs {
+  background-color: transparent;
+  float: left;
+  margin: 20px 0;
+  padding: 0;
+}
+
+#content-tabs ul.primary,
+#content-tabs ul.secondary {
+  border-bottom: 1px solid #000;
+  clear: both;
+  float: left;
+  margin: 0 0 10px 0;
+  padding: 0 10px;
+}
+
+#content-tabs ul.secondary {
+  border-bottom: 1px solid #555;
+  margin-top: 10px;
+  text-transform: lowercase;
+}
+
+#content-tabs ul.primary li,
+#content-tabs ul.secondary li {
+  border-style: none;
+  display: inline;
+  float: left;
+  list-style: none;
+  margin: 0 10px;
+  padding: 0;
+}
+
+#content-tabs ul.primary li a:link,
+#content-tabs ul.primary li a:visited,
+#content-tabs ul.secondary li a:link,
+#content-tabs ul.secondary li a:visited {
+  background-color: transparent;
+  border: none;
+  color: #000;
+  float: left;
+  font-weight: bold;
+  margin: 0;
+  padding: 0 0 6px 0;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+#content-tabs ul.primary li a:link,
+#content-tabs ul.primary li a:visited {
+  color: inherit;
+  font-size: 107.8%; /* 14px/13px */
+  font-weight: bold;
+}
+
+#content-tabs ul.secondary li a:link,
+#content-tabs ul.secondary li a:visited {
+  color: #555;
+}
+
+#content-tabs ul.primary li a.active:link,
+#content-tabs ul.primary li a.active:visited {
+  border-bottom: 4px solid #DFB77C;
+  color: #999;
+  padding-bottom: 2px;
+}
+
+#content-tabs ul.secondary li a.active:link,
+#content-tabs ul.secondary li a.active:visited {
+  border-bottom: 4px solid #555;
+  color: #777;
+  padding-bottom: 2px;
+}
+
+#content-tabs ul.primary li a:hover,
+#content-tabs ul.primary li a:focus,
+#content-tabs ul.secondary li a:hover,
+#content-tabs ul.secondary li a:focus {
+  border-bottom: 4px solid #777;
+  color: #777;
+  padding-bottom: 2px;
+}
+
+#content-tabs ul.primary li a:hover,
+#content-tabs ul.primary li a:focus {
+  border-bottom: 4px solid #DFB77C;
+  color: #999;
+}
+
+
+/* Skinr styles
+/-------------------------------------------------------------- */
+/* Fusion - List bottom border */
+.fusion-list-bottom-border ul li {
+  border-bottom: 1px solid #444;
+  font-weight: bold;
+}
+
+.fusion-list-bottom-border ul li ul {
+  border-top: 1px solid #444;
+  font-size: 85.7%; /* 12px/13px */
+}
+
+.fusion-list-bottom-border ul li ul li.last {
+  border-top: 1px solid #444;
+  margin-bottom: -1px;
+  margin-top: -1px;
+}
+
+.fusion-list-bottom-border .inner ul li ul li ul {
+  font-size: 100%; /* 13px/13px */
+}
+
+/* Fusion - List vertical spacing */
+.fusion-list-vertical-spacing .inner ul {
+  margin: 0 0 10px 0;
+}
+
+.fusion-list-vertical-spacing .inner ul li {
+  list-style: none;
+  margin-bottom: 10px;
+}
+
+.fusion-list-vertical-spacing .inner ul li a:link,
+.fusion-list-vertical-spacing .inner ul li a:visited {
+  color: #b2b2b2;
+}
+
+.fusion-list-vertical-spacing .inner ul li.active-trail a:link,
+.fusion-list-vertical-spacing .inner ul li.active-trail a:visited {
+  background: url(../images/menu-arrow-white.png) no-repeat 0 4px;
+  color: #f6f6f6;
+  font-weight: bold;
+  padding-left: 10px;
+}
+
+.fusion-list-vertical-spacing .inner ul li a:hover,
+.fusion-list-vertical-spacing .inner ul li a:focus {
+  color: #e0b47a;
+}
+
+.fusion-list-vertical-spacing .inner ul li ul {
+  font-size: 85.7%; /* 12px/13px */
+  margin: 10px 0 10px 10px;
+}
+
+.fusion-list-vertical-spacing .inner ul li ul li {
+  margin-bottom: 5px;
+}
+
+.fusion-list-vertical-spacing .inner ul li ul li a:link,
+.fusion-list-vertical-spacing .inner ul li ul li a:visited,
+.fusion-list-vertical-spacing .inner ul li.active-trail ul li a:link,
+.fusion-list-vertical-spacing .inner ul li.active-trail ul li a:visited {
+  background: none;
+  color: #fff;
+  font-weight: normal;
+  padding-left: 0;
+}
+
+.fusion-list-vertical-spacing .inner ul li ul li a:hover,
+.fusion-list-vertical-spacing .inner ul li ul li a:focus,
+.fusion-list-vertical-spacing .inner ul li.active-trail ul li a:hover,
+.fusion-list-vertical-spacing .inner ul li.active-trail ul li a:focus {
+  color: #e0b47a;
+}
+
+.fusion-list-vertical-spacing .inner ul li.active-trail ul li a.active {
+  color: #e0b47a;
+  text-decoration: underline;
+}
+
+.fusion-list-vertical-spacing .inner ul li ul li ul {
+  font-size: 100%; /* 13px/13px */
+}
+
+/* Superfish vertical menus */
+.superfish-vertical {
+  position: relative;
+  z-index: 10;
+}
+
+ul.sf-vertical {
+  background: #fafafa;
+  margin: 0;
+}
+
+ul.sf-vertical li {
+  padding: 0;
+  border-bottom: 1px solid #ccc;
+  line-height: 200%; /* 24px */
+  font-weight: bold;
+  list-style: none;
+  list-style-type: none;
+  list-style-image: none;
+}
+
+ul.sf-vertical li a:link,
+ul.sf-vertical li a:visited,
+ul.sf-vertical li .nolink {
+  margin-left: 10px;
+  padding: 2px;
+}
+
+ul.sf-vertical li a:hover,
+ul.sf-vertical li a.active {
+  text-decoration: underline;
+}
+
+ul.sf-vertical li ul {
+  background: #fafafa;
+  border-top: 1px solid #ccc;
+  margin-left: 0;
+}
+
+ul.sf-vertical li ul li.last {
+  border-top: 1px solid #ccc;
+  margin-bottom: -1px;
+  margin-top: -1px;
+}
+
+ul.sf-vertical li ul {
+  border-top: none;
+  padding: 4px 0;
+}
+
+ul.sf-vertical li ul li {
+  border-bottom: none;
+  line-height: 150%; /* 24px */
+}
+
+ul.sf-vertical li ul li.last {
+  border-top: none;
+}
+
+ul.sf-vertical li ul li ul {
+  margin-top: -4px;
+}
+
+/* Rounded corners with gradient background and border */
+.rounded-corners-gradient-background .corner {
+  display: block;
+  height: 20px;
+  position: relative;
+  width: 20px;
+  z-index: 10;
+}
+
+.rounded-corners-gradient-background .corner-top-right,
+.rounded-corners-gradient-background .corner-bottom-right {
+  float: right;
+}
+
+/* Rounded corners - Gradient background */
+.rounded-corners-gradient-background .corner-top-left {
+  background: url(../images/rounded-block.png) no-repeat top left;
+  left: -2px;
+  top: -2px;
+}
+
+.rounded-corners-gradient-background .corner-top-right {
+  background: url(../images/rounded-block.png) no-repeat top right;
+  right: -2px;
+  top: -2px;
+}
+
+.rounded-corners-gradient-background .corner-bottom-left {
+  background: url(../images/rounded-block.png) no-repeat bottom left;
+  left: -2px;
+  top: 2px;
+}
+
+.rounded-corners-gradient-background .corner-bottom-right {
+  background: url(../images/rounded-block.png) no-repeat bottom right;
+  right: -2px;
+  top: 2px;
+}
+
+.rounded-corners-gradient-background .inner {
+  background: #292929 url(../images/background-gradient.png) repeat-x bottom center;
+  border: 2px solid #4b4b4b;
+}
+
+.rounded-corners-gradient-background h2.block-title,
+.rounded-corners-gradient-background .content {
+  margin: 0 20px;
+}
+
+/* Rounded corners with gray background */
+.rounded-corners-gray-background .inner {
+  background: #3a3a3a;
+  padding: 20px;
+}
+
+/* White title with bold first word and capital letters */
+.title-white-bold-first h2.block-title .first-word {
+  font-weight: bold;
+}
+
+.title-white-bold-first h2.block-title {
+  font-weight: normal;
+  text-transform: uppercase;
+}
+
+/* Bold white title with capital letters */
+.title-white-bold h2.block-title {
+  font-weight: bold;
+  letter-spacing: -1px;
+  text-transform: uppercase;
+}
+
+/* Dual color bold title and capital letters */
+.title-dual h2.block-title {
+  font-weight: bold;
+  letter-spacing: -1px;
+  text-transform: uppercase;
+}
+
+.title-dual-color h2.block-title span.first-word {
+  color: #e0b47a;
+}
+
+/* Dual color bold title and capital letters with arrow */
+.title-dual-color-arrow h2.block-title {
+  background: url(../images/block-title-arrow.png) no-repeat 0 3px;
+  padding-left: 10px;
+}
+
+.title-dual-color-arrow h2.block-title span.first-word {
+  color: #e0b47a;
+}
+
+/* Yellow title with bold and capital letters */
+.title-yellow-bold h2.block-title {
+  color: #f9ca8c;
+  font-weight: bold;
+  letter-spacing: -1px;
+  text-transform: uppercase;
+}
+
+/* Fusion horizontal user login */
+.fusion-horiz-login .item-list li a {
+  font-size: 75%;
+}
+
+.fusion-horiz-login span.button {
+  background: transparent url(../images/submit-button-right-small.png) no-repeat right top;
+  height: 25px;
+}
+
+.fusion-horiz-login span.button span {
+  background: transparent url(../images/submit-button-small.png) no-repeat left top;
+  font-size: 76.9%; /* 10px/13px */
+  height: 25px;
+}
+
+.fusion-horiz-login span.button span input {
+  height: 25px;
+}
+
+.fusion-horiz-login span.button-wrapper:hover span.button {
+  background-position: right -25px;
+}
+
+.fusion-horiz-login span.button-wrapper:hover span.button span {
+  background-position: left -25px;
+}
+
+.fusion-horiz-login label {
+  color: #999;
+}
+
+/* Preface top - Fusion callout */
+.preface-top .fusion-callout {
+  bottom: 0;
+  line-height: 200%;
+  position: absolute;
+  right: 0;
+}
+
+.preface-top .block.fusion-callout {
+  margin-bottom: 0;
+}
+
+.preface-top .fusion-callout .inner {
+  color: #fff;
+  font-size: 200%; /* 26px/13px */
+  font-weight: normal;
+}
+
+/* Dark transparent background */
+.block.dark-transparent-background {
+  margin-bottom: 0;
+  margin-left: 20px;
+}
+
+.dark-transparent-background .inner {
+  background: url(../images/transparency-dark.png);
+  min-height: 390px;
+}
+
+/* Preface top - Banners */
+.banner-background #preface-top {
+  margin-bottom: 2.5em;
+}
+
+.banner-background #preface-top .preface-top-inner {
+  height: 420px;
+  overflow: hidden;
+}
+
+.banner-background-beachstones #preface-top .preface-top-inner {
+  background: url(../images/banner/beachstones.jpg) no-repeat center center;
+}
+
+.banner-background-citystreetlights #preface-top .preface-top-inner {
+  background: url(../images/banner/citystreetlights.jpg) no-repeat center center;
+}
+
+.banner-background-greekheads #preface-top .preface-top-inner {
+  background: url(../images/banner/greekheads.jpg) no-repeat center center;
+}
+
+.banner-background-seascape #preface-top .preface-top-inner {
+  background: url(../images/banner/seascape.jpg) no-repeat right top;
+}
+
+.banner-background-windows #preface-top .preface-top-inner {
+  background: url(../images/banner/windows.jpg) no-repeat right top;
+}
+
+/* Content top - Banners */
+.banner-background #content-top-wrapper {
+  margin-bottom: 2.5em;
+}
+
+.banner-background-beachstones #content-top-wrapper .content-top-inner {
+  background: url(../images/banner/beachstones.jpg) no-repeat center center;
+}
+
+.banner-background-citystreetlights #content-top-wrapper .content-top-inner {
+  background: url(../images/banner/citystreetlights.jpg) no-repeat left center;
+}
+
+.banner-background-greekheads #content-top-wrapper .content-top-inner {
+  background: url(../images/banner/greekheads.jpg) no-repeat left center;
+}
+
+.banner-background-seascape #content-top-wrapper .content-top-inner {
+  background: url(../images/banner/seascape.jpg) no-repeat left bottom;
+}
+
+.banner-background-windows #content-top-wrapper .content-top-inner {
+  background: url(../images/banner/windows.jpg) no-repeat left bottom;
+}
+
+.banner-background #content-top-wrapper #content-top-inner-inner {
+  padding-top: 80px;
+}
+
+.banner-background #content-top-wrapper #content-top {
+  background: url(../images/content-top-bg.png);
+  color: #000;
+  margin-left: 0;
+  margin-right: 0;
+  padding: 10px;
+}
+
+.banner-background #content-top-wrapper .content-top-inner .block {
+  margin: 0;
+}
+
+.banner-background #content-top-wrapper .content-top-inner .inner a:link,
+.banner-background #content-top-wrapper .content-top-inner .inner a:visited {
+  color: #000;
+  font-weight: bold;
+  text-decoration: underline;
+}
+
+
+/* Block regions
+/-------------------------------------------------------------- */
+#sidebar-first {
+
+}
+#sidebar-first .inner-inner {
+  /*background: #C2E7EF;*/
+  background-color: #E4EEF8;
+  border-color: #57718A;
+  border-style: solid;
+  border-width: 6px;
+padding: 10px 10px 10px 15px;
+  color: #292929;
+  overflow: hidden;
+}
+#sidebar-first ul {
+list-style: none !important;
+padding-left: 0 !important;
+margin-left: 0 !important;
+}
+#sidebar-first ul li {
+background:url("/sites/xarxa-omnia.org/themes/acquia_slate/images/bullets_leftnav_arrows.png") no-repeat scroll left top transparent;
+padding:0.2em 1em;
+text-decoration:none;
+list-style: none !important;
+}
+.inner .block-region {
+  background: #4c4c4c;
+  color: #E0B47A;
+  text-shadow: 1px 1px #666;
+}
+
+.block:hover > .inner > .inner-inner > .fusion-edit {
+  display: block;
+}
+
+
+/* Skinr previews
+/-------------------------------------------------------------- */
+/* Screenshot drop shadow */
+#screenshot {
+  box-shadow: 3px 3px 3px #000;
+}
+
+
+/* Skinr overlay fixes
+/-------------------------------------------------------------- */
+form#skinr-ui-form fieldset {
+  background: #fff;
+  border: 1px solid #ccc;
+}
+
+form#skinr-ui-form fieldset legend {
+  background: #fff;
+  border: none;
+}
+
+
+/* Vertical tabs
+/-------------------------------------------------------------- */
+div.vertical-tabs {
+  background: #3e3e3e;
+  border: 1px solid #444;
+}
+
+div.vertical-tabs ul.vertical-tabs-list {
+  border-top: 1px solid #444;
+}
+
+div.vertical-tabs ul.vertical-tabs-list li {
+  background: #242424;
+  border: 1px solid #444;
+  border-top: none;
+}
+
+div.vertical-tabs ul.vertical-tabs-list li.selected {
+  background: #3e3e3e;
+}
+
+div.vertical-tabs ul.vertical-tabs-list li.selected strong, 
+div.vertical-tabs ul.vertical-tabs-list li.selected small {
+  color: #fff;
+}
+
+/* AFEGITS JULIEN */
+
+/* START barra gencat */
+#header-links-frame {
+	overflow: hidden;
+	margin: 0.5em 0 0 0;
+background-color: #FFF;
+border-bottom: 1px solid #BA0000;
+height: 35px;
+}
+
+#header-links-frame p#logo-gencat {
+	float: left;
+	margin: 0.3em 0 0.5em 0.8em;
+	width: 16em;
+}
+
+#header-links-frame  p#logo-gencat a:hover {
+	background: none;
+} 
+
+#header-links {
+	float: right;
+	font-size: 0.83em;
+	overflow: hidden;
+	margin-right: 10px;
+}
+
+#header-links ul {
+	float: left;
+	margin: 0.5em;
+	white-space: nowrap;
+}
+
+#header-links ul li {
+	border-right: 1px solid #666;
+	float: left;
+	padding: 0 0.3em 0 0;
+list-style-type: none !important;
+}
+
+#header-links ul li.last {
+	border: none;
+	padding: 0;
+}
+
+#header-links ul li a {
+	color: #666;
+	margin: 0 0 0 0.3em;
+	padding: 0;
+	text-decoration: none;
+}
+
+#header-links ul li a:hover {
+	text-decoration: underline;
+}
+
+#header-links form {
+	float: left;
+	overflow: hidden;
+padding-top: 5px;
+}
+#header-links form input {
+width: 100px !important;
+}
+
+input#edit-submit-2.searchButtonPng {
+display: none;
+}
+
+#header-links form label {
+	display: none;
+}
+
+#header-links form input.form-text {
+	border: 1px solid #999;
+	padding-bottom: 0.2em;
+	padding-left: 0.3em;
+	padding-top: 0;
+	height: 1em;
+}
+
+/*boto del cerca*/
+#search_header.search_submit {
+background-image:url(/sites/xarxa-omnia.org/themes/acquia_slate/images/fletxa.png);
+background-repeat:no-repeat;
+background-position:left top;
+border:0;
+height:12px !important;
+width:12px !important;
+font-size:0!important;
+color: #FFF;
+cursor:pointer;
+background-color:#FFF;
+text-indent:-1000px !important;
+border-style:none;
+padding: 0;
+margin:0 20px 0 0 !important;
+}
+/* END barra gencat */
+
+/* START slideshow portada */
+#block-views-Noticies-block_1, 
+#views_slideshow_cycle_main_Noticies-block_1 {
+background:url("/sites/xarxa-omnia.org/themes/acquia_slate/images/fedora-sky_bg.png") repeat scroll left top transparent;
+border: 1px solid #ccc;
+height: 316px;
+}
+/*cada slide*/
+#block-views-Noticies-block_1.views_slideshow_cycle_teaser_section .views_slideshow_cycle_slide,
+#views_slideshow_cycle_teaser_section_Noticies-block_1.views_slideshow_cycle_teaser_section .views_slideshow_cycle_slide {
+background: transparent;
+}
+#block-views-Noticies-block_1 img.image.image-preview, 
+#views_slideshow_cycle_main_Noticies-block_1 img.image.image-preview {
+float: left;
+padding: 20px 10px 10px 10px;
+height: 250px;
+width: 350px;
+}
+#block-views-Noticies-block_1 .views-field.views-field-title, 
+#views_slideshow_cycle_main_Noticies-block_1 .views-field.views-field-title {
+font-size: 1.8em;
+padding-top: 22px;
+}
+#block-views-Noticies-block_1 .views-field.views-field-teaser, 
+#views_slideshow_cycle_main_Noticies-block_1 .views-field.views-field-title {
+/*display: block;
+max-height: 250px;
+background: #525260;*/
+position: relative;
+padding: 10px 30px;
+margin: 10px 10px 10px 370px;
+color: #7F7F7F;
+font-size: 1.231em;
+background: rgb(255, 255, 255);
+}
+#block-views-Noticies-block_1 .views-field.views-field-teaser .field-content p {
+
+}
+.views-slideshow-controls-bottom {float: left;padding-left: 5px;margin-top: -30px;}
+#block-views-Noticies-block_1.views_slideshow_controls_text, 
+#views_slideshow_controls_text_Noticies-block_1.views_slideshow_controls_text {
+float: left;
+padding: 5px;
+}
+#block-views-Noticies-block_1.views_slideshow_slide_counter, 
+#views_slideshow_slide_counter_Noticies-block_1.views_slideshow_slide_counter {
+float: right;
+padding: 5px;
+}
+/* STOP slideshow portada */
+
+/* START slideshow petit descatats */
+#views_slideshow_cycle_main_tipus_destacat-block_3 {
+height: 270px;
+overflow: hidden;
+}
+.views-slideshow-controls-bottom {
+float: left;
+padding: 40px 0 0 0;
+width: 250px;
+}
+#views_slideshow_pager_field_item_tipus_destacat-block_3_0 {
+float: left;
+padding-right: 3px;
+}
+#widget_pager_bottom_tipus_destacat-block_3 .views-content-field-imatge-fid {
+float: left;
+}
+#views_slideshow_controls_text_tipus_destacat-block_3.views_slideshow_controls_text {
+display: none;
+}
+
+/* STOP slideshow petit descatats */
+
+/* Blocs */
+#block-block-13 .inner-inner, 
+#block-block-14 .inner-inner, 
+#block-block-15 .inner-inner {
+background-color: transparent;
+border: 0;
+}
+#header-site-info-inner #search-box {display: none;}
+.header-site-info-inner {float: left; width: 100%;}
+#logo {
+float: left;
+width: 200px !important;
+}
+#site-name-wrapper {}
+#block-menu-menu-eixos.block {
+float: right !important;
+position: relative !important;
+width: 200px !important;
+}
+#block-block-9 {
+float: right;
+position: relative;
+width: 300px;
+text-align: center;
+}
+#block-block-9 ul {
+margin: 0;
+}
+#block-block-9 ul li {
+list-style: none;
+display: inline;
+padding: 0 0 0 10px;
+}
+#block-block-9 li.skipe_ot {
+
+}
+#block-block-16 select {
+font-size: 0.85em;
+width: 160px;
+}
+#block-block-16 option {
+width: 160px;
+}
+
+.feed-icon {
+float: right;
+padding-top: 10px;
+}
+
+.puntomnia-gestio {
+float: left;
+}
+
+/* PORTADA */
+
+/* llistes de nodes */
+
+.node.teaser .field-field-imatge {
+float: left;
+padding-right: 10px;
+}
+
+/* NODE SENCER */
+
+.node.full-node .content {
+padding-top: 10px;
+}
+
+/*imatge a la dreta i text a esquerra*/
+.node.full-node .field-field-imatge {
+float: right;
+padding: 20px 0 0 20px;
+}
+
+span.submitted {
+float: left;
+}
+
+/* START Cercador de punts amb mapa /llistat_punts_omnia */
+
+/*filtres de cerca*/
+.view-llistat-punts-omnia .views-exposed-widgets {
+width: 85%;
+border: 1px solid #E5E5E5 !important;
+padding: 10px 10px 20px 15px !important;
+margin: 10px 0 15px 0 !important;
+}
+.view-llistat-punts-omnia .views-exposed-widgets label {
+font-size: 100%;
+}
+.view-llistat-punts-omnia .views-exposed-widgets .views-exposed-widget.views-widget-filter-term_node_tid_depth, 
+.view-llistat-punts-omnia .views-exposed-widgets .views-exposed-widget.views-widget-filter-term_node_tid_depth_1 {
+width: 155px !important;
+}
+.view-llistat-punts-omnia .views-exposed-widgets select#edit-tid-comarca.form-select {
+height: 125px !important;
+}
+.view-llistat-punts-omnia .views-exposed-widget.views-widget-filter-tid {
+padding-right: 5px !important;
+width: 260px !important;
+}
+.view-llistat-punts-omnia .views-exposed-widget.views-widget-filter-title {
+padding-bottom: 20px !important;
+width: 263px !important;
+}
+input#edit-tid-municipi.form-text {
+
+}
+#edit-tid-municipi-wrapper.form-item #autocomplete ul {
+
+}
+input#edit-nom-punt.form-text {
+
+}
+.view-llistat-punts-omnia .views-exposed-widget.views-submit-button {
+float: right !important;
+}
+.view-llistat-punts-omnia .views-exposed-widget.views-submit-button {
+/*float: right;
+width: 75px !important;
+height: 20px !important;
+padding: 26px 0 0 0 !important;
+margin: 0 !important;*/
+}
+input#edit-submit-llistat-punts-omnia.form-submit {
+/*padding: 3px 5px;
+color: #12455F;*/
+}
+.view-llistat-punts-omnia .views-exposed-widget.views-reset-button {
+/*height: 40px !important;
+padding: 0 !important;
+float: left;
+margin: 0 !important;*/
+}
+.view-llistat-punts-omnia .views-exposed-widget.views-reset-button input{
+/*width: 80px !important;
+height: 28px !important;
+color: #7F7F7F;
+font-size: 1em;*/
+}
+/* A ... kms del codi postal ... */
+.view-llistat-punts-omnia .views-widget-filter-distance {
+min-width: 285px;
+height: 25px;
+padding-top: 20px !important;
+float: none;
+}
+.view-llistat-punts-omnia #edit-distance-op-wrapper.form-item, 
+.view-llistat-punts-omnia #edit-distance-search-distance-wrapper.form-item label, 
+.view-llistat-punts-omnia #edit-distance-search-units-wrapper.form-item {
+display:block-inline !important;
+}
+.view-llistat-punts-omnia .views-exposed-widget.views-widget-filter-distance label {
+float: left !important;
+padding: 3px 5px 0 0;
+}
+.view-llistat-punts-omnia #edit-distance-search-distance-wrapper.form-item {
+float: left !important;
+width: 33px;
+}
+.view-llistat-punts-omnia #edit-distance-postal-code-wrapper.form-item label {
+float: left !important;
+padding-left: 3px !important;
+}
+.view-llistat-punts-omnia input#edit-distance-search-distance.form-text, 
+.view-llistat-punts-omnia input#edit-distance-postal-code.form-text {
+height: 12px;
+font: normal 12px Myriad Pro,Myriad Web Pro Regular,Lucida Grande,Geneva,Trebuchet MS,sans-serif;
+text-align: right;
+}
+.view-llistat-punts-omnia input#edit-distance-search-distance.form-text {
+width: 25px !important;
+}
+.view-llistat-punts-omnia input#edit-distance-postal-code.form-text {
+width: 38px !important;
+}
+.views-exposed-widget.views-widget-filter-distance{float:left;}
+.views-exposed-widget.views-widget-filter-tid{margin-top:30px !important;}
+.edit-distance-search-distance-wrapper label{padding:0; padding-right:10px !important; width:auto;}
+.edit-distance-search-distance-wrapper input{margin-right:10px !important;}
+.edit-distance-postal-code-wrapper{margin-bottom:5px;}
+#edit-distance-search-distance{margin-right:10px;}
+/*END a ... kms del codi postal ... */
+
+/*missatge segon resultat de cerca*/
+.view-header .actualitzat2 {
+font-size: 1.077em;
+font-style: italic;
+position: absolute;
+left: 10px;
+margin-top: 195px !important;
+}
+.view-llistat-punts-omnia.view-display-id-page_1.view-dom-id-2 .view-content {
+margin-top:20px !important;
+}
+.view-llistat-punts-omnia.view-display-id-page_1.view-dom-id-2 .attachment .view-content {
+padding-top: 0px !important;
+margin-top: 20px !important;
+padding-bottom: 0px !important;
+}
+
+/*2 caixes de contingut text&mapa*/
+.view-llistat-punts-omnia.view-display-id-page_1.view-dom-id-2 .view-content {
+float: left;
+width: 44%;
+height: 535px;
+overflow:auto;
+border: 1px solid #E5E5E5 !important;
+padding: 0 0 20px 10px !important;
+margin: 40px 10px 0 0 !important;
+font-size: 1em;
+}
+.view-llistat-punts-omnia.view-display-id-page_1.view-dom-id-2 .view-empty {
+float: left;
+width: 44%;
+height: 535px;
+overflow:auto;
+border: 1px solid #E5E5E5 !important;
+padding: 0 0 20px 10px !important;
+margin: 0px 10px 0 0 !important;
+font-size: 1em;
+}
+.view-llistat-punts-omnia.view-display-id-block_2.view-dom-id-6 .view-content, 
+.view-llistat-punts-omnia.view-display-id-block_2.view-dom-id-6 .view-empty {
+border: 0px solid #E5E5E5 !important;
+}
+.view-llistat-punts-omnia .view-content h3 {
+font-size: 1.077em;
+}
+.view-llistat-punts-omnia .view-content .views-field-distance {
+float: right;
+padding: 0 5px !important;
+font-size: 0.9em;
+color: #A269BC;
+}
+.view-llistat-punts-omnia .view-content .views-field-distance:before {
+content:"a ";
+}
+.view-llistat-punts-omnia .view-content .views-field-distance:after {
+content:"s";
+padding-right: 5px !important;
+margin-left: -3px !important;
+}
+.view-llistat-punts-omnia .view-content .views-field-field-zip-code-value .field-content {
+float: left;
+padding-right: 6px;
+}
+.view-llistat-punts-omnia .view-content .views-field-city {
+padding-bottom: 10px !important;
+}
+.view-llistat-punts-omnia .attachment.attachment-after {
+float: left;
+width: 44%;
+padding-top: 20px !important;
+padding-left: 0 !important;
+margin-left: 0 !important;
+padding-right: 0 !important;
+}
+.view-llistat-punts-omnia .attachment.attachment-after .view-content {
+width: 94%;
+border: 1px solid #7F7F7F;
+height: 420px !important;
+padding: 0 !important;
+margin-left: 0 !important;
+}
+.view-llistat-punts-omnia .attachment.attachment-after .view-empty {
+width: 94%;
+border: 1px solid #7F7F7F;
+height: 420px !important;
+padding: 0 !important;
+margin-top: -20px !important;
+margin-left: 0 !important;
+}
+.view-llistat-punts-omnia .attachment.attachment-after .view-content #gmap-auto1map-gmap0 {
+height: 420px !important;
+}
+.view-llistat-punts-omnia .view-empty p {
+padding: 5px 10px 0 5px;
+font-style: italic;
+color: #7F7F7F;
+}
+.view-llistat-punts-omnia .view-empty p.view-empty-ajuda {
+font-size: 0.95em;
+}
+.view-llistat-punts-omnia .attachment.attachment-after .view-empty, 
+.view-llistat-punts-omnia .attachment.attachment-after .view-empty #gmap-auto1map-gmap0 {
+height: 420px !important;
+}
+/*llegenda*/
+.view-llistat-punts-omnia .attachment.attachment-after .view-display-id-attachment_1 .view-footer fieldset {
+
+}
+.view-llistat-punts-omnia.view-display-id-page_1.view-dom-id-2 .view-footer fieldset.collapsible.collapsed {
+
+}
+.view-llistat-punts-omnia.view-display-id-page_1.view-dom-id-2 .view-footer fieldset {
+float: left;
+width: 87%;
+font-size: 1em;
+border: 1px solid #E5E5E5;
+color: #777;
+}
+.view-llistat-punts-omnia.view-display-id-page_1.view-dom-id-2 .view-footer fieldset legend {
+border: 0;
+padding: 0 5px;
+color: #777;
+}
+.view-llistat-punts-omnia.view-display-id-page_1.view-dom-id-2 .view-footer fieldset.collapsible .fieldset-wrapper {
+overflow: hidden;
+}
+.view-llistat-punts-omnia.view-display-id-page_1.view-dom-id-2 .view-footer fieldset ul {
+padding: 10px 0 0 0;
+margin: 0;
+}
+.view-llistat-punts-omnia.view-display-id-page_1.view-dom-id-2 .view-footer fieldset ul li {
+font-size: 0.90em;
+margin: 0 5px 0 0 !important;
+}
+#panell-mapa-gran #llegenda li.item01,.mapa_dels_punts_omnia-llegenda #llegenda li.item01,.mapa-punts-i-entitats-llegenda #llegenda li.item01 {
+list-style:none;
+background-image:url(/sites/all/modules/gmap/markers/marker_monday.png);
+background-repeat:no-repeat;
+padding-left:20px;
+height:55px;
+padding-top:15px;
+display:inline;
+margin-bottom:10px;
+padding-bottom:15px;
+}
+#panell-mapa-gran #llegenda li.item02,.mapa_dels_punts_omnia-llegenda #llegenda li.item02,.mapa-punts-i-entitats-llegenda #llegenda li.item02 {
+list-style:none;
+background-image:url(/sites/all/modules/gmap/markers/marker_tuesday.png);
+background-repeat:no-repeat;
+padding-left:20px;
+height:35px;
+padding-top:15px;
+display:inline;
+margin-bottom:10px;
+padding-bottom:15px;
+margin-left:20px;
+}
+#panell-mapa-gran #llegenda li.item03,.mapa_dels_punts_omnia-llegenda #llegenda li.item03,.mapa-punts-i-entitats-llegenda #llegenda li.item03 {
+list-style:none;
+background-image:url(/sites/all/modules/gmap/markers/marker_wednesday.png);
+background-repeat:no-repeat;
+padding-left:20px;
+height:35px;
+padding-top:15px;
+display:inline;
+margin-bottom:10px;
+padding-bottom:15px;
+margin-left:20px;
+}
+#panell-mapa-gran #llegenda li.item04,.mapa_dels_punts_omnia-llegenda #llegenda li.item04,.mapa-punts-i-entitats-llegenda #llegenda li.item04 {
+list-style:none;
+background-image:url(/sites/all/modules/gmap/markers/marker_thursday.png);
+background-repeat:no-repeat;
+padding-left:20px;
+height:35px;
+padding-top:15px;
+display:inline;
+margin-bottom:10px;
+padding-bottom:15px;
+margin-left:20px;
+}
+#panell-mapa-gran #llegenda li.item05,.mapa-punts-i-entitats-llegenda #llegenda li.item05 {
+list-style:none;
+background-image:url(/sites/all/modules/gmap/markers/small/dgreen.png);
+background-repeat:no-repeat;
+padding-left:20px;
+height:20px;
+padding-top:5px;
+display:inline;
+margin-bottom:10px;
+padding-bottom:15px;
+margin-left:20px;
+}
+
+/* END Cercador de punts amb mapa */
+
+/* START fitxa d'un PO */
+
+#contingut .node.content_punt {
+margin-left:0 !important;
+padding-left:0 !important;
+}
+
+#contingut .node.content_punt .content {
+margin-left:0 !important;
+width:280px;
+}
+
+.punt-fitxa {
+width:355px;
+display:block;
+position:relative !important;
+float:right !important;
+padding-top:25px;
+}
+
+#punt .punt-fitxa .puntomnia-mapa {
+border: 1px solid rgb(204, 204, 204);
+}
+.punt-fitxa .gmnoprint span,.punt-fitxa .gmnoprint a {
+font-size: 0.615em;
+}
+
+#punt-dades {
+float:left;
+width:355px;
+}
+
+#punt h3 {
+font-family: Myriad Pro,Myriad Web Pro Regular,Lucida Grande,Geneva,Trebuchet MS,sans-serif;
+font-size: 1.231em;
+margin-top: 8px;
+margin-bottom: 5px;
+padding-bottom: 1px;
+border-bottom: 1px solid rgb(204, 204, 204);
+}
+
+/* adjunts */
+#punt .punt-fitxa .po-adjunts {
+font-size: 1em;
+margin:0px auto;
+text-align:left;
+padding:10px 15px 25px 15px;
+margin: 20px 0;
+border:1px dashed #333;
+background-color:#eee;
+}
+#punt .punt-fitxa .po-adjunts .content {
+
+}
+#punt .punt-fitxa .po-adjunts .content span.icona-mimetype {
+line-height: 2.4em;
+float: left;
+}
+#punt .punt-fitxa .po-adjunts .content span.icona-mimetype img {
+padding: 9px 8px 0 0;
+}
+#punt .punt-fitxa .po-adjunts .content .file-descripcio {
+padding-top: 10px;
+}
+#punt .punt-fitxa .po-adjunts .content .file-size {
+font-size: 0.9em;
+font-style: italic;
+}
+
+/*noticies publicades*/
+#punt .po_news-bloc {
+float: left;
+max-width: 355px;
+clear: left;
+}
+#punt .po_news-bloc .mes {
+text-align: right;
+font-size: 1em;
+}
+
+.puntomnia-gestio {
+float:left;
+width:100%;
+padding-top:5px;
+}
+.puntomnia-gestio fieldset {
+border:1px solid #30617D;
+}
+.puntomnia-gestio fieldset legend {
+font-family: Georgia,"Times New Roman",Times,serif;
+font-size: 1.231em;
+font-style: italic;
+}
+.puntomnia-gestio .help, 
+.puntomnia-gestio .gestors_dades_basiques, 
+.puntomnia-gestio .gestors_equipament_sac, 
+.puntomnia-gestio .gestors_entitat_gestora, 
+.puntomnia-gestio .gestors_entitat_col, 
+.puntomnia-gestio .gestors_po_relacions, 
+.puntomnia-gestio .gestors_po_fitxers {
+font-size: 1em;
+margin:10px auto !important;
+text-align:left;
+padding:10px 15px 25px 15px !important;
+margin: 20px 0;
+border:1px dashed #333;
+background-color:#eee;
+}
+.puntomnia-gestio h3 {
+border-bottom:1px solid #30617D;
+font-family: Georgia,"Times New Roman",Times,serif;
+font-size: 1.231em;
+font-style: italic;
+margin-top: 8px;
+margin-bottom: 5px;
+padding-bottom: 5px;
+border-bottom: 1px solid rgb(204, 204, 204);
+}
+/* dades basiques */
+.gestors_dades_basiques table {
+width: 100%;
+}
+.gestors_dades_basiques table td {
+padding: 4px;
+}
+
+/* modul content lock: boto cancel */
+#node-form a.form-submit.form-submit-cancel {
+color: #777 !important;
+padding: 2px 5px 2px 16px;
+margin: 0 4px 0 0;
+background-color:#F7F7F6;
+border: 1px #C1BDB6 solid;
+color:#165079;
+background-image:url(/sites/xarxa-omnia.org/themes/acquia_slate/images/unlock.png);
+background-repeat:no-repeat;
+background-position:left center;
+}
+
+/* END fitxa d'un PO */
+
+/* modul webFM (quan el modul no crida el full css propi) */
+/*fitxa PT*/
+.puntomnia-gestio .gestors_po_fitxers h3 {
+background-image:url("/sites/all/modules/webfm/image/icon/beta.png");
+background-repeat:no-repeat;
+background-position: right top;
+line-height:23px;
+}
+.puntomnia-gestio .gestors_po_fitxers div {
+padding: 10px !important;
+}
+
+/* PANELL USUARI */
+
+/* 0. Gestio */
+#panel_usuari .panel-col-top .inside {border: 3px solid orange !important; padding: 20px 0 !important; margin: 0 0 20px 0 !important;}
+#panel_usuari .panel-col-top .inside .pane-3 h2 {font-size: 18px;}
+#panel_usuari .panel-col-top .inside .pane-views.pane-continguts .inner h2 {font-size: 14px; font-style: italic;}
+#panel_usuari .panel-col-top .inside .view-id-continguts.view-display-id-block_1 table {margin-bottom: 10px !important;}
+#panel_usuari .panel-col-top .inside .view-id-continguts.view-display-id-block_1 .more-link {padding: 10px 0 20px 0 !important;}
+#panel_usuari .panel-col-top .inside .view-id-continguts.view-display-id-block_2 .more-link {padding: 10px 0 20px 0 !important;}
+
+/* 1. Dades personals */
+/* #panel_usuari #a1.panel-panel.panel-col-first  {width: 70% !important; border: 3px solid #47B1E8 !important; padding: 15px 0 !important; margin-bottom: 15px !important;}
+#panel_usuari #a2.panel-panel.panel-col-last {width: 25% !important;} */
+
+#panel_usuari .panel-panel.panel-col-first  {width: 35% !important; border: 3px solid #47B1E8 !important; padding: 15px 0 !important; margin-bottom: 15px !important;}
+#panel_usuari .panel-panel.panel-col-last {width: 60% !important; }
+
+.page-user h1.title {display: none;}
+#panel_usuari h3#content-profile-title-profile.content-profile-title {display: none;}
+#panel_usuari .profile .picture {float: right; padding: 10px !important;}
+#panel_usuari .profile h3 {border: 0;}
+#panel_usuari .pane-user-profile .block-title {font-size: 24px; background-image: none; padding: 10px 0; }
+#panel_usuari .profile .field-field-nom {font-size: 15px; font-style: italic;}
+
+#panel_usuari .panel-col-first .inside .pane-user-profile .inner .pane-content.content .profile dl.user-member ul li.first.last a {
+/*display: inline-block !important;
+padding-top: 4px !important;*/
+}
+#panel_usuari .panel-col-first .inside .pane-user-profile .inner .pane-content.content .profile dl.user-member dt {font-size: 123%;}
+
+/* 2. Planeta Omnia */
+#panel_usuari #a2.panel-panel.panel-col-last {/*border: 3px solid #8884BB !important; padding: 20px 0 !important;*/}
+#panel_usuari #a2.panel-panel.panel-col-last .pane-content.content {padding: 20px 0 !important;}
+#panel_usuari #a2.panel-panel.panel-col-last .inside .pane-2 .inner h2.pane-title.block-title {
+background-image:url('/sites/xarxa-omnia.org/themes/acquia_slate/images/item-lila.gif');
+background-position: right 2px;
+padding-right: 25px;
+}
+#panel_usuari #a2.panel-panel.panel-col-last .pane-content.content ul {
+font-size: 13px;
+padding: 0 !important;
+margin: 0 !important;
+list-style-type: none;
+text-align: right !important;
+}
+#panel_usuari #a2.panel-panel.panel-col-last .pane-content.content ul li {height: 30px !important;}
+#panel_usuari #a2.panel-panel.panel-col-last .pane-content.content ul li a{
+background:url("/sites/xarxa-omnia.org/themes/acquia_slate/images/bullets_rightnav_arrows.png") no-repeat scroll right -3px transparent;
+display:block;
+padding-right: 20px !important;
+}
+
+/* 3. relacions & els meus continguts */
+/* tot: #82BA42 relacions: #E2CED1 publicats: #82BA42 despublicats: #FFE200 */
+#panel_usuari .panel-panel.panel-col-middle .inside .pane-views.pane-relacions-profile .inner {border: 3px solid #000 !important; padding: 20px 20px 5px 0 !important;}
+#panel_usuari .panel-panel.panel-col-middle .inside #profile-publicats.pane-historic .inner {border: 3px solid #000 !important; padding: 20px 20px 15px 0 !important;}
+#panel_usuari .panel-panel.panel-col-middle .inside #profile-despublicats.pane-historic .inner {border: 3px solid #CCC !important; padding: 20px 20px 15px 0 !important; margin-bottom: 15px !important;}
+#panel_usuari .view-historic td {padding-top: 17px !important; line-height: 130%; height: 30px;}
+#panel_usuari .panel-panel.panel-col-middle .inside #profile-despublicats.pane-historic .inner table th {border-color: #CCC !important;}
+#panel_usuari .panel-panel.panel-col-middle .inside #profile-despublicats.pane-historic .inner table tr.odd, 
+#panel_usuari .panel-panel.panel-col-middle .inside #profile-despublicats.pane-historic .inner table tr.even {background-color: #FFF4F4 !important;}
+#panel_usuari td {padding: 5px; font-size: 13px;}
+
+
+/* 4. omnia a la xarxa */
+
+#panel_usuari #a3.panel-col-first .inside .inner table th {border: 0 !important;}
+
+/* 5. qui es nou */
+#panel_usuari #a4.panel-col-last .pane-content.content {padding: 20px 0 !important;}
+#panel_usuari #a4.panel-col-last .inside .pane-user-2 .inner h2.pane-title.block-title {
+background-image:url('/sites/xarxa-omnia.org/themes/acquia_slate/images/item-lila.gif');
+background-position: right 2px;
+padding-right: 30px;
+}
+#panel_usuari #a4.panel-col-last .pane-content.content ul {
+font-size: 13px;
+padding: 0 !important;
+margin: 0 !important;
+list-style-type: none;
+text-align: right !important;
+}
+#panel_usuari #a4.panel-col-last .pane-content.content ul li {height: 30px !important;list-style-type: none;}
+#panel_usuari #a4.panel-col-last .pane-content.content ul li a{
+background:url("/sites/xarxa-omnia.org/themes/acquia_slate/images/bullets_rightnav_arrows.png") no-repeat scroll right -3px transparent;
+display:block;
+padding-right: 20px !important;
+}
+
+td.views-field-title {
+white-space: normal;
+}
+td.views-field.views-field-created, 
+td.views-field.views-field-status {
+white-space: nowrap;
+}
+#panel_usuari .pane-poentitatgestora,
+#panel_usuari .pane-block-27, 
+#panel_usuari .pane-relacions-profile, 
+#panel_usuari .pane-block-25,
+#panel_usuari .pane-user-2{
+border: 3px solid #ccc !important; padding: 15px 0 !important; margin-bottom: 15px !important;
+}
+#panel_usuari .pane-block-27 .content{font-size:135%;}
+#panel_usuari .pane-block-27 .content li{margin-top:5px;}
+
+
+/* END PANELL USUARI*/
+
+/* NOU ESTIL */
+
+
+*{margin:0px; padding:0px;}
+#page {
+	width:auto;
+	max-width:1080px;
+	min-width:980px;
+}
+#main-wrapper,
+#header-group-wrapper{
+	margin-left:auto;
+	margin-right:auto;
+}
+
+
+/* SIDEBAR */
+
+/* Sidebar esquerra i dreta */
+#sidebar-last .block .inner-inner,
+#sidebar-first .block .inner-inner{
+	background-color:#ffffff; 
+	background-image:none;
+	border:0px solid #fff;
+	padding:0px;
+	display:block;
+	font-size: 1em !important;
+}
+/* Sidebar esquerra i dreta */
+#sidebar-last .block,
+#sidebar-first .block{
+	margin-bottom:20px !important;
+}
+
+
+sidebar-last .block ul li,
+#sidebar-first .block ul li{
+	list-style-type:none;
+	background-image:none;
+}
+
+
+/* Sidebar esquerra */
+#sidebar-first {
+	padding:0px;
+	width:18% !important; 
+	float:left; 
+	min-width:180px; 
+	max-width:228px;
+}
+
+#sidebar-first #sidebar-first-inner{
+	padding-left:20px !important;
+}
+
+#sidebar-first .block{
+	width:auto;
+	max-width:180px;
+}
+
+#sidebar-first-inner .block .inner{
+	padding-right:20px !important;
+	background-image:url('/sites/xarxa-omnia.org/themes/acquia_slate/images/menu-line-top.png') !important;
+	background-position:right top;
+	background-repeat:no-repeat !important;
+	padding-top:30px !important;
+}
+
+#sidebar-last-inner .block .inner{
+	padding-left:20px !important;
+	background-image:url('/sites/xarxa-omnia.org/themes/acquia_slate/images/menuright-line-top.png') !important;
+	background-position:left top;
+	background-repeat:no-repeat !important;
+	padding-top:30px !important;
+}
+#sidebar-last-inner .block .inner .content{padding-left:10px !important;}
+#sidebar-last-inner #block-block-22 .inner{padding-left:20px !important; margin-left:20px !important; width:100px;  }
+#sidebar-last-inner #block-block-22 .inner li{list-style:none !important; }
+#sidebar-last-inner #block-views-butlleti-block_butlleti .inner li,
+#sidebar-last-inner #block-block-33 .inner li{list-style:none !important; }
+#sidebar-last-inner #block-views-butlleti-block_butlleti .inner,
+#sidebar-last-inner #block-block-33 .inner{padding-left:20px !important; margin-left:20px !important; width:100px; }
+#sidebar-last-inner #block-views-butlleti-block_butlleti  h2.title.block-title,
+#sidebar-last-inner #block-block-33 h2.title.block-title {width: 120px; margin-bottom: 15px;}
+}
+
+#sidebar-first-inner .block .title{border-bottom:2px solid #ccc;margin-left:10px; text-align:left; padding-left:10px;}
+#sidebar-last-inner .block .title{border-bottom:2px solid #ccc; text-align:left; padding-left:10px;}
+
+#sidebar-first-inner ul li {
+	padding-top:2px !important; 
+	padding-bottom:2px !important;  
+	border-bottom:1px dashed #ccc !important; 
+	margin-left:8px;
+}
+
+
+#sidebar-first-inner ul li a{
+	display:block;
+	padding:3px;
+	padding-left:10px;
+	border-left:10px solid #fff;
+}
+
+#sidebar-first-inner ul li a:hover{
+	display:block;
+	background-color:#f1f1f1;
+	border-left:10px solid #ccc;
+}
+
+#sidebar-first-inner ul li a.active{
+	display:block;
+	background-color:#f1f1f1;
+	border-right:10px solid #aaa;
+}
+#sidebar-first-inner ul li a.active:hover{border-left:10px solid #fff;}
+
+#sidebar-first{margin-top:-10px !important;}
+
+
+/* Sidebar dreta */
+#sidebar-last {
+	padding:0px;
+	float:right;
+	width:12.2% !important; 
+	min-width:120px; 
+	max-width:154px; 	
+	margin:0px !important;
+}
+
+#sidebar-last .block{
+	width:auto;
+	max-width:140px;
+}
+
+#sidebar-last-inner{float:none;}
+#sidebar-last{float:right;}
+#sidebar-last .block .inner{margin:0px !important;}
+#sidebar-last ul{margin:0px;}
+#sidebar-last ul li{
+
+}
+
+#sidebar-last #menu-dreta .item-text-link li{
+	color:#000 !important; 
+	background-image:url('/sites/xarxa-omnia.org/themes/acquia_slate/images/fletxa.png') !important;
+	background-repeat:no-repeat !important;
+	background-position:0 center;
+	padding-left:15px !important;
+}
+
+#sidebar-last #menu-dreta .item-text-link:hover{
+	color: #006699 !important;
+	text-decoration: underline !important;
+	font-weight:normal !important;
+}
+
+#sidebar-last #menu-dreta .item-image-link:hover{text-decoration:none!important;}
+
+#sidebar-last #menu-dreta .item-image-link img{text-decoration:none!important;}
+
+#menu-dreta li, 
+#menu-dreta li a
+{width:auto; height:auto; margin:0px !important; padding:0px !important;}
+#menu-dreta li{vertical-align:top;}
+#menu-dreta li a img{display:none;}
+#sidebar-last .block {width:150px;}
+#sidebar-last-inner #block-block-22 .inner{ margin:0px !important;}
+#sidebar-last-inner #block-block-22{margin-top:-10px !important}
+	#sidebar-last-inner #block-views-butlleti-block_butlleti .inner,
+	#sidebar-last-inner #block-block-33 .inner{ margin:0px !important;}
+	#sidebar-last-inner #block-views-butlleti-block_butlleti,
+	#sidebar-last-inner #block-block-33{margin-top:-20px !important}
+	#sidebar-last-inner #block-tagadelic-21{margin-top:-10px !important}
+@media screen and (-webkit-min-device-pixel-ratio:0)
+{
+	#sidebar-last-inner #block-views-butlleti-block_butlleti,
+	#sidebar-last-inner #block-block-33{margin-top:-20px !important}
+	#sidebar-last-inner #block-tagadelic-21{margin-top:-20px !important}
+}
+#sidebar-last-inner #menu-dreta ul.menu li a{
+	margin-bottom:10px !important;
+	display:block !important;
+	float:none;
+	clear:both;
+	background-image:url('/sites/xarxa-omnia.org/themes/acquia_slate/images/formacio2.png');
+	background-repeat:no-repeat;
+	background-position:-5px bottom;
+	height:107px;
+	line-height:normal !important;
+	vertical-align:top;
+	color:#000 !important;
+	width:120px;
+	font-size:0.95em !important;
+}
+
+#sidebar-last-inner #menu-dreta ul.menu li.menudreta00 a{background-image:url('/sites/xarxa-omnia.org/themes/acquia_slate/images/butlleti.png');height:95px;}
+#sidebar-last-inner #menu-dreta ul.menu li.menudreta01 a{background-image:url('/sites/xarxa-omnia.org/themes/acquia_slate/images/formacio2.png'); height:105px;}
+#sidebar-last-inner #menu-dreta ul.menu li.menudreta02 a{background-image:url('/sites/xarxa-omnia.org/themes/acquia_slate/images/ocupabilitat2.png');height:105px;}
+
+#sidebar-last-inner #menu-dreta ul.menu li.menudreta03 a{background-image:url('/sites/xarxa-omnia.org/themes/acquia_slate/images/treball-comunitari2.png');height:106px;}
+
+
+#view-id-butlleti-page_1 {margin-bottom:50px !important;}
+#view-id-butlleti-page_1 li{padding-bottom:10px;}
+
+.block-tagadelic .inner .content{font-size:70% !important; line-height:1.8em !important; letter-spacing:0.02em;}
+
+/* PORTADES COL.LECTIUS */
+.contingut-central{
+	font-family:Verdana, Helvetica, Arial; font-size: 1.231em; 
+	padding:0px; 
+	margin:0px; 
+
+}
+.contingut-central{margin:0px; padding:0px;}
+
+
+
+.contingut-central .pane-views,
+.contingut-central .inside,
+.contingut-central .inner,
+.contingut-central .panel-panel 
+{
+	margin:0px;
+	padding:0px;
+}
+.center-wrapper .panel-col-first,
+.center-wrapper .panel-col-last {margin-top:20px !important;}
+/*
+#a3,
+#a4{margin-top:20px !important;}
+*/
+#a3 .pane-title,
+#a4 .pane-title,
+#a1 .pane-title,
+#a2 .pane-title,
+.pane-title{
+	display:block;
+	height:18px;
+font-family: Myriad Pro,Myriad Web Pro Regular,Lucida Grande,Geneva,Trebuchet MS,sans-serif;
+	padding-top:2px;
+	height:21px;
+	background-repeat:no-repeat;
+	background-position:left top;
+	font-size:18px;
+	font-weight:normal;
+	color:#000;
+	margin-bottom:4px;
+}
+#a3 .pane-title{
+	background-image:url('/sites/xarxa-omnia.org/themes/acquia_slate/images/item-blau.gif');
+}
+#a4 .pane-title{
+	background-image:url('/sites/xarxa-omnia.org/themes/acquia_slate/images/item-verd.gif');
+}
+#a2 .pane-title{
+	background-image:url('/sites/xarxa-omnia.org/themes/acquia_slate/images/item-lila.gif');
+}
+#a1 .pane-title{
+	background-image:url('/sites/xarxa-omnia.org/themes/acquia_slate/images/item-vermell.gif');
+}
+
+.contingut-central .view-content .views-field-title h2{font-size: 1.615em; font-weight:normal;}
+.contingut-central .view-content .views-field-title a{
+	float:none;
+	font-weight:normal;
+	clear:both;
+ line-height:13px !important;
+}
+
+
+.contingut-central .panel-col-last .view-content .views-field-title a h3,
+.contingut-central .panel-col-first .view-content .views-field-title a h3,
+.contingut-central .panel-col-first .view-content .views-field-title a,
+.contingut-central .panel-col-last .view-content .views-field-title a{
+	font-size: 1em;
+	letter-spacing: 0.05em;
+  	color: #006699 !important;
+	font-weight:normal;
+	float:none;
+	clear:both;
+	display:block;
+}
+.contingut-central .panel-col-last .views-field-title a h3,
+.contingut-central .panel-col-first .view-content .views-field-title a h3,
+.contingut-central .panel-col-last .view-content .views-field-title a,
+.contingut-central .panel-col-first .view-content .views-field-title a{
+	font-size: 1em;
+
+	letter-spacing: 0.05em;
+	color: #006699 !important;
+	font-weight:normal;
+	float:none;
+	clear:both;
+	display:block;
+}
+
+.contingut-central .view-content .views-field-title {
+	width:100%;
+	display:block;
+	float:none;
+	clear:both;
+}
+
+.contingut-central .view-content .views-field-teaser{
+/* font-size: 0.846em; */
+font-size: 1em;
+	color:#000000;
+	letter-spacing: 0.05em;
+	width:100%; 
+line-height:13px;
+margin-bottom:0px !important;
+}
+.contingut-central .panel-pane {font-size:81.3%;}
+
+.contingut-central .panel-panel #a3 .view-content .views-field-teaser .field-content,
+.contingut-central .panel-panel #a4 .view-content .views-field-teaser .field-content
+{min-height:130px;}
+
+.contingut-central .panel-panel .view-content .views-field-teaser {padding-bottom: 25px !important;}
+
+.block{width:100% !important;}
+
+#contingut-central-inner .center-wrapper{clear:both;}
+.contingut-central .view-content .more-link{margin-top:0px !important;}
+#contingut-central-inner .more-link a{
+	height:11px; 
+	float:right !important; 
+	margin-top:0px !important; 
+	background-image:url('/sites/xarxa-omnia.org/themes/acquia_slate/images/fletxa.png') !important;
+	background-repeat:no-repeat !important;
+	background-position:0 bottom;
+	padding-top:10px !important;
+	padding-left:15px !important;
+	line-height:11px;
+	font-size: 0.846em;
+}
+#contingut-central-inner .more-link a:hover{
+	color: #006699 !important;
+	text-decoration: underline !important;
+	font-weight:normal !important;
+}
+
+#page{width:100%;min-width:980px; max-width:1264px; margin-left:auto; margin-right:auto;}
+.cos-pagina div{border:none !important; margin:0px !important; padding:0px !important}
+.cos-pagina{width:100% !important;}
+
+
+.contingut-central{width:69.1% !important;  min-width:680px; float:left; margin-left:auto !important; margin-right:auto !important;}
+#contingut-central-inner{width:95.92% !important; min-width:640px; margin-left:auto !important; margin-right:auto !important; max-width:873px;}
+.page-llistat-punts-omnia #contingut-central-inner {max-width:973px !important;}
+.page-llistat-punts-omnia .contingut-central {width:79.1% !important; max-width:973px !important;}
+
+#contingut-central-inner .panel-col-first{float:left !important;  display:block;}
+#contingut-central-inner .panel-col-last{float:right !important;   display:block;}
+//#a3{float:left !important;    display:block;}
+//#a4{float:right !important;  display:block;}
+.panel-panel .inside .panel-pane .inner{
+padding-right:20px !important; 
+
+}
+
+
+
+#contingut-central-inner .panel-pane.pane-views.pane-portada {width:auto;}
+/*imatge al costat del resum*/
+#a3 .views-field-field-imatge-fid,
+#a4 .views-field-field-imatge-fid{ float:left;}
+
+.contingut-central .panel-panel .inside .panel-pane .inner h2.pane-title{padding-left:35px !important;}
+.contingut-central .panel-panel .inside .panel-pane .inner .pane-content{padding-left:35px !important; }
+.contingut-central .panel-panel img{margin-right:10px;}
+
+#header-site-info{
+	background-color:#fff; 
+	/* background-color:#CFEEFF; */
+	margin:0px; 
+	padding:0px; 
+	background-image:none; 
+}
+#header-site-info-inner{
+	background-image:url('/sites/xarxa-omnia.org/themes/acquia_slate/images/header-image.png') !important;
+background-repeat:no-repeat;
+border: none;
+height:100px;
+margin-bottom:0px !important;
+}
+#header-site-info-inner{	
+	background-color:transparent;
+	margin:0px; 
+}
+
+#slogan{
+	margin:0px; 
+	padding:0px; 
+	display:none; /* 'Acces a les noves tecnologies' Queda amagat */
+}
+#site-name-wrapper{
+	margin:0px; 
+	padding:0px; 
+	position:absolute; 
+	margin-top:0px; 
+	margin-left:10px;
+}
+#preface-top,
+#preface-top-inner{
+	margin:0px; 
+	padding:0px;
+}
+#preface-top {
+	margin-top:-54px;
+}
+
+.block li {font-size: 1em;}
+#sidebar-last-inner .block{margin-right:10px !important; }
+
+#logo{
+padding-left:5px !important; 
+padding-right:5px !important; 
+padding-top:38px !important;
+padding-bottom:0px !important;
+background-image:url('/sites/xarxa-omnia.org/themes/acquia_slate/images/1px-1px-ffffff-transparencia40.png') !important;
+text-align:center;
+margin:0px;
+}
+
+
+#header-group-inner,
+#header-group,
+#header-group-wrapper,
+#header-site-info,
+#header-site-info-inner{margin:0px !important; padding:0px !important; height:100px;}
+#logo img,
+#logo a{padding:0px !important; margin:0px !important;}
+
+
+#main-wrapper{margin-top:25px !important;}
+#content-content .node .inner .terms,
+#content-content .node .inner .links{
+padding-bottom: 0px;
+background-color:#f1f1f1;
+/*-moz-border-radius-topleft: 0.4em;
+-moz-border-radius-topright: 0.4em;
+-moz-border-radius-bottomleft: 0.4em;
+-moz-border-radius-bottomright: 0.4em; no accessible! */
+}
+#content-content .node .terms li,
+#content-content .node .inner .links li{padding-left:10px !important; }
+#content-content .node .meta .links{background-color:#fff; }
+#content-content .node .meta{font-size: 0.846em; }
+#content-content .node .content{font-size: 1em; }
+.view-content h2.title{font-size: 1.231em;}
+
+.page-comment h1, 
+.page-node h1{font-family:verdana; font-size: 1.615em;}
+
+
+.page-comment .terms-inner,
+.page-node .terms-inner{margin-bottom:0px !important; margin-top:20px !important;}
+.page-comment .links, 
+.page-node .links{ margin-top:20px !important;}
+
+.page-taxonomy .teaser .dades-node {min-height: 40px;}
+.page-taxonomy .teaser .terms {display: none;}
+
+.page-taxonomy .node .imatge-node, 
+.page-node .node .imatge-node, 
+.page-comment .node .imatge-node {padding-top:20px !important;
+width:232px;
+background-image:url('/sites/xarxa-omnia.org/themes/acquia_slate/images/marc-top.jpg') !important;
+background-position:top;
+background-repeat:no-repeat;
+}
+
+.page-comment .node .imatge-node img.imagecache.imagecache-node_sencer {width:202px}
+
+.page-taxonomy .node.teaser .field-items {
+padding-bottom: 0 !important;
+background-image: none !important;
+}
+.page-taxonomy .node .field-items, 
+.page-node .node .field-items, 
+.page-comment .node .field-items {
+padding-bottom:50px !important;
+background-image:url('/sites/xarxa-omnia.org/themes/acquia_slate/images/marc-bottom.jpg') !important;
+background-position:bottom;
+background-repeat:no-repeat;
+}
+.page-taxonomy .node a.thickbox, 
+.page-node .node a.thickbox, 
+.page-comment .node a.thickbox {text-align:center; display:block;}
+.page-taxonomy .node a.thickbox img, 
+.page-node .node a.thickbox img, 
+.page-comment .node a.thickbox {max-width:200px; height:auto;}
+.page-taxonomy .node .field-field-imatge, 
+.page-node .node .field-field-imatge, 
+.page-comment .node .field-field-imatge {display:none;}
+.page-taxonomy .node .imatge-node .field-item, 
+.page-node .node .imatge-node .field-item, 
+.page-comment .node .imatge-node .field-item { 
+padding-right:10px !important;
+background-image:url('/sites/xarxa-omnia.org/themes/acquia_slate/images/marc-horitzontal.jpg') !important;}
+.page-node .meta .service_links{
+display:block; float:none; clear:both; padding-top:5px !important;
+text-align:center;
+}
+
+/*posar el titol del node a la mateixa alcada que la columna dreta amb l'imatge*/
+#contingut-central-inner #content-inner.content-inner h1.title {
+/*float: left;
+width: 60%;
+clear: both !important;*/
+}
+
+.page-taxonomy #contingut-central-inner .node .node-esquerra, 
+.page-node #contingut-central-inner .node .node-esquerra, 
+.page-comment #contingut-central-inner .node .node-esquerra {
+background-color:#fff;
+background-image:none; 
+padding-right:260px !important;
+}
+.page-node #contingut-central-inner .node .inner .node-esquerra .content {float: left !important;}
+/*evitar que un aimatge dins del camp Cos toqui les metadates a la dreta si resolucio pantalla 1024 o menys*/
+.page-node.node-type-entrada.full-node #contingut-central-inner .inner .node-esquerra .content p img {max-width: 400px;}
+
+/*el mapa en cas que usuari hagi geolocalitzat la noticia*/
+.full-node.node-type-entrada .node_entrada_mapa {border: 2px solid #F1F1F1 !important; background-color: #F1F1F1; padding: 5px !important;}
+.full-node.node-type-entrada .node_entrada_mapa h2 {font-size: 13px; padding: 5px 0 3px 0 !important;}
+
+.entrada-embed {
+text-align: center;
+position:relative;
+}
+.page-comment #contingut-central-inner .node .node-esquerra object {
+text-align: center;
+position:relative;
+z-index: 1 !important; /* video per sobre dels metadatas*/
+}
+
+.page-node #contingut-central-inner .node .node-dreta, 
+.page-taxonomy #contingut-central-inner .node .node-dreta, 
+.page-comment #contingut-central-inner .node .node-dreta {width:250px; float:right !important;}
+
+#content-content .dades-node {
+	width:180px;
+	display:block;  
+	position:relative;
+	margin-top:20px !important;
+	margin-left:5px !important;
+	padding: 5px 15px 5px 20px !important;
+	background-image:url('/sites/xarxa-omnia.org/themes/acquia_slate/images/menu-line-left.png') !important;
+	background-repeat:repeat-y;
+	background-position:left top;
+	background-color:#F6F6F6;
+	z-index: 0; /*ha de sortir per sota del video, si resolucio pantalla petita*/
+}
+.node-dreta .dades-node .meta .node-submitted-po {
+padding: 4px 0 0 10px !important;
+background:url("/sites/xarxa-omnia.org/themes/acquia_slate/images/bullets_leftnav_arrows.png") no-repeat scroll left top transparent;
+}
+#content-content .dades-node .terms ul {
+padding-bottom: 10px !important;
+}
+#content-content .dades-node .terms ul li {
+display: inline-block !important;
+}
+
+#content-content .dades-node *{background-color:transparent !important;}
+
+
+.clear{clear:both;}
+
+/* Els 3 logos en peu de pagina */
+#block-block-13, 
+#block-block-14, 
+#block-block-15 {
+text-align: center;
+padding: 0;
+margin: 0;
+font-size: 0.8em;
+line-height: 100%;
+}
+
+
+
+/* Mapa gmaps petit de la columna esquerra */
+#gmap-auto1map-gmap0 a{display:none;}
+#block-views-llistat_punts_omnia-block_2 .view-llistat-punts-omnia .view-content {
+height: 150px;
+border: 0;
+}
+#block-views-llistat_punts_omnia-block_2 .view-llistat-punts-omnia .view-footer {
+text-align: right;
+padding-top: 20px !important;
+}
+
+/* Llistat de diversos nodes */
+.page-destacat #contingut-central-inner .views-field-field-imatge-fid,
+.page-multimedia #contingut-central-inner .views-field-field-imatge-fid,
+.page-activitat #contingut-central-inner .views-field-field-imatge-fid,
+.page-activitat-immigracio #contingut-central-inner .views-field-field-imatge-fid,
+.page-noticia #contingut-central-inner .views-field-field-imatge-fid{ 
+	padding-left:2px !important;
+	padding-right:20px !important;
+	float:right;
+	background-image:url('/sites/xarxa-omnia.org/themes/acquia_slate/images/marc-imatge275x136.jpg') !important;
+	background-repeat:repeat-y !important;
+	background-position:left bottom;
+	padding-bottom:9px !important;
+	padding-top:5px;
+}
+
+.page-destacat #contingut-central-inner .views-field-teaser .field-content,
+.page-multimedia #contingut-central-inner .views-field-teaser .field-content,
+.page-activitat #contingut-central-inner .views-field-teaser .field-content,
+.page-activitat-immigracio #contingut-central-inner .views-field-teaser .field-content,
+.page-noticia #contingut-central-inner .views-field-teaser .field-content{
+	letter-spacing:0.03em; 
+	line-height:1.8em; 
+	font-size: 0.923em; 
+}
+
+.page-destacat #contingut-central-inner .view-content .views-row,
+.page-multimedia #contingut-central-inner .view-content .views-row,
+.page-activitat #contingut-central-inner .view-content .views-row,
+.page-activitat-immigracio #contingut-central-inner .view-content .views-row,
+.page-noticia #contingut-central-inner .view-content .views-row{min-height:210px !important;}
+
+.page-destacat #contingut-central-inner .view-content .views-field-title,
+.page-multimedia #contingut-central-inner .view-content .views-field-title,
+.page-activitat #contingut-central-inner .view-content .views-field-title,
+.page-activitat-immigracio #contingut-central-inner .view-content .views-field-title,
+.page-noticia #contingut-central-inner .view-content .views-field-title {font-size: 1.4em;}
+
+.page-destacat #contingut-central-inner .view-content .views-field-name,
+.page-multimedia #contingut-central-inner .view-content .views-field-name,
+.page-activitat #contingut-central-inner .view-content .views-field-name,
+.page-activitat-immigracio #contingut-central-inner .view-content .views-field-name,
+.page-noticia #contingut-central-inner .view-content .views-field-name,
+.page-destacat #contingut-central-inner .view-content .views-field-created,
+.page-multimedia #contingut-central-inner .view-content .views-field-created,
+.page-activitat #contingut-central-inner .view-content .views-field-created,
+.page-activitat-immigracio #contingut-central-inner .view-content .views-field-created,
+.page-noticia #contingut-central-inner .view-content .views-field-created{font-size: 0.88em; padding: 5px 0 10px 0 !important;}
+.page-destacat #contingut-central-inner .view-content .views-label-created,
+.page-multimedia #contingut-central-inner .view-content .views-label-created,
+.page-activitat #contingut-central-inner .view-content .views-label-created,
+.page-activitat-immigracio #contingut-central-inner .view-content .views-label-created,
+.page-noticia #contingut-central-inner .view-content .views-label-created{display:none;}
+
+#page .feed-icon {clear:both; margin-top:20px;}
+
+#destacats-header{
+	float:right;
+	text-align:left;
+	right:0px;
+	position:absolute;
+	width:405px;
+	margin-top:10px;
+	font-size: 1em;
+	background-image:url('/sites/xarxa-omnia.org/themes/acquia_slate/images/1px-1px-ffffff-transparencia50.png');
+	padding:10px;
+}
+
+#page #destacats-header a{
+	color:#006699 !important; 
+	background-image:url('/sites/xarxa-omnia.org/themes/acquia_slate/images/fletxa.png') !important;
+	background-repeat:no-repeat !important;
+	background-position:0 center;
+	padding-left:15px !important;
+	font-size: 1em;
+	font-weight:bold !important;
+	margin-bottom:5px !important;
+}
+#page #destacats-header a:hover{
+	color: #006699 !important;
+	font-weight:bold !important;
+	text-decoration: underline !important;
+}
+
+#preface-top {width:750px !important; float:right;}
+#preface-top .menu{
+	float:right;
+	text-align:left;
+	right:0px;
+	position:absolute;
+	width:780px;
+	margin-top:0px;
+	font-size: 1em;
+}
+
+/* Primary Links (menu intern, horitzontal) */
+
+/* remove any previously set margins and paddings */
+#header-group-wrapper .block-menu * { margin: 0; padding: 0; }
+/* amagar titol */
+#header-group-wrapper .block-menu h2.title {display:none;}
+
+/* remove <li> list styling off */
+#header-group-wrapper .block-menu ul { text-align:right; position:relative;}
+
+/* set <li> position */
+#header-group-wrapper .block-menu li { list-style: none; display:inline !important; text-align:right; margin-left:30px; position:relative;}
+
+#block-menu-primary-links{
+	text-align:right !important; 
+	position:relative; 
+	margin:0px;
+	padding:7px 0 0 0 !important;
+}
+#block-menu-primary-links li{
+	margin:0px !important; 
+	padding:0px !important;
+}
+#block-menu-primary-links li a{
+	padding:5px !important;
+	margin:5px !important;
+	background-image:url('/sites/xarxa-omnia.org/themes/acquia_slate/images/1px-1px-ffffff-transparencia40.png');
+	background-repeat: repeat; 
+	border-top: 3px solid #888;
+	border-left: 3px solid #888;
+	border-right: 3px solid #888;
+}
+#block-menu-primary-links li a:hover{
+	background-image:url('/sites/xarxa-omnia.org/themes/acquia_slate/images/1px-1px-ffffff-transparencia90.png');
+	background-repeat: repeat; 
+	border-top: 3px solid #006699;
+	border-left: 3px solid #006699;
+	border-right: 3px solid #006699;
+}
+
+
+#content-content .view-historic .node .inner .terms,
+#content-content .view-historic .node .inner .links{margin-bottom:10px !important; background-color:#f1f1f1;  }
+#content-content .view-historic .node .terms li,
+#content-content .view-historic .node .inner .links li{padding-left:10px !important; }
+#content-content .view-historic .node .meta .links{background-color:#fff; clear:both; float:none; }
+#content-content .view-historic .node .meta{font-size: 0.846em; }
+#content-content .view-historic .node .content{font-size: 1em; clear:both; }
+#content-content .view-historic .view-content h2.title{font-size: 1.231em;}
+
+#content-content .view-historic h1{font-family:verdana; font-size: 1.615em; clear:both; }
+
+
+
+#content-content .view-historic .terms-inner{margin-bottom:0px !important; margin-top:20px !important;}
+#content-content .view-historic .links{  margin-top:20px !important;}
+
+
+
+#content-content .view-historic .node .image-attach-teaser {padding-top:20px !important; width:232px;
+background-image:url('/sites/xarxa-omnia.org/themes/acquia_slate/images/marc-top.jpg') !important;
+background-position:top;
+background-repeat:no-repeat;
+}
+#content-content .view-historic .node {margin-bottom:10px !important; clear:both;}
+#content-content .view-historic .node .image-attach-teaser{margin:0px; width:232px !important; }
+#content-content .view-historic .node .image-attach-teaser  {
+margin-left:10px !important;
+padding-top:0px !important;
+padding-bottom:15px !important;
+background-image:url('/sites/xarxa-omnia.org/themes/acquia_slate/images/marc-bottom.jpg') !important;
+background-position:bottom;
+background-repeat:no-repeat;
+}
+
+#content-content .view-historic .node .image-attach-teaser a {text-align:center;  display:block;}
+#content-content .view-historic .node img{max-width:200px; height:auto;}
+#content-content .view-historic .node .field-field-imatge {display:none;}
+#content-content .view-historic .node .image-attach-teaser a{ 
+padding-left:10px !important;
+padding-right:20px !important;
+padding-top:10px !important;
+background-image:url('/sites/xarxa-omnia.org/themes/acquia_slate/images/marc-horitzontal.jpg') !important;}
+.page-node .meta .service_links{
+display:block; float:none; clear:both; padding-top:5px !important; 
+text-align:center;
+}
+
+#content-content .view-historic .terms{
+	width:180px;
+	display:block;  
+	position:relative;
+	margin-left:5px !important;
+	padding:5px !important;
+	padding-right:15px !important;
+	margin-right:15px !important;
+	background-image:url('/sites/xarxa-omnia.org/themes/acquia_slate/images/menu-line-left.png') !important;
+	background-repeat:repeat-y;
+	background-position:left top;
+	margin-top:10px !important;
+	padding-left:20px !important;
+	background-color:#F6F6F6;
+padding-top:0px !important;
+float:right;
+}
+#content-content .view-historic  .terms .terms-inner{margin-top:0px !important;}
+
+#content-content .view-historic  .terms *{background-color:transparent !important;}
+
+
+input.form-file,
+input.form-text,
+textarea{
+background-color: #f3f3f3 !important;
+	background-image: url('/sites/xarxa-omnia.org/themes/acquia_slate/images/form-field-bg.png') !important;
+background-repeat:repeat-x !important;
+background-position:left top !important;
+	border: 1px solid #ccc;
+
+	}
+	
+input.form-text:focus,
+input.form-file:focus {
+	border: 1px solid #888;
+background-color:transparent !important;
+}
+	
+/* pagina Mapa web */
+.node .content .columna-esquerra {
+float:left;
+width:240px !important;
+}
+.node .content .columna-dreta {
+float:right;
+width:340px !important;
+}
+
+/*service links en un node de un tipus de contingut antic (no Entrada)*/
+.contingut-central .node .node-type-news .meta .service_links ul.links, 
+.contingut-central .node .node-type-story .meta .service_links ul.links, 
+.contingut-central .node .node-type-event .meta .service_links ul.links, 
+.contingut-central .node .node-type-blog .meta .service_links ul.links, 
+.contingut-central .node .node-type-forum .meta .service_links ul.links, 
+.contingut-central .node .node-type-job .meta .service_links ul.links {
+margin-top: -25px;
+}
+
+.page-gestio .view-content{overflow:auto;}
+.page-gestio .views-table,
+.page-gestio .views-table a{font-size: 0.846em; line-height:11px; letter-spacing:normal; }
+table .views-field-title {
+float: none;
+padding: 0px !important;
+margin:0px;
+line-height:11px;
+font-size: 0.846em;
+}
+
+#content-content table .views-field-title {
+float: none;
+/*padding: 0px !important;
+margin:0px !important;
+position:relative;
+display:table-row;*/
+line-height:11px;
+font-size: 100%;
+border:none;
+height:auto;
+}
+#content-content table th.views-field-title{display:table-cell; padding-bottom:5px !important;}
+#content-content table th{border-bottom:3px solid #000 !important;}
+
+
+
+/* Drupal Messages
+/-------------------------------------------------------------- */
+#contingut-central-inner .content-messages div.messages,
+#contingut-central-inner .content-help .help {
+  border-style: solid !important;
+  border-width: 6px !important;
+  font-weight: bold !important;
+  margin-bottom: 1.5em !important;
+  overflow: hidden !important;
+  padding: 14px !important;
+}
+
+#contingut-central-inner .content-messages-inner .status {
+  background-color: #EAF8E4 !important;
+  border-color: #8DC478 !important;
+  color: #3E642F !important;
+}
+
+#contingut-central-inner .content-messages-inner .warning {
+  background: #FFFFDD !important;
+  border-color: #EED300 !important;
+  color: #745500 !important;
+}
+
+#contingut-central-inner .content-messages-inner .error {
+  background-color: #FFF2F2 !important;
+  border-color: #CC0000 !important;
+  color: #B20000 !important;
+}
+
+#contingut-central-inner .help,
+#contingut-central-inner .content-help-inner .help {
+  background-color: #E4EEF8 !important;
+  border-color: #57718A !important;
+  color: #292929 !important;
+}
+
+#contingut-central-inner .messages ul,
+#contingut-central-inner .content-help .help ul {
+  list-style-position: inside !important;
+}
+
+#contingut-central-inner .messages a:link,
+#contingut-central-inner .messages a:visited,
+#contingut-central-inner .help a:link,
+#contingut-central-inner .help a:visited,
+#contingut-central-inner .help .more-help-link a:link,
+#contingut-central-inner .help .more-help-link a:visited {
+  color: #333 !important;
+  text-decoration: underline !important;
+}
+
+#contingut-central-inner .messages a:hover,
+#contingut-central-inner .messages a:active,
+#contingut-central-inner .help a:hover,
+#contingut-central-inner .help a:active,
+#contingut-central-inner .help .more-help-link a:hover,
+#contingut-central-inner .help .more-help-link a:active,
+#contingut-central-inner .messages em {
+  color: #333 !important;
+  text-decoration: none !important;
+}
+
+/* filtres de les views */
+.views-exposed-form label {
+font-size: 0.8em;
+font-family: Myriad Pro,Myriad Web Pro Regular,Lucida Grande,Geneva,Trebuchet MS,sans-serif;
+}
+
+/* FORMULARIS */
+
+/* mida maxima dels formularis */
+#node-form table {
+
+}
+/* imagecache */
+#node-form .imagefield-preview {
+margin: 10px 10px 0 0 !important;
+}
+/* camp Multimedia */
+#node-form #field-media-items #edit-field-media-0-embed-wrapper.form-item {
+max-width: 500px !important;
+}
+#node-form #field-media-items input#edit-field-media-0-embed.form-text {
+max-width: 500px !important;
+}
+/* location */
+#node-form .location #edit-locations-0-name-wrapper .description {
+display: none;
+}
+/* revisio */
+#node-form #edit-log-wrapper .description {
+color: red;
+}
+/* botons */
+#node-form .node-form span.button-wrapper span.button {
+margin: 10px 0 25px 0 !important;
+}
+
+/* formulari edicio fitxa PO */
+
+input#edit-field-zip-code-0-value.form-text, 
+input#edit-field-po-entitat-col-cp-0-value.form-text, 
+input#edit-field-puntomnia-entitat-zipcode-0-value.form-text {width: 50px;}
+
+/* amagar fieldset taxonomia del form de fitxa PO */
+fieldset.po-taxonomia {
+padding: 0;
+margin: 0;
+border: 0;
+}
+fieldset.po-taxonomia legend {
+display: none;
+}
+#edit-field-start-year-0-value-wrapper.form-item .date-year #edit-field-start-year-0-value-year-wrapper.form-item label {
+display: none;
+}
+
+/* veure un camp en gris quan el rol de l'usuari no el deixa editar un camp */
+.po_fitxa_camp_noedit {
+/*filter: alpha(opacity= 55);
+-moz-opacity: .55;
+opacity: .55;*/
+width: 500px;
+background: #eee;
+padding: 3px 2px;
+border: 1px solid #ccc;
+color: #9f9f9f;
+}
+
+/*observacions internes*/
+#edit-field-po-obs-internes-0-value-wrapper.form-item .description {
+border-top: 1px solid #D3D3D3 !important;
+border-left: 1px solid #D3D3D3 !important;
+border-right: 1px solid #D3D3D3 !important;
+border-bottom: 1px solid #D3D3D3 !important;
+padding: 5px !important;
+margin: 10px 0 !important;
+background: #eee;
+max-width: 800px;
+}
+/*revisio*/
+#edit-log-wrapper.form-item .description {
+border: 1px solid #D3D3D3 !important;
+padding: 10px !important;
+margin-top: 5px !important;
+background: #eee;
+color: red;
+max-width: 750px;
+}
+
+/* bloc Cercar un usuari (left sidebar) */
+#edit-custom-search-types-c-all-wrapper {
+display: none;
+}
+
+/* START Panell usuari (/user/xxx) */
+
+#panel_usuari .pane-user-profile .profile dl.user-member dd .item-list ul {
+margin-left: 0 !important;
+}
+#panel_usuari .pane-user-profile .profile dl.user-member dd .item-list ul li {
+list-style:none;
+}
+.page-user h3.content-profile-title, 
+.page-user .view-Relacions-profile h3,
+.page-user h2.pane-title.block-title  {font-size: 1.7em;}
+.page-user .views-table {font-size: 1.1em;}
+.page-user #content-content table td.views-field-title a {padding:5px !important;}
+#panel_usuari .pane-historic {
+padding-top: 20px !important;
+}
+.pane-historic  table, .pane-historic td, thead th {
+background: transparent !important;
+border: 0 !important;
+}
+.pane-historic tr.even, .pane-historic tr.odd {
+  border: solid #d3e7f4 !important;
+  border-width: 1px 0 !important;
+}
+.pane-historic tr.odd {
+  background-color: #edf5fa !important;
+}
+.pane-historic tr.even {
+  background-color: #fff !important;
+}
+#panel_usuari .pane-historic .views-field-title h3 {
+font-size: 1.1em;
+padding-top: 5px;
+}
+#panel_usuari.panel-2col-bricks .center-wrapper #a2.panel-col-last .inside .pane-custom .inner,
+#panel_usuari.panel-2col-bricks .center-wrapper #a4.panel-col-last .inside .pane-user-2 .inner {
+float: right;
+}
+
+/* END Panell usuari (/user/xxx) */
+
+
+
+/* antics tipus de continguts: intern, treball, news, story, event */
+
+/* Elements comuns a tots */
+
+.full-node.node-type-news .service_links,
+.full-node.node-type-event .service_links, 
+.full-node.node-type-job .service_links, 
+.full-node.node-type-story .service_links, 
+.full-node.node-type-intern .service_links {
+float: right !important;
+height: 20px;
+padding: 0 !important;
+margin: 0 !important;
+}
+.full-node.node-type-news .service_links ul, 
+.full-node.node-type-event .service_links ul, 
+.full-node.node-type-job .service_links ul, 
+.full-node.node-type-story .service_links ul, 
+.full-node.node-type-intern .service_links ul {
+padding: 0 !important;
+margin: 0 !important;
+}
+.full-node.node-type-news .terms, 
+.full-node.node-type-event .terms, 
+.full-node.node-type-job .terms, 
+.full-node.node-type-story .terms, 
+.full-node.node-type-intern .terms {
+padding: 0 !important;
+margin: 10px 0 !important;
+}
+.full-node.node-type-news .terms .terms-inner, 
+.full-node.node-type-event .terms .terms-inner,
+.full-node.node-type-job .terms .terms-inner,
+.full-node.node-type-story .terms .terms-inner,
+.full-node.node-type-intern .terms .terms-inner {
+padding: 0 0 10px 0 !important;
+margin: 0 !important;
+}
+.full-node.node-type-news .links, 
+.full-node.node-type-event .links, 
+.full-node.node-type-job .links, 
+.full-node.node-type-story .links, 
+.full-node.node-type-intern .links {
+padding: 0 !important;
+margin: 10px 0 !important;
+}
+.full-node.node-type-entrada .links .links-inner, 
+.full-node.node-type-news .links .links-inner, 
+.full-node.node-type-event .links .links-inner, 
+.full-node.node-type-job .links .links-inner, 
+.full-node.node-type-story .links .links-inner, 
+.full-node.node-type-intern .links .links-inner {
+padding: 0 0 10px 0 !important;
+margin: 0 !important;
+}
+.full-node.node-type-entrada .links .links-inner li {padding: 5px 10px !important; /*background-color:#47b1e8 !important;*/}
+
+/* EVENT */
+
+/* antiga data de les activitats */
+.node.teaser .field-field-eventstart {
+margin-top: 10px !important;
+}
+.page-node .node.full-node.node-type-event .field-items {
+background-image: none !important;
+padding-bottom:0px !important;
+}
+
+
+/* regio Content Bottom amb els enllacos (block 21) */
+
+#content-bottom {
+	width: 100%;
+	margin: auto;
+	text-align: center;
+	padding: 0 0 40px !important;
+}
+#content-bottom .block .title{border-bottom:2px solid #ccc;width: 100%; padding-left: 10px;text-align: left;}
+.content-bottom .enllacos1 {
+	float: left;
+	width: 33%;
+	margin: 0 !important;
+}
+.content-bottom .enllacos1 li a, 
+.content-bottom .enllacos2 li a, 
+.content-bottom .enllacos3 li a {
+	border-bottom:1px dashed #ccc !important;
+}
+.content-bottom .enllacos2 {
+	float: right;
+	width: 33%;
+	margin: 0 !important;
+}
+.content-bottom .enllacos3 {
+	float: right;
+	width: 33%;
+	margin: 0 !important;
+}
+.content-bottom ul {
+	text-align: left;
+	margin: 0 !important;
+}
+.content-bottom ul li {
+	list-style: none;
+	padding: 3px 0 0 0 !important;
+	height: 50px;
+}
+.content-bottom #block-views-butlleti-hemeroteca ul li{
+	list-style: disc outside none;
+	height: auto;
+}
+.content-bottom #block-views-butlleti-hemeroteca{margin-bottom:50px !important;}
+
+.content-bottom ul li a{
+	display:inline-block;
+	padding:3px 3px 2px 20px;
+	border-left:10px solid #fff;
+	background-image:url('/sites/xarxa-omnia.org/themes/acquia_slate/images/fletxa.png') !important;
+	background-repeat:no-repeat !important;
+	background-position: left 5px;
+}
+.content-bottom #block-views-butlleti-hemeroteca ul li a{
+	display:list-item;
+	padding:5px 0px 0px 0px;
+	border-left:none;
+	background-image:none !important;
+	margin-left:30px;
+}
+
+.content-bottom ul li a:hover {
+	text-decoration: none !important;
+}
+.content-bottom #block-views-butlleti-hemeroteca ul li a:hover{
+	text-decoration: underline !important;
+}
+
+
+/* llistes de taxonomia */
+
+.content-content .taxonomy-term-description {
+display: none;
+}
+.content-content .taxonomy-term-description {
+display: none;
+}
+.page-taxonomy .content .image-attach-teaser {
+padding: 0 0 10px 10px !important;
+}
+.page-taxonomy .teaser .links {
+margin: 0 0 30px 0 !important;
+}
+.page-taxonomy .teaser .terms .terms-inner, 
+.page-taxonomy .teaser .links .links-inner {
+padding: 0 0 10px 0 !important;
+}
+
+/* 404 Pagina no trobada */
+#pid-404 #content-tabs, 
+#pid-404 .links, 
+#pid-404 #content-bottom {
+display: none;
+}
+#pid-404 .contingut-central {
+text-align: center !important;
+position: relative;
+top: 40px;
+left: 50px !important;
+overflow: visible;
+width: 80% !important;
+padding-bottom: 110px !important;
+}
+#pid-404 #content-inner {
+margin: 50px 0 !important;
+padding: 0 !important;
+width: 90% !important;
+height: 100% !important;
+}
+#pid-404 .contingut-central #contingut-central-inner #content-inner {
+margin: 0 auto auto auto !important;
+  border-style: solid !important;
+  border-width: 6px !important;
+  padding: 24px !important;
+  background-color: #E4EEF8 !important;
+  border-color: #57718A !important;
+  color: #292929 !important;
+text-align: left !important;
+}
+#pid-404 .contingut-central #contingut-central-inner #content-inner .content form.search-form div div.form-item label {
+float: left;
+padding: 9px 10px 0 25px;
+}
+#pid-404 .contingut-central #contingut-central-inner #content-inner .content fieldset.search-advanced {
+padding: 20px !important;
+}
+#pid-404 .contingut-central #contingut-central-inner #content-inner .content .search-advanced label {
+float: none !important;
+padding: 5px 5px 1px 0 !important;
+}
+#pid-404 .contingut-central #contingut-central-inner #content-inner .content form.search-form .container-inline span.button-wrapper span.button {
+}
+#pid-404 .contingut-central #contingut-central-inner #content-inner .content form.search-form .container-inline span.button-wrapper span.button input#edit-submit.form-submit {
+font-size: 0.923em;
+margin-right: 1px !important; /*correccio per Opera*/
+}
+
+/*LOPD*/
+div#edit-terms-wrapper.form-item {
+padding-top: 20px !important;
+}
+form#comment-form #edit-terms-wrapper.form-item {
+padding-bottom: 20px !important;
+}
+form#comment-form #edit-terms-wrapper.form-item #termsAndConditionsText {
+padding-top: 7px;
+float: left;
+position: relative;
+}
+
+/*tokens*/
+form#system-actions-configure table tr td.region {
+font-weight: bold;
+font-size: 1.1em;
+}
+
+#quicktabs-presentacio_tabs ul.quicktabs_tabs{max-width:670px;}
+#quicktabs-presentacio_tabs ul.quicktabs_tabs li{margin:0px; padding-left:2px; padding-right:1px;}
+#quicktabs-presentacio_tabs ul.quicktabs_tabs li a {margin:0px; margin-left:1px; margin-right:1px; padding-left:4px; padding-right:4px; font-size: 0.884em;}
+
+
+/* PRINT */
+
+div.print-header, div.print-footer {
+  display: none;
+  }
+
+
+#block-block-22 h2.title.block-title {
+width: 110px;
+margin-bottom: 15px;
+}
+.keyboard-key{
+border: 0.2em outset rgb(206, 203, 199); background: none repeat scroll 0% 0% rgb(240, 236, 232); padding: 0pt 0.4em 0.1em 0.3em; font-size: 0.85em; white-space: nowrap;
+}
+.dreceres li{
+margin-bottom:5px;
+}
+
+.pager {padding: 30px 0 10px 0 !important;}
+#header-links li{list-style:none;}
+.node-unpublished .inner .node-esquerra {
+  background-color: #fff4f4 !important;
+}
+
+/*formulari de contacte*/
+#pid-contact .button {margin: 30px 0 !important;}
+#pid-contact #edit-copy-wrapper.form-item {margin-top: 30px !important;}
+
+/*caixa de login Thickbox*/
+#TB_window #TB_title {
+min-height: 50px;
+}
+#TB_window #TB_title #TB_ajaxWindowTitle {
+background-image:url(/sites/xarxa-omnia.org/themes/acquia_slate/images/omnia-intranet.png);
+background-repeat:no-repeat;
+background-position: 15px 10px;
+font-size: 1.25em;
+letter-spacing: 0.05em;
+font-weight: bold;
+padding: 10px 0 0 85px;
+min-height: 30px;
+}
+#TB_window #TB_title #TB_closeAjaxWindow {
+width: 60px;
+}
+.thickbox-contrasenya {padding-top: 20px;}
+.thickbox-contrasenya a {color: #006699 !important;}
+
+table.sticky-header {
+  margin-top: 0;
+  background: #fff !important;
+}
+
+.view .resultatfiles {
+background: #F9F8C2;
+padding: 5px !important;
+margin: 10px 0 !important;
+}
+.view .view-filters .views-reset-button .button-wrapper .button,
+.view .view-filters .views-submit-button .button-wrapper .button {margin: 5px !important;}
+
+#content-content .node-type-entitat_coordinadora .field-items {
+padding-bottom:10px !important;
+background-image:none !important;
+}
+
+/* Acta reunio */
+.node-type-acta .submitted{display:none;}
+.node-type-acta #content-content .node * {background-image:none !important;}
+
+.node-type-acta #content-content .node .field-items{padding-bottom:0px !important; }
+.node-type-acta #content-content .node .field{margin-bottom:20px !important;}
+.node-type-acta #content-content .node .field-field-lloc{float:left; margin-right:30px !important;}
+
+/* Menu usuari sidebar dret */
+#block-menu-menu-planetaomnia li{
+list-style:none;
+	padding-top:5px !important; 
+	padding-bottom:5px !important;  
+	margin-left:0px;
+}
+
+
+#pid-gestio-export-po-dina1-dgacc #sidebar-last {display:none !important;}
+#pid-gestio-export-po-dina1-dgacc #content-group.contingut-central,
+#pid-gestio-export-po-dina1-dgacc #content-group.contingut-central #contingut-central-inner,
+#pid-gestio-export-po-dina1-dgacc #content-group.contingut-central #content-inner{
+margin-right:0px !important; 
+margin-left:0px !important; 
+width:1010px !important;
+}
+
+#pid-gestio-export-po-dina1-dgacc #content-bottom {width:838px}
+#panel_usuari .panel-panel.panel-col-last #a2 .view-Relacions-profile table td,
+#panel_usuari .panel-panel.panel-col-last #a2 .view-Relacions-profile table th,
+#panel_usuari .panel-panel.panel-col-last #a2 .view-Relacions-profile table td a{font-size:10px !important;}
+#panel_usuari .panel-col-first .inside #a1 .pane-user-profile .inner .pane-content.content .profile dl.user-member dt {display:block !important; margin:0px; width:100%;}
+
+#pid-gestio-actes #view-id-acta-page_1 table {font-size:14px;}
+#pid-gestio-actes #view-id-acta-page_1 table .views-field-title{width:200px;vertical-align:top; margin-top:10px;}
+#pid-gestio-actes #view-id-acta-page_1 .views-field-field-dataacta-value{width:180px;font-size:10px; vertical-align:top; padding-top:10px;}
+#pid-gestio-actes #view-id-acta-page_1 .views-field-field-lloc-value{width:100px;font-size:10px;vertical-align:top;padding-top:10px; line-height:16px;}
+#pid-gestio-actes #view-id-acta-page_1 .views-field-field-ordredeldia-value{font-size:10px; vertical-align:top; padding-top:10px;}
+.node-type-acta li.print_mail {display:none;}
+
+/* Pàgina actes de reunions en punts omnia */
+#view-id-acta-page_2 table {font-size:12px;}
+#view-id-acta-page_2 table th,
+#view-id-acta-page_2 table th a{font-size:12px;}
+#view-id-acta-page_2 .views-field-title
+{vertical-align:top; margin-top:20px; width:200px;}
+#view-id-acta-page_2 .views-field-field-lloc-value{width:150px; font-size:10px;}
+#view-id-acta-page_2 .views-field-title a
+{font-size:12px;padding-left:5px;}
+#view-id-acta-page_2 table caption{font-size:16px; margin-bottom:10px; margin-top:30px; background-color:#f1f1f1; padding-top:10px; padding-bottom:10px; padding-left:5px;}
+#view-id-acta-page_2 table caption a{font-weight:bold !important;}
+#view-id-acta-page_2 .views-field{line-height:14px; font-size:10px !important;}
+#view-id-acta-page_2 .views-field-field-ordredeldia-value *{font-size:10px !important;}
+
+/* Informe */
+.node-type-informe #edit-field-informe-nid-po-0-value-wrapper,
+.node-type-informe #edit-field-punt-nid-nid-wrapper{display: none;}
+.node-type-informe .submitted{display:none;}
+.node-type-informe .title{display:none;}
+.node-type-informe h1{font-size:1.6em; font-weight:bold; margin-top:30px;}
+.node-type-informe h2{font-size:1.4em; font-weight:bold;margin-top:30px;}
+.node-type-informe h3{font-size:1.2em; font-weight:bold;margin-top:30px;}
+.node-type-informe h4{font-size:1.1em; font-weight:bold;margin-top:30px;}
+
+#view-id-informepo-page_1 table {font-size:12px;}
+#view-id-informepo-page_1 table th,
+#view-id-informepo-page_1 table th a{font-size:12px;}
+#view-id-informepo-page_1 .views-field-title
+{vertical-align:top; margin-top:20px;}
+#view-id-informepo-page_1 .views-field-title a
+{font-size:12px;padding-left:5px;}
+#view-id-informepo-page_1 table caption{font-size:16px; margin-bottom:10px; margin-top:30px; background-color:#f1f1f1; padding-top:10px; padding-bottom:10px; padding-left:5px;}
+#view-id-informepo-page_1 table caption a{font-weight:bold !important;}
+
+
+/* Vista dels informes i les actes en la fitxa del punt omnia */
+.view-display-id-llistatinformes .views-field-title 
+{vertical-align:top; margin-top:20px; width:300px !important;}
+.view-display-id-llistatinformes .views-field-title a{padding-left:5px;}
+.view-display-id-llistatactespo .views-field-title 
+{vertical-align:top; margin-top:20px; width:300px !important;}
+.view-display-id-llistatactespo  .views-field-title a{padding-left:5px;}
+.views-field-nothing{width:50px;}
+
+/* Icona pdf en els nodes del tipo acta i informe */
+.node-type-acta .print_pdf a,
+.node-type-informe .print_pdf a{
+	padding-left:55px;
+	padding-top:30px !important;
+	height:180px !important;
+	padding-bottom:20px;
+	z-index:1000;
+	background-image:url(/sites/xarxa-omnia.org/themes/acquia_slate/images/icon-print-pdf.png);
+	background-repeat:no-repeat;
+}
+.node-type-acta .links,
+.node-type-informe .links{margin-top:50px !important;}
+
+
+#contingut-central-inner #view-id-informepo-page_1 caption a,
+#contingut-central-inner #view-id-acta-page_2 caption a,
+#contingut-central-inner #view-id-acta-page_1 caption a
+{font-weight:bold !important; margin-bottom:0px !important;}
+#contingut-central-inner #view-id-informepo-page_1 caption,
+#contingut-central-inner #view-id-acta-page_2 caption,
+#contingut-central-inner #view-id-acta-page_1 caption{margin-bottom:0px !important; padding-bottom:20px;}
+#contingut-central-inner #view-id-informepo-page_1 table tr.even,
+#contingut-central-inner #view-id-informepo-page_1 table tr.even *,
+#contingut-central-inner #view-id-acta-page_2 table tr.even,
+#contingut-central-inner #view-id-acta-page_2 table tr.even *,
+#contingut-central-inner #view-id-acta-page_1 table tr.even,
+#contingut-central-inner #view-id-acta-page_1 table tr.even *{background-color:#f8f8f8 !important;}
+#contingut-central-inner #view-id-informepo-page_1 table,
+#contingut-central-inner #view-id-acta-page_2 table,
+#contingut-central-inner #view-id-acta-page_1 table{border:1px solid #ccc; margin-top:0px;}
+#contingut-central-inner #view-id-acta-page_1 caption,
+#contingut-central-inner #view-id-acta-page_2 caption,
+#contingut-central-inner #view-id-informepo-page_1 caption{background-color:#f1f1f1 !important;}
+#contingut-central-inner #view-id-acta-page_1 th,
+#contingut-central-inner #view-id-acta-page_2 th,
+#contingut-central-inner #view-id-informepo-page_1 th{background-color:#e1e1e1 !important;}
+
+#page #contingut-central-inner .puntomnia-gestio table tr.even *,
+#page #contingut-central-inner .puntomnia-gestio table tr.even {background-color:#f8f8f8!important;}
+
+
+/* Camps fitxa Punt Omnia en relacio a l'informe */
+.node-type-content-punt #node-form #edit-field-1r-dinamitzador-a-0-uid-uid-wrapper label:after,
+#pid-node-add-content-punt #node-form #edit-field-1r-dinamitzador-a-0-uid-uid-wrapper label:after{
+	content:" (imprescindible a l'informe - genera nom, cognoms i skype del dinamitzador a Fitxa tècnica i Punt Òmnia)"; 
+	color:#888; 
+	font-style:italic; 
+	font-size:0.8em;
+}
+
+
+.node-type-content-punt #node-form #edit-field-gestora-any-fundacio-0-value-wrapper .date-year #edit-field-gestora-any-fundacio-0-value-year-wrapper label,
+#pid-node-add-content-punt #node-form #edit-field-gestora-any-fundacio-0-value-wrapper .date-year #edit-field-gestora-any-fundacio-0-value-year-wrapper label{
+	background-image:none !important;
+	display:none !important;
+}
+.node-type-content-punt #node-form #edit-field-gestora-any-fundacio-0-value-wrapper .date-year #edit-field-gestora-any-fundacio-0-value-year-wrapper label:after,
+#pid-node-add-content-punt #node-form #edit-field-gestora-any-fundacio-0-value-wrapper .date-year #edit-field-gestora-any-fundacio-0-value-year-wrapper label:after{
+	content:"";
+}
+
+
+.node-type-content-punt #node-form #edit-field-zip-code-0-value-wrapper label:after,
+.node-type-content-punt #node-form #hierarchical-select-4-wrapper-wrapper label:after,
+.node-type-content-punt #edit-taxonomy-17-wrapper label:after,
+.node-type-content-punt #edit-field-po-skype-0-value-wrapper label:after,
+.node-type-content-punt #edit-field-po-facebook-0-url-wrapper label:after,
+.node-type-content-punt #edit-field-po-twitter-0-url-wrapper label:after,
+.node-type-content-punt #edit-field-po-access-local-0-value-wrapper label:after,
+.node-type-content-punt .group-po-imatge-corporativa .description,
+.node-type-content-punt .node-type-content-punt .link-field-subrow label:after,
+#pid-node-add-content-punt #node-form  #edit-field-zip-code-0-value-wrapper label:after,
+#pid-node-add-content-punt #node-form  #hierarchical-select-4-wrapper-wrapper label:after,
+#pid-node-add-content-punt #node-form  #edit-taxonomy-17-wrapper label:after,
+#pid-node-add-content-punt #node-form  #edit-field-po-skype-0-value-wrapper label:after,
+#pid-node-add-content-punt #node-form  #edit-field-po-facebook-0-url-wrapper label:after,
+#pid-node-add-content-punt #node-form  #edit-field-po-twitter-0-url-wrapper label:after,
+#pid-node-add-content-punt #node-form  #edit-field-po-access-local-0-value-wrapper label:after,
+#pid-node-add-content-punt #node-form  .group-po-imatge-corporativa .description,
+#pid-node-add-content-punt #node-form  .node-type-content-punt .link-field-subrow label:after,
+.node-type-content-punt #node-form #edit-field-start-year-0-value-wrapper label:after,
+.node-type-content-punt #node-form #edit-field-po-any-renov-0-value-wrapper label:after,
+.node-type-content-punt #node-form #edit-field-adrea-0-value-wrapper label:after,
+.node-type-content-punt #node-form #edit-field-phone-number-0-value-wrapper label:after,
+.node-type-content-punt #node-form #edit-field-e-mail-0-email-wrapper label:after,
+.node-type-content-punt #node-form #edit-field-nom-de-lentitat-gestora-0-value-wrapper label:after,
+.node-type-content-punt #node-form #edit-field-telefon-responsable-0-value-wrapper label:after,
+.node-type-content-punt #node-form #edit-field-email-responsable-0-email-wrapper label:after,
+.node-type-content-punt #node-form #edit-field-nom-responsable-0-value-wrapper label:after,
+.node-type-content-punt #node-form #edit-field-carrec-responsable-0-value-wrapper label:after,
+.node-type-content-punt #node-form #edit-field-puntomnia-tipus-equipament-value-wrapper label:after,
+.node-type-content-punt #node-form #edit-field-po-tecnic-inserciosocial-0-value-wrapper label:after,
+.node-type-content-punt #node-form #edit-field-po-tecnic-insercioso-telf-0-value-wrapper label:after,
+.node-type-content-punt #node-form #edit-field-po-tecnic-coordinaci-0-value-wrapper label:after,
+.node-type-content-punt #node-form #edit-field-po-tecnic-coordinaciotelf-0-value-wrapper label:after,
+#pid-node-add-content-punt #node-form #edit-field-start-year-0-value-wrapper label:after,
+#pid-node-add-content-punt #node-form #edit-field-po-any-renov-0-value-wrapper label:after,
+#pid-node-add-content-punt #node-form #edit-field-adrea-0-value-wrapper label:after,
+#pid-node-add-content-punt #node-form #edit-field-phone-number-0-value-wrapper label:after,
+#pid-node-add-content-punt #node-form #edit-field-e-mail-0-email-wrapper label:after,
+#pid-node-add-content-punt #node-form #edit-field-nom-de-lentitat-gestora-0-value-wrapper label:after,
+#pid-node-add-content-punt #node-form #edit-field-telefon-responsable-0-value-wrapper label:after,
+#pid-node-add-content-punt #node-form #edit-field-email-responsable-0-email-wrapper label:after,
+#pid-node-add-content-punt #node-form #edit-field-nom-responsable-0-value-wrapper label:after,
+#pid-node-add-content-punt #node-form #edit-field-carrec-responsable-0-value-wrapper label:after,
+#pid-node-add-content-punt #node-form #edit-field-puntomnia-tipus-equipament-value-wrapper label:after,
+#pid-node-add-content-punt #node-form #edit-field-po-tecnic-inserciosocial-0-value-wrapper label:after,
+.node-type-content-punt #node-form #edit-field-financament-value-wrapper label:after,
+.node-type-content-punt #node-form #edit-field-gestora-any-fundacio-0-value-wrapper label:after,
+.node-type-content-punt #node-form #edit-field-gestora-eixos-de-treball-0-value-wrapper label:after,
+.node-type-content-punt #node-form #edit-field-gestora-colectius-que-te-0-value-wrapper label:after,
+.node-type-content-punt #node-form #edit-field-gestora-entitats-administr-0-value-wrapper label:after,
+.node-type-content-punt #node-form #edit-field-gestora-radi-de-accio-0-value-wrapper label:after,
+.node-type-content-punt #node-form #edit-field-gestora-num-persones-0-value-wrapper label:after,
+.node-type-content-punt #node-form #edit-field-gestora-web-0-url-wrapper label:after,
+.node-type-content-punt #node-form #field-gestora-web-altres-items table thead th:after,
+#pid-node-add-content-punt #node-form #edit-field-financament-value-wrapper label:after,
+#pid-node-add-content-punt #node-form #edit-field-gestora-any-fundacio-0-value-wrapper label:after,
+#pid-node-add-content-punt #node-form #edit-field-gestora-eixos-de-treball-0-value-wrapper label:after,
+#pid-node-add-content-punt #node-form #edit-field-gestora-colectius-que-te-0-value-wrapper label:after,
+#pid-node-add-content-punt #node-form #edit-field-gestora-entitats-administr-0-value-wrapper label:after,
+#pid-node-add-content-punt #node-form #edit-field-gestora-radi-de-accio-0-value-wrapper label:after,
+#pid-node-add-content-punt #node-form #edit-field-gestora-num-persones-0-value-wrapper label:after,
+#pid-node-add-content-punt #node-form #edit-field-gestora-web-0-url-wrapper label:after,
+#pid-node-add-content-punt #node-form #field-gestora-web-altres-items table thead th:after,
+.node-type-content-punt #node-form #edit-field-po-caracteristiques-entorn-0-value-wrapper label:after,
+.node-type-content-punt #node-form #field-entorn-fitxers-items table thead th:after,
+.node-type-content-punt #node-form #field-entorn-links-items table thead th:after,
+#pid-node-add-content-punt #node-form #edit-field-po-caracteristiques-entorn-0-value-wrapper label:after,
+#pid-node-add-content-punt #node-form #field-entorn-fitxers-items table thead th:after,
+#pid-node-add-content-punt #node-form #field-entorn-links-items table thead th:after,
+.node-type-content-punt #node-form #edit-field-nom-responsable-0-value-wrapper label:after,
+.node-type-content-punt #node-form #edit-field-equipament-skype-0-value-wrapper label:after,
+.node-type-content-punt #node-form #edit-field-po-equipament-telefon-0-value-wrapper label:after,
+.node-type-content-punt #node-form #edit-field-web-equipament-0-url-wrapper label:after,
+.node-type-content-punt #node-form #edit-field-ubicacio-po-equipament-0-value-wrapper label:after,
+#pid-node-add-content-punt #node-form #edit-field-nom-responsable-0-value-wrapper label:after,
+#pid-node-add-content-punt #node-form #edit-field-equipament-skype-0-value-wrapper label:after,
+#pid-node-add-content-punt #node-form #edit-field-equipament-messenger-0-value-wrapper label:after,
+#pid-node-add-content-punt #node-form #edit-field-po-equipament-telefon-0-value-wrapper label:after,
+#pid-node-add-content-punt #node-form #edit-field-web-equipament-0-url-wrapper label:after,
+#pid-node-add-content-punt #node-form #edit-field-ubicacio-po-equipament-0-value-wrapper label:after,
+#pid-node-add-content-punt #node-form #edit-field-po-voluntaris-colaboradors-0-value-wrapper label:after,
+.node-type-content-punt #node-form #edit-field-po-voluntaris-colaboradors-0-value-wrapper label:after{
+	content:" (util per l'informe)"; 
+	color:#888; 
+	font-style:italic; 
+	font-size:0.8em;
+}
+
+
+.node-type-content-punt #node-form #edit-field-zip-code-0-value-wrapper label,
+.node-type-content-punt #node-form #hierarchical-select-4-wrapper-wrapper label,
+.node-type-content-punt #edit-taxonomy-17-wrapper label,
+.node-type-content-punt #edit-field-po-skype-0-value-wrapper label,
+.node-type-content-punt #edit-field-po-facebook-0-url-wrapper label,
+.node-type-content-punt #edit-field-po-twitter-0-url-wrapper label,
+.node-type-content-punt .link-field-subrow,
+.node-type-content-punt #edit-field-po-access-local-0-value-wrapper label,
+.node-type-content-punt .group-po-imatge-corporativa .description,
+#pid-node-add-content-punt #node-form  #edit-field-zip-code-0-value-wrapper label,
+#pid-node-add-content-punt #node-form  #hierarchical-select-4-wrapper-wrapper label,
+#pid-node-add-content-punt #node-form  #edit-taxonomy-17-wrapper label,
+#pid-node-add-content-punt #node-form  #edit-field-po-skype-0-value-wrapper label,
+#pid-node-add-content-punt #node-form  #edit-field-po-facebook-0-url-wrapper label,
+#pid-node-add-content-punt #node-form  #edit-field-po-twitter-0-url-wrapper label,
+#pid-node-add-content-punt #node-form  #edit-field-po-access-local-0-value-wrapper label,
+#pid-node-add-content-punt #node-form  .group-po-imatge-corporativa .description,
+#pid-node-add-content-punt #node-form  .node-type-content-punt .link-field-subrow,
+.node-type-content-punt #node-form #edit-field-financament-value-wrapper label,
+.node-type-content-punt #node-form #edit-field-gestora-any-fundacio-0-value-wrapper label,
+.node-type-content-punt #node-form #edit-field-gestora-eixos-de-treball-0-value-wrapper label,
+.node-type-content-punt #node-form #edit-field-gestora-colectius-que-te-0-value-wrapper label,
+.node-type-content-punt #node-form #edit-field-gestora-entitats-administr-0-value-wrapper label,
+.node-type-content-punt #node-form #edit-field-gestora-radi-de-accio-0-value-wrapper label,
+.node-type-content-punt #node-form #edit-field-gestora-num-persones-0-value-wrapper label,
+.node-type-content-punt #node-form #edit-field-gestora-web-0-url-wrapper label,
+.node-type-content-punt #node-form #field-gestora-web-altres-items table thead,
+.node-type-content-punt #node-form #field-gestora-web-altres-items table thead th,
+#pid-node-add-content-punt #node-form #edit-field-financament-value-wrapper label,
+#pid-node-add-content-punt #node-form #edit-field-gestora-any-fundacio-0-value-wrapper label,
+#pid-node-add-content-punt #node-form #edit-field-gestora-eixos-de-treball-0-value-wrapper label,
+#pid-node-add-content-punt #node-form #edit-field-gestora-colectius-que-te-0-value-wrapper label,
+#pid-node-add-content-punt #node-form #edit-field-gestora-entitats-administr-0-value-wrapper label,
+#pid-node-add-content-punt #node-form #edit-field-gestora-radi-de-accio-0-value-wrapper label,
+#pid-node-add-content-punt #node-form #edit-field-gestora-num-persones-0-value-wrapper label,
+#pid-node-add-content-punt #node-form #edit-field-gestora-web-0-url-wrapper label,
+#pid-node-add-content-punt #node-form #field-gestora-web-altres-items table thead,
+#pid-node-add-content-punt #node-form #field-gestora-web-altres-items table thead th,
+.node-type-content-punt #node-form #edit-field-po-caracteristiques-entorn-0-value-wrapper label,
+.node-type-content-punt #node-form #field-entorn-fitxers-items table thead,
+.node-type-content-punt #node-form #field-entorn-fitxers-items table thead th,
+.node-type-content-punt #node-form #field-entorn-links-items table thead,
+.node-type-content-punt #node-form #field-entorn-links-items table thead th,
+#pid-node-add-content-punt #node-form #edit-field-po-caracteristiques-entorn-0-value-wrapper label,
+#pid-node-add-content-punt #node-form #field-entorn-fitxers-items table thead,
+#pid-node-add-content-punt #node-form #field-entorn-fitxers-items table thead th,
+#pid-node-add-content-punt #node-form #field-entorn-links-items table thead,
+#pid-node-add-content-punt #node-form #field-entorn-links-items table thead th,
+.node-type-content-punt #node-form #edit-field-nom-responsable-0-value-wrapper label:after,
+.node-type-content-punt #node-form #edit-field-equipament-skype-0-value-wrapper label:after,
+.node-type-content-punt #node-form #edit-field-equipament-messenger-0-value-wrapper label:after,
+.node-type-content-punt #node-form #edit-field-po-equipament-telefon-0-value-wrapper label:after,
+.node-type-content-punt #node-form #edit-field-web-equipament-0-url-wrapper label:after,
+.node-type-content-punt #node-form #edit-field-ubicacio-po-equipament-0-value-wrapper label:after,
+#pid-node-add-content-punt #node-form #edit-field-nom-responsable-0-value-wrapper label:after,
+#pid-node-add-content-punt #node-form #edit-field-equipament-skype-0-value-wrapper label:after,
+#pid-node-add-content-punt #node-form #edit-field-po-equipament-telefon-0-value-wrapper label:after,
+#pid-node-add-content-punt #node-form #edit-field-web-equipament-0-url-wrapper label:after,
+#pid-node-add-content-punt #node-form #edit-field-ubicacio-po-equipament-0-value-wrapper label:after,
+.node-type-content-punt #node-form #edit-field-1r-dinamitzador-a-0-uid-uid-wrapper label,
+.node-type-content-punt #node-form #edit-field-start-year-0-value-wrapper label,
+.node-type-content-punt #node-form #edit-field-po-any-renov-0-value-wrapper label,
+.node-type-content-punt #node-form #edit-field-adrea-0-value-wrapper label,
+.node-type-content-punt #node-form #edit-field-phone-number-0-value-wrapper label,
+.node-type-content-punt #node-form #edit-field-e-mail-0-email-wrapper label,
+.node-type-content-punt #node-form #edit-field-nom-de-lentitat-gestora-0-value-wrapper label,
+.node-type-content-punt #node-form #edit-field-telefon-responsable-0-value-wrapper label,
+.node-type-content-punt #node-form #edit-field-email-responsable-0-email-wrapper label,
+.node-type-content-punt #node-form #edit-field-nom-responsable-0-value-wrapper label,
+.node-type-content-punt #node-form #edit-field-carrec-responsable-0-value-wrapper label,
+.node-type-content-punt #node-form #edit-field-puntomnia-tipus-equipament-value-wrapper label,
+.node-type-content-punt #node-form #edit-field-po-tecnic-inserciosocial-0-value-wrapper label,
+.node-type-content-punt #node-form #edit-field-po-tecnic-insercioso-telf-0-value-wrapper label,
+.node-type-content-punt #node-form #edit-field-po-tecnic-coordinaci-0-value-wrapper label,
+.node-type-content-punt #node-form #edit-field-po-tecnic-coordinacio-telf-0-value-wrapper label,
+#pid-node-add-content-punt #node-form #edit-field-1r-dinamitzador-a-0-uid-uid-wrapper label,
+#pid-node-add-content-punt #node-form #edit-field-start-year-0-value-wrapper label,
+#pid-node-add-content-punt #node-form #edit-field-po-any-renov-0-value-wrapper label,
+#pid-node-add-content-punt #node-form #edit-field-adrea-0-value-wrapper label,
+#pid-node-add-content-punt #node-form #edit-field-phone-number-0-value-wrapper label,
+#pid-node-add-content-punt #node-form #edit-field-e-mail-0-email-wrapper label,
+#pid-node-add-content-punt #node-form #edit-field-nom-de-lentitat-gestora-0-value-wrapper label,
+#pid-node-add-content-punt #node-form #edit-field-telefon-responsable-0-value-wrapper label,
+#pid-node-add-content-punt #node-form #edit-field-email-responsable-0-email-wrapper label,
+#pid-node-add-content-punt #node-form #edit-field-nom-responsable-0-value-wrapper label,
+#pid-node-add-content-punt #node-form #edit-field-carrec-responsable-0-value-wrapper label,
+#pid-node-add-content-punt #node-form #edit-field-puntomnia-tipus-equipament-value-wrapper label,
+#pid-node-add-content-punt #node-form #edit-field-po-tecnic-inserciosocial-0-value-wrapper label,
+#pid-node-add-content-punt #node-form #edit-field-po-voluntaris-colaboradors-0-value-wrapper label,
+.node-type-content-punt #node-form #edit-field-po-voluntaris-colaboradors-0-value-wrapper label
+{
+	padding-top:15px !important;
+	background-image:url('/sites/xarxa-omnia.org/themes/acquia_slate/images/icon-informe.jpg');
+	background-repeat:no-repeat;
+	background-position:bottom right;
+}
+
+
+
+
+
+.node-type-content-punt #node-form label,
+#pid-node-add-content-punt #node-form label{
+	padding-top:15px;
+}
+.node-type-content-punt #node-form .location label,
+#pid-node-add-content-punt #node-form .location label{
+	padding-top:0px;
+}
+
+
+/* Arxius compartits amb PO i oficines */
+.node-type-arxiu .submitted{display:none;}
+.node-type-arxiu h1.title{font-size:1em;}
+.node-type-arxiu .field-label{display:none;}
+.node-type-arxiu .item-arxiu .item-imatge{text-align:center; margin-top:10px !important;}
+.node-type-arxiu .item-arxiu {margin-bottom:40px !important; clear:both;}
+.node-type-arxiu  h1.title{display:none;}
+
+.node-type-arxiu .view-display-id-altresarxius .views-field-upload-fid ul,
+.node-type-content-punt .view-display-id-altresarxius .views-field-upload-fid ul{margin:0px; padding:0px !important;}
+.node-type-arxiu .view-display-id-altresarxius .views-field-upload-fid li,
+.node-type-content-punt .view-display-id-altresarxius .views-field-upload-fid li{display:block; margin:0px; padding:0px !important;}
+.node-type-arxiu .view-display-id-altresarxius .views-field-title,
+.node-type-content-punt .view-display-id-altresarxius .views-field-title{
+width: 150px !important;
+vertical-align:top; 
+margin-top:5px;
+}
+.node-type-arxiu .view-display-id-altresarxius .views-field-title a,
+.node-type-content-punt .view-display-id-altresarxius .views-field-title a
+{font-size:12px;padding-left:5px; font-weight:normal;}
+.node-type-arxiu .view-display-id-altresarxius .views-field-name,
+.node-type-content-punt .view-display-id-altresarxius .views-field-name{width:90px !important}
+
+.node-type-arxiu .view-display-id-altresarxius caption,
+.node-type-content-punt .view-display-id-altresarxius caption{font-size:16px; margin-top:20px; margin-bottom:10px; font-family:Georgia,"Times New Roman",Times,serif;}
+
+.node-type-content-punt #page label,
+#pid-node-add-content-punt label{padding-top:0px !important; }
+
+
+/* Arxius compartits nomes amb oficines */
+.node-type-arxiuintern .submitted{display:none;}
+.node-type-arxiuintern h1.title{font-size:1em;}
+.node-type-arxiuintern .field-label{display:none;}
+.node-type-arxiuintern .item-arxiu .item-imatge{text-align:center; margin-top:10px !important;}
+.node-type-arxiuintern .item-arxiu {margin-bottom:40px !important; clear:both;}
+.node-type-arxiuintern  h1.title{display:none;}
+
+.node-type-arxiuintern .view-display-id-llistatarxiusinterns .views-field-upload-fid ul,
+.node-type-content-punt .view-display-id-llistatarxiusinterns .views-field-upload-fid ul{margin:0px; padding:0px !important;}
+.node-type-arxiuintern .view-display-id-llistatarxiusinterns .views-field-upload-fid li,
+.node-type-content-punt .view-display-id-llistatarxiusinterns .views-field-upload-fid li{display:block; margin:0px; padding:0px !important;}
+.node-type-arxiuintern .view-display-id-llistatarxiusinterns .views-field-title,
+.node-type-content-punt .view-display-id-llistatarxiusinterns .views-field-title{
+width: 150px !important;
+vertical-align:top; 
+margin-top:5px;
+}
+.node-type-arxiuintern .view-display-id-llistatarxiusinterns .views-field-title a,
+.node-type-content-punt .view-display-id-llistatarxiusinterns .views-field-title a
+{font-size:12px;padding-left:5px; font-weight:normal;}
+.node-type-arxiu .view-display-id-llistatarxiusinterns .views-field-name,
+.node-type-content-punt .view-display-id-llistatarxiusinterns .views-field-name{width:90px !important}
+
+.node-type-arxiuintern .view-display-id-llistatarxiusinterns caption,
+.node-type-content-punt .view-display-id-llistatarxiusinterns caption{font-size:16px; margin-top:20px; margin-bottom:10px; font-family:Georgia,"Times New Roman",Times,serif;}
+
+.node-type-content-punt #page label,
+#pid-node-add-content-punt label{padding-top:0px !important; }
+
+
+/* Memories */
+#pid-gestio-memories table caption{font-size:16px; margin-bottom:10px; margin-top:30px; background-color:#f1f1f1; padding-top:10px; padding-bottom:10px; padding-left:5px;}
+#pid-gestio-memories .views-field-title a
+{font-size:10px;padding-left:0px;}
+#pid-gestio-memories .views-field-title {width:150px; overflow:hidden; padding-top:3px !important; }
+
+#pid-gestio-memories table ul,
+#pid-gestio-memories table li{display:block; paddinf:0px !important; margin:0px !important; vertical-align:top !important;}
+#pid-gestio-memories table td{vertical-align:top !important;}
+
+/* Inventari */
+#main-wrapper .view-id-inventari .views-table td.views-field{min-width:200px !important; vertical-align:top !important;}
+#main-wrapper .view-id-inventari .views-table .views-field-field-po-maqui-descr-value table{width:800px !important;}
+#main-wrapper .view-id-inventari .views-table td.views-field-field-po-adsl-value a{font-size:1.1em; font-weight:bold !important;}
+#pid-gestio-inventari .cos-pagina .contingut-central, 
+#pid-gestio-inventari .cos-pagina .contingut-central #contingut-central-inner{min-width:1020px !important;}
+
+#pid-gestio-inventari #views-exposed-form-inventari-page-1 .views-widget-filter-field_po_access_maqui_value,
+#pid-gestio-inventari #views-exposed-form-inventari-page-1 .views-widget-filter-term_node_tid_depth{clear:both;}
+#pid-gestio-inventari #views-exposed-form-inventari-page-1 {margin-bottom:50px;}
+#pid-gestio-inventari #views-exposed-form-inventari-page-1 .views-exposed-widget,
+#pid-gestio-inventari #views-exposed-form-inventari-page-1 .views-exposed-widget .form-item,
+#pid-gestio-inventari #views-exposed-form-inventari-page-1 .views-exposed-widget .form-select{min-width:150px; margin-right:10px;}
+
+/* Actes jornades */
+#pid-gestio-actesjornades #page #view-id-acta-actajornades .views-field-field-ordredeldia-value {min-width:400px !important; vertical-align:top;}
+#pid-gestio-actesjornades #page #view-id-acta-actajornades .views-field-field-lloc-value {min-width:200px !important; vertical-align:top;}
+
+/* Pagina llistat_punts_omnia */
+#view-id-llistat_punts_omnia-page_1 .view-filters{margin-bottom:50px !important; }
+#view-id-llistat_punts_omnia-page_1 .view-content{width:420px; padding-left:10px !important;}
+#view-id-llistat_punts_omnia-page_1 .attachment{float:right !important; position:absolute; top:227px; margin-left:435px !important;}
+
+#edit-field-dataacta-value-value-wrapper:before{content:"Data d'inici. Des de...";}
+#edit-field-dataacta-value-value-wrapper{margin-top:20px !important;}
+#edit-field-dataacta-value-1-value-wrapper:before{content:"Data fi. Fins a...";}
+#edit-field-dataacta-value-1-value-wrapper{margin-top:20px !important;}
+
+
+.node-type-content-punt .puntomnia-gestio fieldset {width:800px !important; }
+.node-type-content-punt  .views-field li, 
+.node-type-content-punt  .views-field a{max-width:340px !important; overflow:hidden !important;}
+.view-acta table,
+.view-informepo table,
+.view-Arxiuintern table{width:730px;}
+.view-acta,
+.view-informepo,
+.view-Arxiuintern {width:735px !important; padding-right:0px !important;}
+.gestors_po_relacions .view-Relacions-po-dina table {font-size:11px !important;}
+
+

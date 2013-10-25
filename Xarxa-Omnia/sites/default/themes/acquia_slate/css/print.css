@@ -1,0 +1,38 @@
+div.print-header, div.print-footer {
+  display: block;
+  }
+div.header-group-wrapper, div#header-links-frame, div.footer, div.postscript-bottom, div.sidebar-first, div.sidebar-last, ul.tabs.primary, div.links-inner {
+  display: none;
+  }
+
+/*http://www.alistapart.com/articles/goingtoprint/*/
+body {
+   background: white;
+   font-size: 12pt;
+   }
+#menu, embed, object, param {
+   display: none;
+   }
+#content-group, .content-group, .contingut-central, .main-wrapper, #contingut-central-inner, #content-inner, .content-inner, #content-content {width: 900px !important;}
+.contingut-central {
+   margin: 0 5%;
+   padding: 0;
+   border: 0;
+   float: none !important;
+   color: black;
+   background: transparent none;
+   }
+
+a:link, a:visited {
+   color: #520;
+   background: transparent;
+   font-weight: bold;
+   text-decoration: underline;
+   }
+#content a:link:after, #content a:visited:after {
+   content: " (" attr(href) ") ";
+   font-size: 90%;
+   }
+#content a[href^="/"]:after {
+   content: " (http://xarxa-omnia.org" attr(href) ") ";
+   }

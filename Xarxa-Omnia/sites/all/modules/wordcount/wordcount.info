@@ -1,0 +1,10 @@
+; $Id: wordcount.info,v 1.1.2.1 2009/03/11 21:40:23 crookednumber Exp $
+name = Word Count
+description = View stats on the nodes and comments contributed by each user.
+core = 6.x
+; Information added by drupal.org packaging script on 2009-09-21
+version = "6.x-1.1"
+core = "6.x"
+project = "wordcount"
+datestamp = "1253565715"
+

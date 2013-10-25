@@ -1,0 +1,12 @@
+; $Id:$
+name = "PO form alter"
+description = "Administrar quins rols poden veure quins camps, d'aquestos que no es poden gestionar des de la pagina de permissos de Drupal"
+package = Util
+core = 6.x
+
+; Information added by drupal.org packaging script on 2009-09-07
+version = "6.x-1.1"
+core = "6.x"
+project = "po_form_alter"
+datestamp = "1252359336"
+

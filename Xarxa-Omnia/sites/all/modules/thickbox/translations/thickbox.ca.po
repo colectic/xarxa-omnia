@@ -1,0 +1,185 @@
+# $Id$
+#
+# Catalan translation of Drupal (general)
+# Copyright YEAR NAME <EMAIL@ADDRESS>
+# Generated from files:
+#  thickbox.admin.inc: n/a
+#  thickbox.module: n/a
+#  thickbox.info: n/a
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: PROJECT VERSION\n"
+"POT-Creation-Date: 2011-04-20 09:38+0200\n"
+"PO-Revision-Date: 2011-04-20 09:38+0200\n"
+"Last-Translator: NAME <EMAIL@ADDRESS>\n"
+"Language-Team: Catalan <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n!=1);\n"
+
+#: thickbox.admin.inc:15
+msgid "Image module options"
+msgstr ""
+
+#: thickbox.admin.inc:19
+msgid "Enable for image nodes"
+msgstr ""
+
+#: thickbox.admin.inc:21
+msgid "Automatically activate Thickbox for all image nodes (requires the image module)."
+msgstr ""
+
+#: thickbox.admin.inc:30
+msgid "Image derivative"
+msgstr ""
+
+#: thickbox.admin.inc:33
+msgid "Select which image derivative will be loaded."
+msgstr ""
+
+#: thickbox.admin.inc:40
+msgid "Image field options (CCK)"
+msgstr ""
+
+#: thickbox.admin.inc:44
+msgid "Image field gallery"
+msgstr ""
+
+#: thickbox.admin.inc:46
+msgid "Per page gallery"
+msgstr ""
+
+#: thickbox.admin.inc:46
+msgid "Per post gallery"
+msgstr ""
+
+#: thickbox.admin.inc:46
+msgid "Per field gallery"
+msgstr ""
+
+#: thickbox.admin.inc:46
+msgid "No gallery"
+msgstr ""
+
+#: thickbox.admin.inc:47
+msgid "Should the gallery be images within a single field, a single post (default) or all images on the page. The last option disables galleries."
+msgstr ""
+
+#: thickbox.admin.inc:50
+msgid "Original image (no preset)"
+msgstr ""
+
+#: thickbox.admin.inc:56
+msgid "Imagecache preset"
+msgstr ""
+
+#: thickbox.admin.inc:59
+msgid "Select which Imagecache preset to use for viewing images in the thickbox."
+msgstr ""
+
+#: thickbox.admin.inc:66
+msgid "Login settings"
+msgstr ""
+
+#: thickbox.admin.inc:70
+msgid "Enable for login links"
+msgstr ""
+
+#: thickbox.admin.inc:72
+msgid "Automatically activate Thickbox for links to user/login."
+msgstr ""
+
+#: thickbox.admin.inc:76
+msgid "Login form to use"
+msgstr ""
+
+#: thickbox.admin.inc:77
+msgid "User login"
+msgstr "Usuaris registrats"
+
+#: thickbox.admin.inc:77
+msgid "User login block"
+msgstr ""
+
+#: thickbox.admin.inc:77
+msgid "Custom"
+msgstr "Personalitza"
+
+#: thickbox.admin.inc:79
+msgid "Select which form to use for login. If \"custom\", specify below."
+msgstr ""
+
+#: thickbox.admin.inc:83
+msgid "Custom login form"
+msgstr ""
+
+#: thickbox.admin.inc:85
+msgid "Specify the form here if you have set the login form to \"custom\" above."
+msgstr ""
+
+#: thickbox.admin.inc:90
+msgid "Advanced settings"
+msgstr ""
+
+#: thickbox.admin.inc:96
+msgid "Do not include special CSS for Internet Explorer"
+msgstr ""
+
+#: thickbox.admin.inc:98
+msgid "If you have added the Thickbox IE CSS to you themes IE CSS file or simply do not need it you can check this box."
+msgstr ""
+
+#: thickbox.admin.inc:102
+msgid "Deactivate Thickbox on specific pages"
+msgstr ""
+
+#: thickbox.admin.inc:104
+msgid "Enter one page per line as Drupal paths. The '*' character is a wildcard. Example paths are %blog for the blog page and %blog-wildcard for every personal blog. %front is the front page."
+msgstr ""
+
+#: thickbox.module:114
+msgid "Close"
+msgstr "Tancar"
+
+#: thickbox.module:115
+msgid "Next >"
+msgstr "Següent >"
+
+#: thickbox.module:116
+msgid "< Anterior"
+msgstr ""
+
+#: thickbox.module:117
+msgid "or Esc Key"
+msgstr "o tecla Esc"
+
+#: thickbox.module:118
+msgid "Next / Close on last"
+msgstr "Següent / Tancar si últim"
+
+#: thickbox.module:119
+msgid "Image !current of !total"
+msgstr ""
+
+#: thickbox.module:158
+msgid "Thickbox: @preset image"
+msgstr ""
+
+#: thickbox.module:46 thickbox.info:0
+msgid "Thickbox"
+msgstr ""
+
+#: thickbox.module:47
+msgid "Allows the user to configure the Thickbox settings."
+msgstr ""
+
+#: thickbox.module:56
+msgid "Login"
+msgstr "Entrar"
+
+#: thickbox.info:0
+msgid "Enables Thickbox, a jQuery plugin."
+msgstr ""
+

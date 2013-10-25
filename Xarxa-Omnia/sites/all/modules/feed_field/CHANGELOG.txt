@@ -1,0 +1,60 @@
+Feed Field 6.x-1.8, 2011-04-04
+-------------------------------
+#1098086 by dobe: Feed Field Cron Testing fail
+by As If: Feed Field Content Type check
+
+
+
+Feed Field 6.x-1.7, 2011-03-30
+-------------------------------
+by As If: Package maintenance release
+
+
+Feed Field 6.x-1.6, 2011-03-30
+-------------------------------
+by As If: Package maintenance release
+
+
+Feed Field 6.x-1.5, 2011-01-17
+-------------------------------
+by As If: Package maintenance release
+
+
+Feed Field 6.x-1.4, 2011-01-17
+-------------------------------
+#1025572 by millenniumtree & As If: Cron functions now ignore fields with unset frequencies
+by As If: Cron functions now handle nodes with multiple feeds (delta)
+by As If: New nodeapi function clears items when nodes are deleted
+
+
+Feed Field 6.x-1.3, 2010-12-24
+-------------------------------
+by As If: Rolls in several accepted patches, fixes several bugs and adds a few new features.
+
+
+Feed Field 6.x-1.2, 2010-04-25
+-------------------------------
+by As If: Rolls in several accepted patches, fixes several bugs and adds a few new features.
+
+
+Feed Field 6.x-1.1, 2010-04-25
+-------------------------------
+by As If: Added all working functions from dev
+#590190 by Eugef, adan: Changed assorted functions
+#476434 by As If: Fixed time bug
+#780562 by As If: Fixed arg(1) bug
+#602830 by As If: Added cron hook
+by As If: Added cron test page
+by As If: Added refresh feeds on node update
+by As If: Added synchronize node->changed with feed->modified
+
+
+Feed Field 6.x-1.x-dev, 2010-04-25
+-------------------------------
+by primerg: adding cron and major bug fixes
+
+
+Feed Field 6.x-1.0, 2009-04-26
+-------------------------------
+Original release by primerg
+

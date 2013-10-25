@@ -1,0 +1,1944 @@
+# $Id$
+#
+# Catalan translation of Drupal (general)
+# Copyright YEAR NAME <EMAIL@ADDRESS>
+# Generated from files:
+#  webfm.admin.inc,v 1.10 2011/01/16 01:45:08 nielshackius
+#  webfm.js,v 1.47 2011/01/16 01:45:08 nielshackius
+#  webfm.module,v 1.73 2011/01/16 13:05:53 nielshackius
+#  webfm.views.inc,v 1.4 2011/01/16 01:45:08 nielshackius
+#  webfm_file.inc,v 1.18 2011/01/16 13:05:53 nielshackius
+#  webfm_mp3.module,v 1.2 2009/02/10 14:59:17 robmilne
+#  webfm_theme.inc,v 1.7 2011/01/16 01:45:08 nielshackius
+#  webfm-popup.tpl.php,v 1.2 2011/01/16 01:45:08 nielshackius
+#  webfm_image.module,v 1.3 2009/08/05 02:49:13 robmilne
+#  webfm.info: n/a
+#  webfm_popup.module,v 1.8 2011/01/16 12:16:24 nielshackius
+#  webfm_image.info,v 1.1 2009/02/08 06:24:05 robmilne
+#  webfm_ipfolder.info,v 1.2 2009/08/20 01:10:35 robmilne
+#  webfm_mp3.info,v 1.1 2009/02/08 06:25:40 robmilne
+#  webfm_popup.info,v 1.1 2009/02/08 06:27:11 robmilne
+#  modules/webfm_example_listing/webfm_example_listing.module: n/a
+#  webfm_image.admin.inc,v 1.1 2009/02/08 06:24:05 robmilne
+#  webfm_views_handler_file_meta.inc,v 1.3 2010/10/22 22:16:45 nielshackius
+#  webfm_views_handler_file_name.inc,v 1.3 2010/10/22 22:16:45 nielshackius
+#  webfm_ipfolder.admin.inc,v 1.5 2011/01/16 01:45:08 nielshackius
+#  webfm_ipfolder.module,v 1.4 2010/11/15 15:54:29 nielshackius
+#  webfm_popup.js,v 1.7 2010/10/12 19:34:41 nielshackius
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: PROJECT VERSION\n"
+"POT-Creation-Date: 2011-02-10 10:36+0100\n"
+"PO-Revision-Date: 2011-02-11 13:54+0100\n"
+"Last-Translator: Julien Reulos <julien.reulos@ravalnet.org>\n"
+"Language-Team: Catalan <julien.reulos@ravalnet.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n!=1);\n"
+"X-Poedit-Language: Catalan\n"
+"X-Poedit-Country: SPAIN\n"
+
+#: webfm.admin.inc:16
+msgid "WebFM root directory"
+msgstr ""
+
+#: webfm.admin.inc:20
+msgid ""
+"Root directory used to present the filebrowser user interface.\n"
+"                                                       <br />This path is relative to \"File system path\" set in admin/settings/file-system.\n"
+"                                                       <br />If this directory path is compound (ie: path/to/root) then the path must already\n"
+"                                                       <br />exist for this setting to validate (ie: path/to)."
+msgstr ""
+
+#: webfm.admin.inc:28
+msgid "Maximum resolution for uploaded images"
+msgstr "Dimensions màximes per a les imatges carregades"
+
+#: webfm.admin.inc:32
+msgid "The maximum allowed image size (e.g. 640x480). Set to 0 for no restriction."
+msgstr "La mida màxima permesa per a una imatge (per exemple 640x480). Posar a 0 per no restringir-ho."
+
+#: webfm.admin.inc:33
+msgid "WIDTHxHEIGHT"
+msgstr "AMPLADAxALÇADA"
+
+#: webfm.admin.inc:37
+msgid "Cron"
+msgstr ""
+
+#: webfm.admin.inc:42
+msgid "Delete Orphaned File Records"
+msgstr ""
+
+#: webfm.admin.inc:44
+msgid ""
+"Check this box to cleanup orphaned file records in the database.\n"
+"                                                            <br />NOTE: Use with caution - behaviour is to delete all file records without a\n"
+"                                                            <br />valid file path.  Manually renaming a WebFM directory (ie: via OS shell)\n"
+"                                                            <br />and then running cron will delete all webfm_file table entries for that\n"
+"                                                            <br />directory and it's sub-directories."
+msgstr ""
+
+#: webfm.admin.inc:51
+msgid "Insert Files Into Database"
+msgstr ""
+
+#: webfm.admin.inc:53
+msgid ""
+"Check this box to automate file insertion into the database.\n"
+"                                                                   <br />This feature allows files loaded via ftp or ssh to a WebFM directory to be\n"
+"                                                                   <br />automatically inserted into the database when the cron task is executed."
+msgstr ""
+
+#: webfm.admin.inc:59
+msgid "Debug"
+msgstr ""
+
+#: webfm.admin.inc:64
+msgid "Javascript Debug"
+msgstr ""
+
+#: webfm.admin.inc:66
+msgid "Check this box for javascript debug messaging."
+msgstr ""
+
+#: webfm.admin.inc:81
+msgid "The leading character of the webfm root directory name must be alphanumeric."
+msgstr ""
+
+#: webfm.admin.inc:84;256
+msgid "The webfm root directory name is not valid."
+msgstr ""
+
+#: webfm.admin.inc:94
+msgid "The maximum allowed image size expressed as WIDTHxHEIGHT (e.g. 640x480). Set to 0 for no restriction."
+msgstr "La màxima mida permesa d'imatges expressada com AMPLExALT (p.e. 640x480). Establir a 0 per no restringir."
+
+#: webfm.admin.inc:116
+msgid "Default File Permissions"
+msgstr ""
+
+#: webfm.admin.inc:119
+msgid ""
+"Default permissions applied to a file when inserted into the database.\n"
+"                               <br />If all boxes are unchecked only the file owner and administrators will have\n"
+"                               <br />access to the file via the filebrowser.  File owners and admins can change\n"
+"                               <br />these settings for each individual file within the filebrowser UI."
+msgstr ""
+
+#: webfm.admin.inc:127
+msgid "Role View Access"
+msgstr ""
+
+#: webfm.admin.inc:129
+msgid "File is viewable/downloadable in the filebrowser by role."
+msgstr ""
+
+#: webfm.admin.inc:134
+#: js/webfm.js:0
+msgid "Role Full Access"
+msgstr ""
+
+#: webfm.admin.inc:136
+msgid ""
+"Roles that can access this file via the filebrowser have the same access rights as the\n"
+"                              <br />file owner except for the right to change the file permissions."
+msgstr ""
+
+#: webfm.admin.inc:142
+msgid "Role Attach Access"
+msgstr ""
+
+#: webfm.admin.inc:144
+msgid "Roles that can access this file via the filebrowser have the right to attach it to content."
+msgstr ""
+
+#: webfm.admin.inc:149
+msgid "Public Access"
+msgstr ""
+
+#: webfm.admin.inc:151
+msgid "File is downloadable anonymously via webfm_send."
+msgstr ""
+
+#: webfm.admin.inc:158
+msgid "Role root directory not set for @role role"
+msgstr ""
+
+#: webfm.admin.inc:163
+msgid "Settings for @role role"
+msgstr ""
+
+#: webfm.admin.inc:170
+msgid "Role Root directory"
+msgstr ""
+
+#: webfm.admin.inc:174
+msgid ""
+"Root directory for this role.\n"
+"                                <br />This path is relative to \"WebFM Root directory\" set above.\n"
+"                                <br />If this directory path is compound then the path must already exist for this\n"
+"                                <br />setting to validate."
+msgstr ""
+
+#: webfm.admin.inc:182
+msgid "Permitted file extensions"
+msgstr "Extensions de fitxers permeses"
+
+#: webfm.admin.inc:185
+msgid ""
+"Extensions that users in this role can upload. Separate extensions with a space\n"
+"                                 <br />and do not include the leading dot."
+msgstr ""
+
+#: webfm.admin.inc:191
+msgid "Maximum file size per upload"
+msgstr "Mida màxima dels fitxers per pujada"
+
+#: webfm.admin.inc:195
+msgid ""
+"The maximum size of a file a user can upload (in megabytes).\n"
+"                                 <br />Cannot exceed %size limit set in php.ini.\n"
+"                                 <br />Empty or zero means this value is not enforced.\n"
+"                                 <br />Only the highest value of all of the users roles will be enforced."
+msgstr ""
+
+#: webfm.admin.inc:202
+msgid "Total file size per user"
+msgstr "Mida màxima total dels fitxers per usuari"
+
+#: webfm.admin.inc:206
+msgid ""
+"The maximum size of all files a user can have on the site (in megabytes).\n"
+"                                 <br />Empty or zero means this value is not enforced.\n"
+"                                 <br />Only the highest value of all of the users roles will be enforced."
+msgstr ""
+
+#: webfm.admin.inc:218
+msgid "Create new group folders"
+msgstr ""
+
+#: webfm.admin.inc:219
+msgid "Automatically create a new group folder when a group is created."
+msgstr ""
+
+#: webfm.admin.inc:223
+msgid "Group root directory not set for @group group"
+msgstr ""
+
+#: webfm.admin.inc:227
+msgid "Settings for @group group"
+msgstr ""
+
+#: webfm.admin.inc:233
+msgid "Group Root directory"
+msgstr ""
+
+#: webfm.admin.inc:237
+msgid ""
+"Root directory for this group.\n"
+"                                                                                           <br />This path is relative to \"WebFM Root directory\" set above.\n"
+"                                                                                           <br />If this directory path is compound then the path must already exist for this\n"
+"                                                                                           <br />setting to validate."
+msgstr ""
+
+#: webfm.admin.inc:262
+msgid "Your PHP settings limit the maximum file size per upload to %size MB."
+msgstr "La configuració del PHP limita la mida màxima d'un fitxer per carregar a %size MB."
+
+#: webfm.admin.inc:263
+msgid "Depending on your sever environment, these settings may be changed in the system-wide php.ini file, a php.ini file in your Drupal root directory, in your Drupal site's settings.php file, or in the .htaccess file in your Drupal root directory."
+msgstr "Depenent de la configuració del servidor, aquesta configuració pot ser canviada en el fitxer php.ini del sistema, en un fitxer php.ini en el directori arrel de Drupal, en el fitxer settings.php del lloc de Drupal, o en el fitxer .htaccess en el directori arrel de Drupal."
+
+#: webfm.admin.inc:274
+msgid "The leading character of the %role root directory must be alphanumeric."
+msgstr ""
+
+#: webfm.admin.inc:277
+msgid "The %role root directory name is not valid."
+msgstr ""
+
+#: webfm.admin.inc:285
+msgid "The WebFM root directory must be valid for the %role root directory name to be valid."
+msgstr ""
+
+#: webfm.admin.inc:290;293
+msgid "The %role file size limit must be a number and greater than zero."
+msgstr "El límit de la mida del fitxer de %role ha de ser un nombre i major que 0."
+
+#: webfm.admin.inc:300
+msgid "The %role maximum file size per upload is greater than the total file size allowed per user"
+msgstr "La mida màxima del fitxer per carregar del rol és major que el total de la mida dels fitxers permès per usuari"
+
+#: webfm.admin.inc:310
+msgid "The leading character of the %group root directory must be alphanumeric."
+msgstr ""
+
+#: webfm.admin.inc:313
+msgid "The %group root directory name is not valid."
+msgstr ""
+
+#: webfm.admin.inc:321
+msgid "The WebFM root directory must be valid for the %group root directory name to be valid."
+msgstr ""
+
+#: webfm.admin.inc:331
+msgid "Icon directory"
+msgstr ""
+
+#: webfm.admin.inc:335
+msgid "Name of directory where file type icons are stored (relative to base url)."
+msgstr ""
+
+#: webfm.admin.inc:338
+msgid "Date Format"
+msgstr ""
+
+#: webfm.admin.inc:340
+msgid "dd/mm/yy"
+msgstr ""
+
+#: webfm.admin.inc:340
+msgid "mm/dd/yy"
+msgstr ""
+
+#: webfm.admin.inc:341
+msgid "Set the order of day/month in date fields."
+msgstr ""
+
+#: webfm.admin.inc:346
+msgid "Directory Listing Options"
+msgstr ""
+
+#: webfm.admin.inc:351
+msgid "Display metadata title"
+msgstr ""
+
+#: webfm.admin.inc:353
+msgid ""
+"Check this box to display the metadata title in the browser instead of the filename.\n"
+"                                                                        <br />If a metadata title doesn't exist, the filename is used and rename functions normally.\n"
+"                                                                        <br />If metadata title is used, renaming is available inside the metadata editor."
+msgstr ""
+
+#: webfm.admin.inc:358
+msgid "Display date modified column"
+msgstr ""
+
+#: webfm.admin.inc:362
+msgid "Display size column"
+msgstr ""
+
+#: webfm.admin.inc:366
+msgid "Display owner column"
+msgstr ""
+
+#: webfm.admin.inc:371
+#: webfm.module:511;547
+#: views/webfm.views.inc:53
+msgid "WebFM Attachments"
+msgstr "Documents de seguiment i informes"
+
+#: webfm.admin.inc:376
+msgid "Append file links to Node Body"
+msgstr ""
+
+#: webfm.admin.inc:378
+msgid ""
+"Check this box to append file attachments table to the node body.\n"
+"                               <br />This setting does not affect the attachment block."
+msgstr ""
+
+#: webfm.admin.inc:382
+msgid "Open attachments in a new browser window"
+msgstr ""
+
+#: webfm.admin.inc:386
+msgid "Attachment List Properties"
+msgstr ""
+
+#: webfm.admin.inc:389
+msgid "Include file description metadata"
+msgstr ""
+
+#: webfm.admin.inc:391
+msgid "Check this box to add file description metadata beneath the attachment title."
+msgstr ""
+
+#: webfm.admin.inc:394
+msgid "Enable file date column"
+msgstr ""
+
+#: webfm.admin.inc:396
+msgid "Check this box to add a create date column to the attachment table."
+msgstr ""
+
+#: webfm.admin.inc:399
+msgid "Enable file size column"
+msgstr ""
+
+#: webfm.admin.inc:401
+msgid "Check this box to add a file size column to the attachment table."
+msgstr ""
+
+#: webfm.admin.inc:405
+msgid "IE Drag-and-Drop Normalization"
+msgstr ""
+
+#: webfm.admin.inc:408
+msgid "number of pixels to offset drag objects from cursor position in IE browser.<br />This quantity is usually related to relative positioning used by the css."
+msgstr ""
+
+#: webfm.admin.inc:411
+msgid "IE drag and drop x-axis offset for right hand listing draggables"
+msgstr ""
+
+#: webfm.admin.inc:417
+msgid "IE drag and drop x-axis offset for directory tree draggables"
+msgstr ""
+
+#: webfm_file.inc:24;41
+msgid "The directory %path is not writable"
+msgstr ""
+
+#: webfm_file.inc:48
+msgid "Creating the directory %dirname failed"
+msgstr ""
+
+#: webfm_file.inc:52
+msgid "The directory %dirname already exists"
+msgstr ""
+
+#: webfm_file.inc:84
+msgid "Invalid name"
+msgstr ""
+
+#: webfm_file.inc:91
+msgid "Renaming %filename failed."
+msgstr ""
+
+#: webfm_file.inc:96
+msgid "The directory %dirname is read-only."
+msgstr ""
+
+#: webfm_file.inc:101
+#: webfm.module:1178;1339;1383;1424;1567;1589
+#: modules/webfm_mp3/webfm_mp3.module:210
+msgid "permission denied"
+msgstr ""
+
+#: webfm_file.inc:119;120
+msgid "webfm_rename_db_dir_recur error - db may be corrupted"
+msgstr ""
+
+#: webfm_file.inc:126
+msgid "The file %filename is read only."
+msgstr ""
+
+#: webfm_file.inc:131
+msgid "Renaming from %rename_from to %rename_dest failed."
+msgstr ""
+
+#: webfm_file.inc:139
+msgid "Failed to update the database for the file with id %fid"
+msgstr ""
+
+#: webfm_file.inc:195
+msgid "Unable to open the directory %dirname."
+msgstr ""
+
+#: webfm_file.inc:200
+msgid "Unable to remove directory %dirname."
+msgstr ""
+
+#: webfm_file.inc:210
+msgid "Could not delete %filename from database."
+msgstr ""
+
+#: webfm_file.inc:215
+msgid "The file %filename could not be deleted"
+msgstr ""
+
+#: webfm_file.inc:295
+msgid "Could not open the directory %dirname"
+msgstr ""
+
+#: webfm_theme.inc:20
+msgid "Attachment"
+msgstr "Adjunt"
+
+#: webfm_theme.inc:22
+msgid "Date"
+msgstr "Data"
+
+#: webfm_theme.inc:25
+#: js/webfm.js:0
+msgid "Size"
+msgstr "Mida"
+
+#: webfm_theme.inc:39;45
+msgid "Open @filename"
+msgstr "Obrir @filename"
+
+#: webfm.module:38
+msgid ""
+"<p>Web File Manager (WebFM) implements a hierarchical filesystem unlike the traditional flat filesystem used to date by Drupal. WebFM allows administrators to arrange files on the server in the same way they do on their local storage drives which greatly enhances the manageability of large collections of documents. Directory access is set by role and file access is controllable by file owners or module administrators.</p>\n"
+"      <p>WebFM uses Ajax to provide application intensive functionality such as drag-and-drop and context-sensitive menuing. JavaScript must be enabled for WebFM to function - functionality will not gracefully degrade for clients that have JavaScript disabled.</p>\n"
+"      <h2>Installation & Configuration</h2>\n"
+"      <ul>\n"
+"      <li>Download the official release from the <a href=\"http://drupal.org/project/webfm\">project page</a>.</li>\n"
+"      <li>Unzip the archive and copy the 'webfm' directory to your modules directory (ie:/sites/all/modules).  Alternatively copy the tarball to the module directory if you can unzip it on the server.</li>\n"
+"      <li>Enable the module on Drupal's admin/build/modules page.  An install file updates the database with the necessary table additions.</li>\n"
+"      <li>Set the <i>'File system path:'</i> at <i>.../admin/settings/file-system</i>.  The WebFM root directory is always a sub-directory of this 'File System' path.  <i>'Download method:'</i>  has no effect on the module since WebFM implements its own download security.</li>\n"
+"      <li>Configure the module at admin/settings/webfm.\n"
+"      <ul>\n"
+"      <li><b>Create the <i>'WebFM root directory'</i></b>.  If this directory doesn't already exist, the system will create it in the 'File System' root.  Directory creation is not recursive so multi directory root paths must already exist inside the 'File System' directory.   Set the directory permissions to 775 if the server is linux/bsd.</li>\n"
+"      <li>The icon path allows the user to substitute their own gifs.  File names are hardcoded in the javascript so the icons will have to have identical names.</li>\n"
+"      <li>The <i>'Maximum resolution for uploaded images'</i> input functions in the same fashion as the upload.module.</li>\n"
+"      <li>The <i>'Date Format'</i> radio buttons set the day/month order in the browser listing date field.</li>\n"
+"      <li>The <i>'Display metadata title'</i> checkbox sets the browser to display metadata titles rather than the actual filename if the metadata tile exists. Renaming files that use the metadata title must be done via the metadata editor.  Note that node attachments always display the metadata title if available.</li>\n"
+"      <li><b><i>Default File Permissions</i></b> set the file level permissions for files inserted into the database.  The exception is file uploads that create a version overwrite whereby the new file inherits the permissions from the previous file.</li>\n"
+"      <li><b><i>Settings for xxx role</i></b> fieldsets are added for roles that are granted the <i>'access webfm'</i> permission.  Each role receives additional configuration fields for root path, extension white list, max upload file size and max total upload size.   Roles with the 'access webfm' right but without a root directory cannot access the filesystem.</li>\n"
+"      <li><b><i>WebFM attachments</i></b> controls attachment of files to node content as well as format. <br /><b>Note:</b> Each content type that will be using WebFM attachments must enable attachments in the Workflow section of <i>.../admin/settings/content-types/*type*</i> (default is 'WebFM attachments' disabled).</li>\n"
+"      <li><b><i>IE Drag-and-Drop Normalization</i></b> is a sub-optimal solution for compensating for relative positioning in theme css.  This feature is only available to #1 user.</li>\n"
+"      <li><b><i>WebFM debug</i></b> contains a <i>'Webfm javascript debug'</i> checkbox which is only useful for users interested in looking under the covers or who want to develop the module.  The <i>'WebFM cron'</i> is a \"stored procedure\" used for database cleanup of file records that are deleted outside of the WebFM interface (ie: OS shell, ftp).  This feature is only available to #1 user.</li>\n"
+"      </ul>\n"
+"      </li>\n"
+"      <li>Set WebFM rights in !permissionslink per role.\n"
+"      <ul>\n"
+"      <li><b><i>administer webfm</i></b> confers full rights to a role.  Admins can see and operate on all files, including files not in the database.  Only admins can create directories and access admin/settings/webfm.</li>\n"
+"      <li><b><i>access webfm</i></b> allows a role to download/view files via the WebFM browser.  Only files referenced by the webfm_file table in the database are accessible.  Only owners of a file (and admins) can move a file or modify it's metadata.<br /><b>Note:</b> Each role granted <i>'access webfm'</i> will receive a separate fieldset in the module settings where a root directory must be created to permit access to the browser.</li>\n"
+"      <li><b><i>view webfm attachments</i></b> allows a role to see files attached to nodes via WebFM.</li>\n"
+"      <li><b><i>webfm upload</i></b> allows a role with the <i>'access webfm'</i> right to upload files via the WebFM browser.  The user who uploads a file is the the owner of that file.</li>\n"
+"      </ul>\n"
+"      </li>\n"
+"      <li>Admins and File owners can set the following file level permissions from the context menu of each file:\n"
+"      <ul>\n"
+"      <li><b><i>Public download</i></b>: Allows the file to be downloaded anonymously even if .htaccess exists.</li>\n"
+"      <li><b><i>Role View/Download</i></b>: Allows users of the same role to view/download the file.</li>\n"
+"      <li><b><i>Role Attach</i></b>: Allows users of the same role to attach the file to nodes.</li>\n"
+"      <li><b><i>Role Full Access</i></b>: Allows users of the same role to have the same rights to the file as the owner with the exception of permission edits.</li>\n"
+"      </ul>\n"
+"      </li>\n"
+"      <li>A .htaccess file (apache servers) can be placed in the WebFM root (or sub-path) to secure file access.  Webfm streams downloads and thus your browser doesn't require direct http access to the directories</li>\n"
+"      <li>Updating the menu cache by navigating to admin/build/menu may be necessary if upgrading from an earlier version of the module with different internal paths.</li>\n"
+"      <li>Translations of the module require revising the string array at the top of webfm.js.</li>\n"
+"      </ul>\n"
+"      <h2>File Access Setup & Examples</h2>\n"
+"      <p>There are many ways to setup a file system hierarchy.  The rules of any given system must be applied carefully if security of data is important.</p>\n"
+"      <p>The basic rules for users in a role with <i>'access webfm'</i> rights:</p>\n"
+"      <ul>\n"
+"      <li>The role root directory defines the domain and all subdirectories are accessible to the user.</li>\n"
+"      <li>The user cannot navigate above the role root directory.</li>\n"
+"      <li>Only files in the webfm_file table are accessible. Files uploaded by the user are owned by the user and are automatically in the database. Only module admins can view/operate on files not in the database.</li>\n"
+"      <li>The user has full control over files that he/she owns that stay within an accessible role root domain. File permissions can be locked down so that only the owner/admins can see or operate on a file. File permissions can be opened up so that anyone within the role can view or operate on the file.</li>\n"
+"      <li>Users with <i>'access webfm'</i> rights cannot create/delete/move/rename directories.  Only module administrators (users with  'administer webfm' permission or #1 user) can control the directory structure.</li>\n"
+"      </ul>\n"
+"      <p>Roles with <i>'access webfm'</i> rights can be subsets of other roles with <i>'access webfm'</i> rights or they can be exclusive. Users can be members of multiple roles and will consequently have a separate left-hand tree for each unique root directory (roles can even share the same root directory).  It is difficult to foresee how diverse users of the module will choose to set up their systems but the following simple examples are typical arrangements.  Both examples presume that the <i>drupal file-system directory</i> is set to 'files', the WebFM module is installed and the <i>'WebFM root directory'</i> is set to 'webfm'.</p>\n"
+"      <h3> Example 1</h3>\n"
+"      <p>The site requires 1 class of privileged users (A) to administer the file system and 2 classes of WebFM users (B & C) with access to file resources.  Both roles will be able to upload files.  Some WebFM users are members of both B & C while others are members of only one.  Uploaded files are by default only accessible by the file owner and admins.</p>\n"
+"      <ul>\n"
+"      <li>A site administrator will create 3 the roles A, B and C.  Role A will have the <i>'administer webfm'</i> permission set in !permissionslink.  B & C will have the <i>'access webfm'</i> and the <i>'webfm upload'</i> permission set.</li>\n"
+"      <li>WebFM settings will now have a fieldset for roles B & C where the root directory for each role is set.  The root of B is set to 'B' which automatically creates the 'files/webfm/B' directory.  The root of C is set to 'C' which creates the directory 'files/webfm/C'.  A user who is a member of only one of B or C will see a single left-hand directory tree that contains their domain.  They will have no access to files within the other role domain.  Users who are members of both B & C will have two left-hand directory trees and have the ability to move files they own or control between the two domains.  Role A's root directory is the 'WebFM root directory' and thus A users see only a single left-hand tree of the entire module file-sys.</li>\n"
+"      <li>In WebFM settings, the <i>'Default File Permissions'</i> are configured with all checkboxes unset.  This combination of default file permissions means that files that are uploaded will initially only be viewable by the B or C user doing the upload (owner) and by A users.  Individual file permissions are editable by the file owner or A user to permit other users to view/attach/modify the file.  One consequence of granting the permission <i>'Role Full Access'</i> is that a non-admin user with a single domain could lose contact with their own file if a dual domain non-admin user moves it to the other domain.</li>\n"
+"      </ul>\n"
+"      <h3> Example 2</h3>\n"
+"      <p>The site requires 1 class of privileged users (A) to administer the file system and 2 classes of users (B & C) with access to file resources.  C is determined to be a subset of B such that B can access it's own files as well as those of C.  C will not be able to upload files to the browser but will only be able to view/download or attach files to nodes.  B will be able to upload files.</p>\n"
+"      <ul>\n"
+"      <li>A site administrator will create 3 the roles A, B and C.  Role A will have the <i>'administer webfm'</i> permission set in !permissionslink.  B & C will have the <i>'access webfm'</i> permission set.  B will also have the <i>'webfm upload'</i> permission set.</li>\n"
+"      <li>WebFM settings will now have a fieldset for roles B & C where the root directory for each role is set.  First the root of B is set to 'B' which automatically creates the 'files/webfm/B' directory.  Next the root of C is set to 'B/C' which creates the directory 'files/webfm/B/C'.  Since C is a sub-dir of B, role B will have access to C but C will not be able to navigate above it's root to see B's files.  The left-hand directory tree will appear different for B & C.  B's tree will start at 'B' and have a 'C' sub-directory (and potentially other sub-directories as set up by A).  C's tree is a subset of B's tree.  Role A's root directory is the <i>'WebFM root directory'</i>.</li>\n"
+"      <li>In WebFM settings, the <i>'Default File Permissions'</i> are configured with <i>'Role View Access'</i> and <i>'Role Attach Access'</i> set.  This combination of file permissions means that files that a B user uploads/moves into the C realm will by default be viewable by C and be attachable to nodes that C creates.  A B file owner can manually modify the file permissions of each individual file to hide it or prevent it from being attached to content by a C user.  Likewise the file permissions can be opened so that a C user can edit file attributes or move the file into another sub-directory of C.</li>\n"
+"      </ul>\n"
+"      <p>In the above examples the site administrator may simply create the roles/access rules and then let an A user configure WebFM for B & C.</p>\n"
+"      <h2>Uninstall</h2>\n"
+"      <ol>\n"
+"      <li>Disable the module on the /admin/build/modules page</li>\n"
+"      <li>Click on the uninstall tab and select the module for removal. This will automatically drop  the webfm_file and webfm_attach tables as well as all configuration variables. <i><strong>NOTE:</strong></i> This action will permanently discard all attachment and metedata information and cannot be undone.  Execute the first step only if you wish to restore WebFM later without loss of data.</li>\n"
+"      </ol>\n"
+"      "
+msgstr ""
+
+#: webfm.module:115
+msgid "Enable the Web File Manager."
+msgstr ""
+
+#: webfm.module:131
+msgid "Read full article to view attachments."
+msgstr "Llegir l'article complet per veure els adjunts."
+
+#: webfm.module:256
+msgid "WebFM File Attachments"
+msgstr ""
+
+#: webfm.module:261
+msgid "Attachments"
+msgstr "Adjuncions"
+
+#: webfm.module:490
+msgid "Webfm Attachments"
+msgstr ""
+
+#: webfm.module:491
+msgid "Displays the attachments as table"
+msgstr ""
+
+#: webfm.module:513
+msgid "Disabled"
+msgstr "Inhabilitat"
+
+#: webfm.module:513
+msgid "Enabled"
+msgstr "Habilitat"
+
+#: webfm.module:514
+msgid "Should this content type allow upload & file attachment via WebFM?"
+msgstr ""
+
+#: webfm.module:537
+msgid "Use this file browser to attach files to the current node. Files that you choose to be attached will be shown in the list of attached files above this field."
+msgstr "Utilitza l'explorador de documents per adjuntar nous documents a la fitxa del Punt Òmnia actual."
+
+#: webfm.module:539
+msgid "Once this post is saved the chosen files will be shown attached to the node body."
+msgstr "Un cop guardada la fitxa, els documents es mostraran en la fitxa, en la secció reservada als gestors del web."
+
+#: webfm.module:548
+msgid "Drag attachments to set order.<br />Changes made to the attachments are not permanent until you save this post."
+msgstr "Arrossega els arxius si vols reordenar-los.<br />Els canvis realitzats en aquestos documents adjunts seran operatius després de guardar la fitxa."
+
+#: webfm.module:560
+#: modules/webfm_popup/webfm-popup.tpl.php:15
+msgid "File Browser"
+msgstr "Explorador de documents"
+
+#: webfm.module:574;1835
+msgid "File Upload"
+msgstr "Càrrega de documents"
+
+#: webfm.module:577;1838
+msgid "Uploaded file will be saved to the current directory."
+msgstr "El fitxer carregat es guardarà en el directori actual."
+
+#: webfm.module:619
+msgid "Right-click (Opera: Alt+Left) on files or folders opens the context menu."
+msgstr "Fes un clic dret (Opera: Alt+Esquerra) en els documents o carpetes per obrir el menú contextual."
+
+#: webfm.module:623
+msgid "[<a href=\"@link\">settings...</a>]"
+msgstr "[<a href=\"@link\">configuració...</a>]"
+
+#: webfm.module:625
+msgid "[<a href=\"@link\">more help...</a>]"
+msgstr "[<a href=\"@link\">més ajuda...</a>]"
+
+#: webfm.module:632
+msgid "[<a href=# id=\"webfm-debug-link\">debug</a>]"
+msgstr ""
+
+#: webfm.module:787
+msgid "Save role"
+msgstr "Desa el rol"
+
+#: webfm.module:789
+msgid "The webfm role has been renamed."
+msgstr ""
+
+#: webfm.module:791
+msgid "Delete role"
+msgstr "Suprimeix el rol"
+
+#: webfm.module:797
+msgid "The webfm role has been deleted."
+msgstr ""
+
+#: webfm.module:799
+msgid "Add role"
+msgstr "Afegeix un rol"
+
+#: webfm.module:801
+msgid "The webfm role has been added."
+msgstr ""
+
+#: webfm.module:819
+msgid "The image was resized to fit within the maximum allowed resolution of %resolution pixels."
+msgstr "La imatge s'ha redimensionat per encaixar a la màxima resolució permesa de %resolution píxels."
+
+#: webfm.module:826
+msgid "The image is too large."
+msgstr ""
+
+#: webfm.module:869
+msgid "Permission denied to overwrite existing file"
+msgstr ""
+
+#: webfm.module:888
+msgid "Upload Success"
+msgstr ""
+
+#: webfm.module:896
+msgid "file_move to %path failed"
+msgstr ""
+
+#: webfm.module:910
+msgid "Please click \"Browse\" and select a file to upload before clicking the upload button."
+msgstr ""
+
+#: webfm.module:915
+msgid "Invalid upload path"
+msgstr ""
+
+#: webfm.module:962
+#: modules/webfm_image/webfm_image.module:63
+#: modules/webfm_mp3/webfm_mp3.module:163
+msgid "WebFM root not set"
+msgstr ""
+
+#: webfm.module:992
+msgid "%directorypath root dir not found."
+msgstr ""
+
+#: webfm.module:996
+msgid "Root directory not set for the role: %role."
+msgstr ""
+
+#: webfm.module:1001
+msgid "No root directory set in WebFM settings for this role."
+msgstr ""
+
+#: webfm.module:1020
+msgid "No root directory set in WebFM settings for this group"
+msgstr ""
+
+#: webfm.module:1047
+msgid "No trees found"
+msgstr ""
+
+#: webfm.module:1078
+msgid "unknown tree"
+msgstr ""
+
+#: webfm.module:1086
+msgid "unknown role"
+msgstr ""
+
+#: webfm.module:1101
+msgid "illegal read dir"
+msgstr ""
+
+#: webfm.module:1106
+msgid "%path path does not exist - refresh required"
+msgstr ""
+
+#: webfm.module:1117
+msgid "invalid dir"
+msgstr ""
+
+#: webfm.module:1121;1181;1207;1243;1266;1284;1347;1362;1391;1432;1563;1585;1610
+msgid "insufficient params"
+msgstr ""
+
+#: webfm.module:1164
+msgid "File record %file could not be deleted from the database."
+msgstr ""
+
+#: webfm.module:1169
+msgid "%file could not be deleted"
+msgstr ""
+
+#: webfm.module:1192
+msgid "New_Folder"
+msgstr ""
+
+#: webfm.module:1211;1223;3174
+msgid "Permission denied"
+msgstr ""
+
+#: webfm.module:1235
+msgid "Illegal destination path"
+msgstr ""
+
+#: webfm.module:1239
+msgid "move operation not permitted"
+msgstr ""
+
+#: webfm.module:1262
+msgid "illegal name"
+msgstr ""
+
+#: webfm.module:1315;2248
+msgid "Anonymous"
+msgstr "Anònim"
+
+#: webfm.module:1343;1387;1428
+msgid "file record not found"
+msgstr ""
+
+#: webfm.module:1412
+msgid "Permissions saved"
+msgstr ""
+
+#: webfm.module:1416
+msgid "webfm_dbupdate_file() fail"
+msgstr ""
+
+#: webfm.module:1420
+msgid "invalid permission"
+msgstr ""
+
+#: webfm.module:1484
+msgid "insufficient parameters"
+msgstr ""
+
+#: webfm.module:1505
+msgid "File (%file) path not found"
+msgstr ""
+
+#: webfm.module:1509
+msgid "Invalid permission."
+msgstr ""
+
+#: webfm.module:1513
+msgid "File (%file) record not found"
+msgstr ""
+
+#: webfm.module:1517
+msgid "Insufficient parameters."
+msgstr ""
+
+#: webfm.module:1578
+msgid "webfm_dbdelete_file() success"
+msgstr ""
+
+#: webfm.module:1581
+msgid "file not in db"
+msgstr ""
+
+#: webfm.module:1606
+msgid "invalid file name"
+msgstr ""
+
+#: webfm.module:1618
+msgid "illegal operation"
+msgstr ""
+
+#: webfm.module:1639
+msgid "Upload Cancelled"
+msgstr ""
+
+#: webfm.module:1672;1722
+msgid "Replace-Delete webfm_get_file_record fail"
+msgstr ""
+
+#: webfm.module:1684;1731
+msgid "Replace-Delete update fail"
+msgstr ""
+
+#: webfm.module:1693;1738;1745;1770
+msgid "Upload success"
+msgstr "Document carregat amb èxit"
+
+#: webfm.module:1703;1750
+msgid "file_move fail"
+msgstr ""
+
+#: webfm.module:1779
+msgid "Moving File to %destination failed."
+msgstr ""
+
+#: webfm.module:1858
+msgid "Upload file"
+msgstr "Carrega un document"
+
+#: webfm.module:1859
+msgid "Upload"
+msgstr "Carrega"
+
+#: webfm.module:1876
+msgid "Select File Versioning Option"
+msgstr "Selecciona l'opció per la versió del document"
+
+#: webfm.module:1877
+msgid "A file with the same name has already been uploaded. Please select one of the options in order to proceed."
+msgstr "Ja existeix un document amb el mateix nom. Si us plau, selecciona una de les opcions per poder continuar."
+
+#: webfm.module:1878
+msgid "Replace and rename original copy of %filename"
+msgstr "Substitueix i canvia el nom de la còpia original del %filename"
+
+#: webfm.module:1879
+msgid "Replace and delete original copy of %filename"
+msgstr "Substitueix i elimina la còpia original de %filename"
+
+#: webfm.module:1880
+msgid "Rename new copy of %filename"
+msgstr "Canviar el nom de la teva nova versió de %filename"
+
+#: webfm.module:1881
+#: js/webfm.js:0
+msgid "Cancel"
+msgstr "Cancel·lar"
+
+#: webfm.module:2436
+msgid "anonymous"
+msgstr ""
+
+#: webfm.module:2752
+msgid "No file path supplied"
+msgstr ""
+
+#: webfm.module:2821
+msgid "%filepath could not be inserted into db"
+msgstr ""
+
+#: webfm.module:2833
+msgid "%filepath could not be selected from db"
+msgstr ""
+
+#: webfm.module:2889
+msgid "webfm_dbupdate_file() err: fid=%fid"
+msgstr ""
+
+#: webfm.module:2956
+msgid "%filename exceeds the maximum name length"
+msgstr ""
+
+#: webfm.module:3020
+msgid "%filename has an invalid extension"
+msgstr ""
+
+#: webfm.module:3024
+msgid "%filename exceeds the maximum filesize of %maxfilesize"
+msgstr ""
+
+#: webfm.module:3028
+msgid "%filename exceeds the maximum disk quota of %quota"
+msgstr ""
+
+#: webfm.module:3164
+msgid "User not found."
+msgstr ""
+
+#: webfm.module:3169
+msgid "Invalid data"
+msgstr ""
+
+#: webfm.module:3188
+msgid "Update successful."
+msgstr ""
+
+#: webfm.module:3192
+msgid "Update failed."
+msgstr ""
+
+#: webfm.module:3197
+msgid "Update not necessary."
+msgstr ""
+
+#: webfm.module:3203
+msgid "Permission denied."
+msgstr ""
+
+#: webfm.module:3207
+msgid "File not found."
+msgstr ""
+
+#: webfm.module:3241
+msgid "Query Failed: Could not delete file %fid ."
+msgstr ""
+
+#: webfm.module:3345
+msgid "File is already attached to this %t."
+msgstr ""
+
+#: webfm.module:3353
+msgid "Query Failed:  Could not attach files to %t %n"
+msgstr ""
+
+#: webfm.module:3375
+msgid "Failed to remove file attachments for deleted %type %id"
+msgstr ""
+
+#: webfm.module:3393
+msgid "Query Failed: Could not detach file %fid from node %nid"
+msgstr ""
+
+#: webfm.module:3436
+msgid "Filename"
+msgstr ""
+
+#: webfm.module:3437
+msgid "File Id"
+msgstr ""
+
+#: webfm.module:3438
+msgid "Full folder Path as seen in webfm"
+msgstr ""
+
+#: webfm.module:3490
+msgid "Web File Manager path settings"
+msgstr ""
+
+#: webfm.module:3491
+msgid "Pattern for webfm files paths"
+msgstr ""
+
+#: webfm.module:3492
+msgid "webfm_send/[webfmid]"
+msgstr ""
+
+#: webfm.module:3498
+msgid "Bulk generate aliases for webfm files that are not aliased"
+msgstr ""
+
+#: webfm.module:3499
+msgid "Generate aliases for all existing webfm files which do not already have aliases."
+msgstr ""
+
+#: webfm.module:3576
+msgid "Access Denied."
+msgstr ""
+
+#: webfm.module:3583
+msgid "The WebFM root directory must be set in the admin settings."
+msgstr ""
+
+#: webfm.module:3613
+msgid "Invalid column name, %name, specified."
+msgstr ""
+
+#: webfm.module:286;288
+msgid "cron"
+msgstr "cron"
+
+#: webfm.module:286
+msgid "WebFM file insertion errors."
+msgstr ""
+
+#: webfm.module:288
+msgid "WebFM inserted %num files."
+msgstr ""
+
+#: webfm.module:129
+msgid "1 attachment"
+msgid_plural "@count attachments"
+msgstr[0] "1 adjunt"
+msgstr[1] "@count adjunts"
+
+#: webfm.module:3527
+msgid "Bulk generation of webfm file path completed, one alias generated."
+msgid_plural "Bulk generation of webfm file paths completed, @count aliases generated."
+msgstr[0] ""
+msgstr[1] ""
+
+#: webfm.module:153
+msgid "access webfm"
+msgstr ""
+
+#: webfm.module:153
+msgid "view webfm attachments"
+msgstr ""
+
+#: webfm.module:153
+msgid "administer webfm"
+msgstr ""
+
+#: webfm.module:153
+msgid "webfm upload"
+msgstr ""
+
+#: webfm.module:163;170;228;235
+#: webfm.info:0
+#: modules/webfm_popup/webfm_popup.module:55
+msgid "Web File Manager"
+msgstr ""
+
+#: webfm.module:171;181
+msgid "Configure root directories, default file permissions for uploads, upload size limits, attachments, permitted file extensions and formatting."
+msgstr ""
+
+#: webfm.module:180;191
+msgid "Settings"
+msgstr ""
+
+#: webfm.module:196;206
+msgid "Permissions"
+msgstr ""
+
+#: webfm.module:197;207
+msgid "Configure root directories, default file permissions for uploads, upload size limits, attachments, permitted file extensions for the roles."
+msgstr ""
+
+#: webfm.module:217
+msgid "Style"
+msgstr ""
+
+#: webfm.module:218
+msgid "Configure the WebFM display style."
+msgstr ""
+
+#: webfm.module:242
+msgid "File Not Found"
+msgstr ""
+
+#: webfm.info:0
+msgid "Hierarchical AJAX file system manager"
+msgstr ""
+
+#: webfm.info:0
+#: modules/webfm_image/webfm_image.info:0
+#: modules/webfm_ipfolder/webfm_ipfolder.info:0
+#: modules/webfm_mp3/webfm_mp3.info:0
+#: modules/webfm_popup/webfm_popup.info:0
+msgid "WebFM"
+msgstr ""
+
+#: js/webfm.js:0
+msgid "Create New Dir"
+msgstr ""
+
+#: js/webfm.js:0
+msgid "file"
+msgstr "fitxer"
+
+#: js/webfm.js:0
+msgid "directory"
+msgstr ""
+
+#: js/webfm.js:0
+msgid "File"
+msgstr ""
+
+#: js/webfm.js:0
+msgid "Directory"
+msgstr ""
+
+#: js/webfm.js:0
+msgid "Working... please wait"
+msgstr "Treballant... Espera si us plau!"
+
+#: js/webfm.js:0
+msgid "refresh"
+msgstr "refrescar"
+
+#: js/webfm.js:0
+msgid "sort by this column"
+msgstr "ordenar per aquesta columna"
+
+#: js/webfm.js:0
+msgid "Create New Folder"
+msgstr ""
+
+#: js/webfm.js:0
+msgid "Add files in this folder to database"
+msgstr ""
+
+#: js/webfm.js:0
+msgid "Recursive add files to database"
+msgstr ""
+
+#: js/webfm.js:0
+msgid "Name"
+msgstr "Nom"
+
+#: js/webfm.js:0
+msgid "Modified"
+msgstr "Creació/Última actualització"
+
+#: js/webfm.js:0
+msgid "Owner"
+msgstr "Propietari"
+
+#: js/webfm.js:0
+msgid "Attached Files"
+msgstr "Documents adjunts"
+
+#: js/webfm.js:0
+msgid "File Meta Data"
+msgstr "Editar les metadades del document"
+
+#: js/webfm.js:0
+msgid "File Search"
+msgstr ""
+
+#: js/webfm.js:0
+msgid "WebFM Debug"
+msgstr ""
+
+#: js/webfm.js:0
+msgid "Directory Cache"
+msgstr ""
+
+#: js/webfm.js:0
+msgid "Search current directory (see listing breadcrumb trail)"
+msgstr ""
+
+#: js/webfm.js:0
+msgid "No match found"
+msgstr ""
+
+#: js/webfm.js:0
+msgid "Search"
+msgstr "Cerca"
+
+#: js/webfm.js:0
+msgid "Submit"
+msgstr "Desa"
+
+#: js/webfm.js:0
+msgid "Reset"
+msgstr "Reinicia"
+
+#: js/webfm.js:0
+msgid "Clear"
+msgstr ""
+
+#: js/webfm.js:0
+msgid "Close"
+msgstr ""
+
+#: js/webfm.js:0
+msgid "Resize"
+msgstr ""
+
+#: js/webfm.js:0
+msgid "Replace and Version original copy of "
+msgstr ""
+
+#: js/webfm.js:0
+msgid "Replace and Delete original copy of "
+msgstr ""
+
+#: js/webfm.js:0
+msgid "Version new copy of "
+msgstr ""
+
+#: js/webfm.js:0
+msgid "Cache Content"
+msgstr ""
+
+#: js/webfm.js:0
+msgid "current directory undefined"
+msgstr ""
+
+#: js/webfm.js:0
+msgid "server is unreachable"
+msgstr ""
+
+#: js/webfm.js:0
+msgid "move operation fail"
+msgstr ""
+
+#: js/webfm.js:0
+msgid "Too long"
+msgstr ""
+
+#: js/webfm.js:0
+msgid "Do you want to delete the "
+msgstr ""
+
+#: js/webfm.js:0
+msgid " and all its contents"
+msgstr ""
+
+#: js/webfm.js:0
+msgid "Do you want to detach "
+msgstr ""
+
+#: js/webfm.js:0
+msgid "Do you want to remove "
+msgstr ""
+
+#: js/webfm.js:0
+msgid ""
+" from the database?\n"
+"     All metadata and attachments for this file will be lost"
+msgstr ""
+
+#: js/webfm.js:0
+msgid "Do you want to add all files of this directory into the database?"
+msgstr ""
+
+#: js/webfm.js:0
+msgid "Do you want to add all files of this directory and sub-directories into the database?"
+msgstr ""
+
+#: js/webfm.js:0
+msgid "download file"
+msgstr ""
+
+#: js/webfm.js:0
+msgid "file not in database"
+msgstr ""
+
+#: js/webfm.js:0
+msgid " files inserted into db"
+msgstr ""
+
+#: js/webfm.js:0
+msgid " files failed to insert into db"
+msgstr ""
+
+#: js/webfm.js:0
+msgid "Metadata"
+msgstr "Metadades"
+
+#: js/webfm.js:0
+msgid "correct input"
+msgstr ""
+
+#: js/webfm.js:0
+msgid "File Permissions"
+msgstr ""
+
+#: js/webfm.js:0
+msgid "No files attached."
+msgstr "No hi han documents adjunts."
+
+#: js/webfm.js:0
+msgid "fid"
+msgstr ""
+
+#: js/webfm.js:0
+msgid "uid"
+msgstr ""
+
+#: js/webfm.js:0
+msgid "file owner"
+msgstr "propietari del document"
+
+#: js/webfm.js:0
+msgid "name"
+msgstr "nom"
+
+#: js/webfm.js:0
+msgid "title"
+msgstr "titul"
+
+#: js/webfm.js:0
+msgid "description"
+msgstr "descripció"
+
+#: js/webfm.js:0
+msgid "language"
+msgstr "idioma"
+
+#: js/webfm.js:0
+msgid "publisher"
+msgstr "editor"
+
+#: js/webfm.js:0
+msgid "format"
+msgstr "format"
+
+#: js/webfm.js:0
+msgid "version"
+msgstr "versió"
+
+#: js/webfm.js:0
+msgid "image type"
+msgstr "tipus d'imatge"
+
+#: js/webfm.js:0
+msgid "width"
+msgstr "amplada"
+
+#: js/webfm.js:0
+msgid "height"
+msgstr "alçada"
+
+#: js/webfm.js:0
+msgid "downloads"
+msgstr "descarregues"
+
+#: js/webfm.js:0
+msgid "link"
+msgstr "enllaç"
+
+#: js/webfm.js:0
+msgid "Public download"
+msgstr ""
+
+#: js/webfm.js:0
+msgid "Role View/Download"
+msgstr ""
+
+#: js/webfm.js:0
+msgid "Role Attach"
+msgstr ""
+
+#: js/webfm.js:0
+msgid "Create Subdirectory"
+msgstr ""
+
+#: js/webfm.js:0
+msgid "Delete Directory"
+msgstr ""
+
+#: js/webfm.js:0
+msgid "Delete File"
+msgstr "Eliminar document"
+
+#: js/webfm.js:0
+msgid "Rename Directory"
+msgstr ""
+
+#: js/webfm.js:0
+msgid "Search Directory"
+msgstr "Cerca al Directori"
+
+#: js/webfm.js:0
+msgid "Rename File"
+msgstr "Canviar el nom del document"
+
+#: js/webfm.js:0
+msgid "File meta data"
+msgstr "Editar les metadades"
+
+#: js/webfm.js:0
+msgid "Attach to Node"
+msgstr "Lligar el document a la fitxa"
+
+#: js/webfm.js:0
+msgid "Detach from Node"
+msgstr "Deslligar el document de la fitxa"
+
+#: js/webfm.js:0
+msgid "Download as file"
+msgstr "Descarregar"
+
+#: js/webfm.js:0
+msgid "View file"
+msgstr "Visualitzar document"
+
+#: js/webfm.js:0
+msgid "Add file to database"
+msgstr ""
+
+#: js/webfm.js:0
+msgid "Remove file from database"
+msgstr ""
+
+#: js/webfm.js:0
+msgid "File permissions"
+msgstr ""
+
+#: js/webfm.js:0
+msgid "Paste link in editor window"
+msgstr ""
+
+#: js/webfm.js:0;0
+msgid "Creating Menu failed. \n"
+msgstr ""
+
+#: js/webfm.js:0
+msgid ""
+"An error occurred:\n"
+"\n"
+msgstr ""
+
+#: modules/webfm_example_listing/webfm_example_listing.module:22
+msgid "WebFM File Listing Example"
+msgstr ""
+
+#: modules/webfm_example_listing/webfm_example_listing.module:37
+msgid "WebFM Example File Listing"
+msgstr ""
+
+#: modules/webfm_example_listing/webfm_example_listing.module:44
+msgid "Example File Listing"
+msgstr ""
+
+#: modules/webfm_example_listing/webfm_example_listing.module:52
+msgid "File listing path (Must be within webfm root)"
+msgstr ""
+
+#: modules/webfm_example_listing/webfm_example_listing.module:56
+msgid "Path to file directory."
+msgstr ""
+
+#: modules/webfm_example_listing/webfm_example_listing.module:65
+msgid "The WebFM root path is not set. Goto <a href=\"@link\">admin/settings/webfm</a>"
+msgstr ""
+
+#: modules/webfm_example_listing/webfm_example_listing.module:73
+msgid "The %file directory does not exist."
+msgstr ""
+
+#: modules/webfm_example_listing/webfm_example_listing.module:105
+msgid "WebFM root dir does not exist"
+msgstr ""
+
+#: modules/webfm_example_listing/webfm_example_listing.module:110
+msgid "Listing directory not set. Goto <a href=\"@link\">admin/settings/webfm_example_listing</a>"
+msgstr ""
+
+#: modules/webfm_example_listing/webfm_example_listing.module:119
+msgid "%dir is not a directory"
+msgstr ""
+
+#: modules/webfm_example_listing/webfm_example_listing.module:129
+msgid "No access to files"
+msgstr ""
+
+#: modules/webfm_example_listing/webfm_example_listing.module:15
+msgid "Set file listing directory"
+msgstr ""
+
+#: modules/webfm_image/webfm_image.admin.inc:13
+msgid "No image toolkit is currently enabled and therefore this module will not be able to resize your images. You can select one from the <a href=\"!link\">image toolkit settings page</a>."
+msgstr ""
+
+#: modules/webfm_image/webfm_image.admin.inc:22
+msgid "WebFM Image sizes"
+msgstr ""
+
+#: modules/webfm_image/webfm_image.admin.inc:25
+msgid "Create various pixel dimensions (\"thumbnail\" is required).<br />For each Label and dimension you enter a new \"right-click\" menu option will become available in WebFM for image files.<br />Clicking the menu item with resize the image based on these settings."
+msgstr ""
+
+#: modules/webfm_image/webfm_image.admin.inc:80
+msgid "You must specify width (integer)."
+msgstr ""
+
+#: modules/webfm_image/webfm_image.admin.inc:83
+msgid "Width is not an integer."
+msgstr ""
+
+#: modules/webfm_image/webfm_image.admin.inc:87
+msgid "You must specify height (integer)."
+msgstr ""
+
+#: modules/webfm_image/webfm_image.admin.inc:90
+msgid "Height is not an integer."
+msgstr ""
+
+#: modules/webfm_image/webfm_image.admin.inc:126
+#: views/webfm_views_handler_file_meta.inc:28
+#: views/webfm_views_handler_file_name.inc:40
+msgid "Label"
+msgstr ""
+
+#: modules/webfm_image/webfm_image.admin.inc:126
+msgid "Width"
+msgstr ""
+
+#: modules/webfm_image/webfm_image.admin.inc:126
+msgid "Height"
+msgstr ""
+
+#: modules/webfm_image/webfm_image.module:23
+msgid "WebFM image"
+msgstr ""
+
+#: modules/webfm_image/webfm_image.module:16
+#: modules/webfm_image/webfm_image.info:0
+msgid "WebFM Image"
+msgstr ""
+
+#: modules/webfm_image/webfm_image.module:24
+msgid "Set context menu items for image resize."
+msgstr ""
+
+#: modules/webfm_image/webfm_image.info:0
+msgid "Extends the WebFM contextmenu for resizing image files"
+msgstr ""
+
+#: modules/webfm_ipfolder/webfm_ipfolder.admin.inc:19
+msgid "Current IP authenticated folders"
+msgstr ""
+
+#: modules/webfm_ipfolder/webfm_ipfolder.admin.inc:20
+msgid "Instructions:"
+msgstr ""
+
+#: modules/webfm_ipfolder/webfm_ipfolder.admin.inc:21
+msgid "Click on an ip range to modify the authenticator assignment."
+msgstr ""
+
+#: modules/webfm_ipfolder/webfm_ipfolder.admin.inc:22
+msgid "The title fields are sortable."
+msgstr ""
+
+#: modules/webfm_ipfolder/webfm_ipfolder.admin.inc:23
+msgid "Your IP: @s"
+msgstr ""
+
+#: modules/webfm_ipfolder/webfm_ipfolder.admin.inc:25
+msgid "Please note that users with the <em>administer webfm</em> rights will be able to download the files anyway."
+msgstr ""
+
+#: modules/webfm_ipfolder/webfm_ipfolder.admin.inc:33
+msgid "IP Range"
+msgstr ""
+
+#: modules/webfm_ipfolder/webfm_ipfolder.admin.inc:34
+msgid "Folder"
+msgstr ""
+
+#: modules/webfm_ipfolder/webfm_ipfolder.admin.inc:49
+msgid "Delete"
+msgstr "Esborrar"
+
+#: modules/webfm_ipfolder/webfm_ipfolder.admin.inc:58
+msgid "There are no folders or IPs to list."
+msgstr ""
+
+#: modules/webfm_ipfolder/webfm_ipfolder.admin.inc:63;139;257
+msgid "WebFile manager IP based folder access"
+msgstr ""
+
+#: modules/webfm_ipfolder/webfm_ipfolder.admin.inc:71;147
+msgid "Start of IP range"
+msgstr ""
+
+#: modules/webfm_ipfolder/webfm_ipfolder.admin.inc:73;79;149;156
+msgid "It is not possible to use wildcards."
+msgstr ""
+
+#: modules/webfm_ipfolder/webfm_ipfolder.admin.inc:77;154
+msgid "End of IP range"
+msgstr ""
+
+#: modules/webfm_ipfolder/webfm_ipfolder.admin.inc:79
+msgid "Leave empty for single IP matching of ip1"
+msgstr ""
+
+#: modules/webfm_ipfolder/webfm_ipfolder.admin.inc:83;161
+msgid "Name of folder"
+msgstr ""
+
+#: modules/webfm_ipfolder/webfm_ipfolder.admin.inc:85;163
+msgid "Provide folder name as it is provided through webfm."
+msgstr ""
+
+#: modules/webfm_ipfolder/webfm_ipfolder.admin.inc:102;125
+msgid "Please select your IP-Range again"
+msgstr ""
+
+#: modules/webfm_ipfolder/webfm_ipfolder.admin.inc:190
+msgid "You must enter an ip address in the first field."
+msgstr ""
+
+#: modules/webfm_ipfolder/webfm_ipfolder.admin.inc:194
+msgid "You must enter an ip address in the second field or leave it empty."
+msgstr ""
+
+#: modules/webfm_ipfolder/webfm_ipfolder.admin.inc:198
+msgid "You must enter a folder."
+msgstr ""
+
+#: modules/webfm_ipfolder/webfm_ipfolder.admin.inc:264
+msgid "Default behavior"
+msgstr ""
+
+#: modules/webfm_ipfolder/webfm_ipfolder.admin.inc:266
+msgid "Block access to all folders, but not to IP/folder-Pairs specifed."
+msgstr ""
+
+#: modules/webfm_ipfolder/webfm_ipfolder.admin.inc:266
+msgid "Allow access to all folders, but restrict access for the IP/folder-Pairs as specified."
+msgstr ""
+
+#: modules/webfm_ipfolder/webfm_ipfolder.module:14
+msgid "This module extends the Web File Manager. It allows to block or allow certain IP Ranges access to specified folders. <br /> In the !configuration you can provide IP Ranges and folder names.<br /> Depending on your !settings the selected IP Range will be allowed or blocked. By default it <b>blocks</b> access to all folders."
+msgstr ""
+
+#: modules/webfm_ipfolder/webfm_ipfolder.module:14
+msgid "configuration"
+msgstr ""
+
+#: modules/webfm_ipfolder/webfm_ipfolder.module:14
+msgid "settings"
+msgstr "configuració"
+
+#: modules/webfm_ipfolder/webfm_ipfolder.module:16
+msgid "Enable the Web File Manager Extension to allow IP based folder blocking."
+msgstr ""
+
+#: modules/webfm_ipfolder/webfm_ipfolder.module:80
+msgid "WebFM IP based folder access -- Modify"
+msgstr ""
+
+#: modules/webfm_ipfolder/webfm_ipfolder.module:89
+msgid "WebFM IP based folder access -- Delete"
+msgstr ""
+
+#: modules/webfm_ipfolder/webfm_ipfolder.module:71;98
+msgid "IP based folder access"
+msgstr ""
+
+#: modules/webfm_ipfolder/webfm_ipfolder.module:72
+msgid "Configure IP based folder access."
+msgstr ""
+
+#: modules/webfm_ipfolder/webfm_ipfolder.module:99
+msgid "Configure IP based folder access - default behavior"
+msgstr ""
+
+#: modules/webfm_ipfolder/webfm_ipfolder.info:0
+msgid "WebFM IP Folder"
+msgstr ""
+
+#: modules/webfm_ipfolder/webfm_ipfolder.info:0
+msgid "Blocking/Allowing of users based upon their IP."
+msgstr ""
+
+#: modules/webfm_mp3/webfm_mp3.module:15
+msgid ""
+"The WordPress Standalone Audio Player must be downloaded from <a href=\"http://wpaudioplayer.com/download\">http://wpaudioplayer.com/download</a>\n"
+"                          and the audio-player.js and player.swf files copied to the ...\\webfm\\modules\\webfm_mp3\\mp3player directory."
+msgstr ""
+
+#: modules/webfm_mp3/webfm_mp3.module:28
+msgid "%file1 or %file2 were not found in %directory, download the <a href=\"http://wpaudioplayer.com/download\">standalone WordPress Audio Player</a>."
+msgstr ""
+
+#: modules/webfm_mp3/webfm_mp3.module:54
+msgid "WebFM Mp3 Player"
+msgstr ""
+
+#: modules/webfm_mp3/webfm_mp3.module:71
+msgid "WebFM Mp3 Player Options"
+msgstr ""
+
+#: modules/webfm_mp3/webfm_mp3.module:73
+msgid "Config the WordPress standalone Audio Player."
+msgstr ""
+
+#: modules/webfm_mp3/webfm_mp3.module:78
+msgid "Auto-start"
+msgstr ""
+
+#: modules/webfm_mp3/webfm_mp3.module:80;87
+msgid "No"
+msgstr "No"
+
+#: modules/webfm_mp3/webfm_mp3.module:80;87
+msgid "Yes"
+msgstr "Si"
+
+#: modules/webfm_mp3/webfm_mp3.module:81
+msgid "If yes, player starts automatically."
+msgstr ""
+
+#: modules/webfm_mp3/webfm_mp3.module:85
+msgid "Loop Audio"
+msgstr ""
+
+#: modules/webfm_mp3/webfm_mp3.module:88
+msgid "If yes, player loops audio."
+msgstr ""
+
+#: modules/webfm_mp3/webfm_mp3.module:92
+msgid "Initial Volume"
+msgstr ""
+
+#: modules/webfm_mp3/webfm_mp3.module:96
+msgid "Initial volume level (from 0 to 100)."
+msgstr ""
+
+#: modules/webfm_mp3/webfm_mp3.module:100
+msgid "Buffer Time"
+msgstr ""
+
+#: modules/webfm_mp3/webfm_mp3.module:104
+msgid "Buffering time in seconds."
+msgstr ""
+
+#: modules/webfm_mp3/webfm_mp3.module:108
+msgid "Player Width"
+msgstr ""
+
+#: modules/webfm_mp3/webfm_mp3.module:112
+msgid "Width of the player in pixels."
+msgstr ""
+
+#: modules/webfm_mp3/webfm_mp3.module:126
+msgid "Volume must be between 0 and 100."
+msgstr ""
+
+#: modules/webfm_mp3/webfm_mp3.module:129
+msgid "Buffer must be an integer."
+msgstr ""
+
+#: modules/webfm_mp3/webfm_mp3.module:132
+msgid "Width must be an integer."
+msgstr ""
+
+#: modules/webfm_mp3/webfm_mp3.module:175
+msgid "Mp3 Player"
+msgstr ""
+
+#: modules/webfm_mp3/webfm_mp3.module:181;186
+msgid "WordPress standalone Audio Player not found"
+msgstr ""
+
+#: modules/webfm_mp3/webfm_mp3.module:204
+msgid "access denied"
+msgstr "accés denegat"
+
+#: modules/webfm_mp3/webfm_mp3.module:207
+msgid "unknown file"
+msgstr ""
+
+#: modules/webfm_mp3/webfm_mp3.module:213
+msgid "unknown operation"
+msgstr ""
+
+#: modules/webfm_mp3/webfm_mp3.module:47
+#: modules/webfm_mp3/webfm_mp3.info:0
+msgid "WebFM mp3"
+msgstr ""
+
+#: modules/webfm_mp3/webfm_mp3.module:55
+msgid "Configure the WordPress standalone Audio Player."
+msgstr ""
+
+#: modules/webfm_mp3/webfm_mp3.info:0
+msgid "Extends the WebFM contextmenu for mp3 playback"
+msgstr ""
+
+#: modules/webfm_popup/webfm_popup.module:131
+msgid "editor"
+msgstr ""
+
+#: modules/webfm_popup/webfm_popup.module:141;154;166
+msgid "webfm_popup"
+msgstr ""
+
+#: modules/webfm_popup/webfm_popup.info:0
+msgid "WebFM Popup"
+msgstr ""
+
+#: modules/webfm_popup/webfm_popup.info:0
+msgid "Places the WebFM browser into a popup window for Rich Text Editors"
+msgstr ""
+
+#: modules/webfm_popup/webfm_popup.js:0
+msgid "Send to rich text editor"
+msgstr ""
+
+#: views/webfm.views.inc:63
+msgid "Node ID"
+msgstr ""
+
+#: views/webfm.views.inc:74
+msgid "node"
+msgstr "node"
+
+#: views/webfm.views.inc:78;96
+msgid "File ID"
+msgstr ""
+
+#: views/webfm.views.inc:86;89
+msgid "WebFM Files"
+msgstr ""
+
+#: views/webfm.views.inc:105
+msgid "User ID"
+msgstr ""
+
+#: views/webfm.views.inc:117
+msgid "user"
+msgstr "usuari"
+
+#: views/webfm.views.inc:121
+msgid "File by Name/Title."
+msgstr ""
+
+#: views/webfm.views.inc:127
+#: views/webfm_views_handler_file_meta.inc:36
+#: views/webfm_views_handler_file_name.inc:48
+msgid "With links"
+msgstr ""
+
+#: views/webfm.views.inc:128
+#: views/webfm_views_handler_file_meta.inc:37
+#: views/webfm_views_handler_file_name.inc:49
+msgid "Without links"
+msgstr ""
+
+#: views/webfm.views.inc:140
+msgid "Display a the file name or title. Metadata title is used where present when 'Display metadata title' checked in settings."
+msgstr ""
+
+#: views/webfm.views.inc:143
+msgid "File path"
+msgstr ""
+
+#: views/webfm.views.inc:157
+msgid "Display the path of the file"
+msgstr ""
+
+#: views/webfm.views.inc:160
+msgid "File Size"
+msgstr ""
+
+#: views/webfm.views.inc:174
+msgid "Display the size of the file"
+msgstr ""
+
+#: views/webfm.views.inc:177
+msgid "Mime/Type"
+msgstr ""
+
+#: views/webfm.views.inc:191
+msgid "Display the mime/type of the file"
+msgstr ""
+
+#: views/webfm.views.inc:194
+msgid "File Creation Date"
+msgstr ""
+
+#: views/webfm.views.inc:208
+msgid "Display the date of files that have been attached to a node via WebFM"
+msgstr ""
+
+#: views/webfm.views.inc:211
+msgid "Title"
+msgstr "Títol"
+
+#: views/webfm.views.inc:225
+msgid "Display the file title of files that have been attached to a node via WebFM (with or without links to the files themselves)"
+msgstr ""
+
+#: views/webfm.views.inc:228
+msgid "File Description"
+msgstr ""
+
+#: views/webfm.views.inc:242
+msgid "Display the description of files that have been attached to a node via WebFM"
+msgstr ""
+
+#: views/webfm.views.inc:245
+msgid "File Language"
+msgstr ""
+
+#: views/webfm.views.inc:259
+msgid "Display the language of files that have been attached to a node via WebFM"
+msgstr ""
+
+#: views/webfm.views.inc:262
+msgid "File Publisher"
+msgstr ""
+
+#: views/webfm.views.inc:276;293
+msgid "Display the publisher of files that have been attached to a node via WebFM"
+msgstr ""
+
+#: views/webfm.views.inc:279
+msgid "Download Count"
+msgstr ""
+
+#: views/webfm_views_handler_file_meta.inc:30
+#: views/webfm_views_handler_file_name.inc:42
+msgid "The label for this field that will be displayed to end users if the style requires it."
+msgstr ""
+
+#: views/webfm_views_handler_file_meta.inc:34
+#: views/webfm_views_handler_file_name.inc:46
+msgid "Output Mode"
+msgstr ""
+

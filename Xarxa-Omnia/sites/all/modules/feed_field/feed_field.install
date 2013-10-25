@@ -1,0 +1,48 @@
+<?php
+
+/**
+ * 'Safe' version of content_types() to use in updates and installs.
+ *
+ * Can't safely use content_fields() or content_types() in an update to get
+ * a fields array, especially without knowing what field modules are enabled,
+ * or the current state of the database and cache, so create a fields array
+ * from database info that is limited to fields from modules that are
+ * currently enabled.
+ */
+function feed_field_install() {
+  drupal_install_schema('feed_field');
+  
+}
+ 
+function feed_field_uninstall() {
+  drupal_uninstall_schema('feed_field');
+}
+
+function feed_field_schema() {
+  $schema['feed_field_settings'] = array(
+    'fields' => array(
+      'id' => array('type' => 'serial'),
+      'nid' => array('type' => 'int'),
+      'url' => array('type' => 'varchar', 'length' => 255, 'not null' => TRUE),
+      'delta' => array('type' => 'int'),
+      'modified' => array('type' => 'varchar', 'length' => 50, 'not null' => TRUE),
+    ),
+    'primary key' => array('id'),
+  );
+  $schema['feed_field_items'] = array(
+    'fields' => array(
+      'id' => array('type' => 'serial'),
+      'title' => array('type' => 'varchar', 'length' => 255, 'not null' => TRUE),
+      'link' => array('type' => 'varchar', 'length' => 255, 'not null' => TRUE),
+      'author' => array('type' => 'varchar', 'length' => 255, 'not null' => FALSE),
+      'description' => array('type' => 'text', 'not null' => FALSE),
+      'timestamp' => array('type' => 'int', 'not null' => FALSE),
+      'guid' => array('type' => 'varchar', 'length' => 255, 'not null' => FALSE),
+      'ff_id' => array('type' => 'int'),
+    ),
+    'primary key' => array('id'),
+  );
+  
+  return $schema;
+}
+?>

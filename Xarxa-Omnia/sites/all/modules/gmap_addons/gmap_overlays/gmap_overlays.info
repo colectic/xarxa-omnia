@@ -1,0 +1,12 @@
+name = GMap Overlays
+description = Misc. overlays for gmap.
+package = Location
+core = 6.x
+dependencies[] = gmap
+
+; Information added by drupal.org packaging script on 2011-03-30
+version = "6.x-1.x-dev"
+core = "6.x"
+project = "gmap_addons"
+datestamp = "1301443753"
+

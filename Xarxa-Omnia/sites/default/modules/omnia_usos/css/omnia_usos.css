@@ -1,0 +1,129 @@
+.page-estadistiques-omnia .contingut-central {width: 80% !important }
+.page-estadistiques-omnia #contingut-central-inner { width: 100% !important; max-width: none;}
+.page-estadistiques-omnia #page {min-width: 1124px;}
+.page-estadistiques-omnia table {font-size: 1em;}
+
+
+/********** NODE ÚS *************/
+.node-type-omnia-usos-type .field-field-punt-omnia { display: none;}
+.node-type-omnia-usos-type #dades_us h2{ margin-top: 15px;}
+.node-type-omnia-usos-type #dades_us table.medsize { width: 50%;}
+.node-type-omnia-usos-type #dades_us table.fullsize { width: 100%;}
+/* #pid-node-add-omnia-usos-type #edit-enddate-datepicker-popup-0-wrapper { display:none} */
+#pid-node-add-omnia-usos-type #edit-group-wrapper { margin-top:15px !important}
+#pid-node-add-omnia-usos-type #edit-campaign-wrapper { margin-bottom:15px !important}
+.node-type-omnia-usos-type #edit-activity { margin-bottom:15px !important}
+/* .node-type-omnia-usos-type #edit-enddate-datepicker-popup-0-wrapper { display:none} */
+.node-type-omnia-usos-type #edit-group-wrapper { margin-top:15px !important}
+.node-type-omnia-usos-type #edit-campaign-wrapper { margin-bottom:15px !important}
+#omnia-usos-user-item-wrapper div.form-item { margin-bottom:5px !important}
+#omnia-usos-user-item-wrapper input { border: 1px solid #006699;}
+.node-type-omnia-usos-type input.omnia_usos_activity_hidden { display: none}
+.node-type-omnia-usos-type #edit-activity-wrapper { margin-bottom:15px !important}
+#pid-node-add-omnia-usos-type #edit-activity-wrapper { margin-bottom:15px !important}
+#pid-node-add-omnia-usos-type #edit-activity-wrapper input { border: 1px solid #006699;}
+#pid-node-add-omnia-usos-type input#edit-delete { display: none}
+
+/********** PÀGINA USOS ***********/
+.page-estadistiques-omnia .usos-omnia table.medsize { width: 75%;}
+.page-estadistiques-omnia .usos-omnia th { text-align: center; padding: 5px 3px;}
+.page-estadistiques-omnia .usos-omnia td { text-align: center; padding: 5px 3px;}
+.page-estadistiques-omnia .usos-omnia .th1 { width: 15%; text-align: left;}
+.page-estadistiques-omnia .usos-omnia .td1 { vertical-align: top; padding-top: 7px; text-align: left;}
+.page-estadistiques-omnia .usos-omnia .th2 { width: 5%}
+.page-estadistiques-omnia .usos-omnia .th3 { width: 30%}
+.page-estadistiques-omnia .usos-omnia .th4 { width: 10%}
+.page-estadistiques-omnia .usos-omnia .th5 { width: 15%}
+.page-estadistiques-omnia .usos-omnia .icon {margin-right: 2px !important}
+.page-estadistiques-omnia h3 { font-weight: bold; margin: 20px 0 10px;}
+.page-estadistiques-omnia h2 { margin-bottom: 0px !important}
+.page-estadistiques-omnia .groupoff {display: none}
+.page-estadistiques-omnia .rowsbutton {	background-color: white; border-bottom: 2px solid #000000 !important; border-top: 2px solid #000000 !important; padding-right: 20px;}
+.page-estadistiques-omnia .rowsbutton a {cursor: pointer;}
+
+/********** DADES ACTIVITAT ************/
+.node-type-activitat-omnia table.medsize { width: 50%;}
+#pid-node-add-activitat-omnia div#content-help { display:none;}
+.node-type-activitat-omnia div#content-help { display:none;}
+#edit-field-activitat-omnia-durada-0-value-wrapper { margin-top:15px !important}
+#edit-field-activitat-omnia-sessions-0-value-wrapper { margin-bottom:15px !important}
+#edit-field-activitat-omnia-estrat-value-wrapper { margin-bottom:15px !important}
+#edit-field-activitat-omnia-places-0-value-wrapper { margin-bottom:15px !important}
+#edit-field-activitat-omnia-obs-0-value-wrapper { margin-top:15px !important}
+
+/********** PÀGINA ACTIVITATS ***********/
+.page-estadistiques-omnia .activitats-omnia th { text-align: center; padding: 5px 3px;}
+.page-estadistiques-omnia .activitats-omnia td { text-align: center; padding: 5px 3px;}
+.page-estadistiques-omnia .activitats-omnia .th1 { text-align: left}
+.page-estadistiques-omnia .activitats-omnia .td1 { text-align: left}
+
+/********** DADES ENTITAT ************/
+.node-type-entitat-omnia table.medsize { width: 50%;}
+#pid-node-add-entitat-omnia div#content-help { display:none;}
+.node-type-entitat-omnia div#content-help { display:none;}
+#edit-field-entitat-omnia-tipus-value-wrapper { margin:15px 0 !important }
+#edit-field-entitat-omnia-contacte-0-value { margin-bottom:15px !important }
+#edit-field-entitat-omnia-frequencia-value-wrapper { margin:15px 0 !important}
+
+/********** PÀGINA ENTITATS ***********/
+.page-estadistiques-omnia .entitats-omnia th { text-align: center; padding: 5px 3px;}
+.page-estadistiques-omnia .entitats-omnia td { text-align: center; padding: 5px 3px;}
+.page-estadistiques-omnia .entitats-omnia .th1 { text-align: left}
+.page-estadistiques-omnia .entitats-omnia .td1 { text-align: left}
+/*.page-estadistiques-omnia .entitats-omnia .th1 { width: 15%}
+.page-estadistiques-omnia .entitats-omnia .th3 { width: 15%}
+.page-estadistiques-omnia .entitats-omnia .th4 { width: 10%}
+.page-estadistiques-omnia .entitats-omnia .th5 { width: 10%}
+.page-estadistiques-omnia .entitats-omnia .th6 { width: 10%}*/
+
+/********** DADES USUARI ************/
+.node-type-usuari-omnia table.medsize { width: 50%;}
+#pid-node-add-usuari-omnia div#content-help { display:none;}
+.node-type-usuari-omnia div#content-help { display:none;}
+#edit-field-usuari-omnia-pais-origen-value { margin-bottom:15px }
+#edit-field-usuari-omnia-arribada-0-value-wrapper { margin-bottom:15px !important }
+#edit-field-usuari-omnia-sexe-value-1-wrapper { margin-bottom:15px !important }
+#edit-field-usuari-omnia-estudis-value-wrapper { margin:15px 0 !important }
+
+/********** PÀGINA USUARIS ***********/
+.page-estadistiques-omnia .usuaris-omnia th { text-align: center; padding: 5px 3px;}
+.page-estadistiques-omnia .usuaris-omnia td { text-align: center; padding: 5px 3px;}
+.page-estadistiques-omnia .usuaris-omnia .th1 { width: 15%; text-align: left}
+.page-estadistiques-omnia .usuaris-omnia .td1 { text-align: left}
+.page-estadistiques-omnia .usuaris-omnia .th3 { width: 10%}
+.page-estadistiques-omnia .usuaris-omnia .th11 { width: 10%}
+.page-estadistiques-omnia .usuaris-omnia .icon {margin-right: 2px !important}
+
+/********** PÀGINA PORTADA ***********/
+.page-estadistiques-omnia .portada-omnia th.views-field-title { padding: 5px 3px !important; width: 80%;}
+.page-estadistiques-omnia .portada-omnia th.views-field-php { padding: 5px 3px; width: 20%; text-align: center}
+.page-estadistiques-omnia .portada-omnia td.views-field-title { padding: 5px 3px !important; width: 80%;}
+.page-estadistiques-omnia .portada-omnia td.views-field-php { padding: 5px 3px; width: 20%; text-align: center}
+.page-estadistiques-omnia .portada-omnia table { margin-bottom: 25px;}
+
+/********** PÀGINA ESTADÍSTIQUES GLOBALS ***********/
+.page-estadistiques-omnia #omnia-usos-stats-global-form div.date-clear-block { width: auto; float: left; clear:none }
+.page-estadistiques-omnia #omnia-usos-stats-global-form span.button-wrapper { float: left; margin-top: 8px; margin-bottom: 25px}
+.page-estadistiques-omnia #omnia-usos-stats-global-form span.button-wrapper { float: left; margin-top: 8px; margin-bottom: 25px}
+.page-estadistiques-omnia .globalstats th { text-align: center;}
+.page-estadistiques-omnia .globalstats td { text-align: center;}
+.page-estadistiques-omnia .globalstats th.th1 { text-align: left;}
+.page-estadistiques-omnia .globalstats td.td1 { text-align: left;}
+
+/********** PÀGINA ESTADÍSTIQUES ***********/
+.page-estadistiques-omnia #content-content a { font-size: 13px !important; }
+.page-estadistiques-omnia #content-content p { font-size: 13px !important; }
+.page-estadistiques-omnia .panel-pane h2 { font-size: 1.531em !important; letter-spacing: 0.07em; margin-top: 20px;}
+
+/********** PÀGINA ENTITATS SENSE PROTOCOL ************/
+.page-estadistiques-omnia .entitats_sense_protocol th { text-align: center;}
+.page-estadistiques-omnia .entitats_sense_protocol td { text-align: center;}
+.page-estadistiques-omnia .entitats_sense_protocol th.th1 { text-align: left;}
+.page-estadistiques-omnia .entitats_sense_protocol td.td1 { text-align: left; vertical-align: top;}
+.page-estadistiques-omnia .entitats_sense_protocol th.th2 { text-align: left;}
+.page-estadistiques-omnia .entitats_sense_protocol td.td2 { text-align: left;}
+
+/********** PÀGINA EINA ESTADÍSTIQUES ************/
+#omnia-usos-stats-tool-form fieldset.groupby1 > div {float: left; width: 18%;}
+#omnia-usos-stats-tool-form fieldset.graph img {margin-top: 15px}
+#omnia-usos-stats-tool-form fieldset.table table {width: auto; margin-top: 15px}

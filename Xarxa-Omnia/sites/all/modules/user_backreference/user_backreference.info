@@ -1,0 +1,13 @@
+; $Id: user_backreference.info,v 1.1 2010/04/03 14:24:44 joachim Exp $
+name = User backreference
+description = Allows backreferences of user reference fields to be edited on user accounts.
+package = CCK
+dependencies[] = userreference
+core = 6.x
+
+; Information added by drupal.org packaging script on 2010-05-29
+version = "6.x-1.x-dev"
+core = "6.x"
+project = "user_backreference"
+datestamp = "1275092287"
+

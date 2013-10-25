@@ -1,0 +1,9 @@
+<?php
+// $Id$
+
+/**
+ * Implementation of hook_uninstall().
+ */
+function nodetype_trigger_uninstall() {
+  variable_del('nodetype_trigger_node_types_for_triggers');
+}

@@ -1,0 +1,271 @@
+<?php
+  /**
+   * Mòdul creat per gestionar els permisos dels camps que no podem controlar desde la pagina de gestió de permisos de Drupal.
+   * (http://xarxa-omnia.org/admin/user/permissions)
+   * La tècnica consisteix en amagar camps al formulari segon el rol de l'usuari.
+   * S'han fet servir tutorials de 
+   *  http://www.alligatorsneeze.com/drupal-alters-and-overrides-hookformalter
+   *  http://www.lullabot.com/articles/modifying-forms-drupal-5-and-6
+   *  http://www.drupaler.co.uk/blog/cleaning-node-edit-forms/450
+   *   
+   * Implementation of hook_form_alter().
+   *
+   * The function is named modulename_form_alter.
+   */
+
+  function po_form_alter(&$form, $form_state, $form_id) {
+    // Normally a switch is used because you may want to alter more than
+    // one form and it is easy to add a new case for each form.
+
+    switch ($form_id) {
+      // This is our form ID.
+      
+      /* FORMULARI DEL COMPTE D'USUARI */
+      
+      case 'user_profile_form':
+      global $user;
+      $account = user_load(array('uid' => arg(1)));
+      // canvis només pel rol 'dinamitzadors'
+      if (in_array('dinamitzadors',$user->roles)) {
+      	//adaptació del snippet del mòdul userprotect http://drupal.org/project/userprotect, linia 199:
+      	  // No volem que els dinas puguin canviar el mail associat al compte d'usuari
+		  $form['account']['mail']['#disabled'] = TRUE;
+		  // mostrar el mail del compte d'usuari en el camp de text
+          $form['account']['mail']['#value'] = $account->mail;
+	  }
+	  // Mostrar instruccions per tots els rols
+	  $form['account']['mail']['#description'] = "Una adreça de correu vàlida. Tots els correus provinents del sistema seran enviats aquí. L'adreça no es fa mai pública i només s'utilitzarà en el cas que desitgeu rebre una nova contrasenya o notificacions per correu.<p>En cas de voler canviar l'adreça, contacta amb l'oficina tècnica: Tel. 93 442 58 67 / oficina.tecnica@xarxa-omnia.org.</p>";
+	  $form['picture']['picture_upload']['#description'] = "Un avatar o una foto real. Mida màxima: 300Kb de pes i 200x200 píxels de mida.";
+	  //return print_r($form);
+	  break;
+	  
+	case 'acta_node_form': 
+		if ($_REQUEST['id']){
+			$form['taxonomy']['33']['#default_value']=2716; // opcio per defecte: Reunió amb un Punt Òmnia
+		}
+	break;
+	case 'informe_node_form': 
+		  unset($form['menu']);
+		  // amagar la secció de configuració dels comentaris
+		  unset($form['comment_settings']);
+		  // amagar la secció de configuració del path
+		  unset($form['path']);
+	
+		  unset($form['options']);
+		  unset($form['revision_information']);
+		  unset($form['comment_settings']);
+		  unset($form['menu']);
+		  unset($form['webfm-attach']);
+		break;
+	case 'arxiu_node_form': 
+		$form['attachments']['#collapsed'] = FALSE;
+
+		  // Altres camps
+		  // amagar la secció de configuració del menu
+		  unset($form['menu']);
+		  // amagar la secció de configuració dels comentaris
+		  unset($form['comment_settings']);
+		  // amagar la secció de configuració del path
+		  unset($form['path']);
+	
+		  unset($form['options']);
+		  unset($form['revision_information']);
+		  unset($form['comment_settings']);
+		  unset($form['menu']);
+		  unset($form['content_extra_fields']['print']);
+		  unset($form['print']);
+		  unset($form['webfm-attach']);
+		  // amagar els botons Suprimir i Previsualitzar
+		  //unset($form['buttons']['delete']);
+		  unset($form['buttons']['preview']);
+
+		global $user;
+		if (in_array('dinamitzadors',$GLOBALS['user']->roles)) {
+		// si fem un UNSET, el dina no ve la taxo, pero en canvi quan desa el node, s'esborra qualsevol taxo previa... per tant, utilitzem aquesta tècnica, que deixa al dina veure la taxo, pero no la pot tocar.
+		  $form['taxonomy']['34']['#required'] = TRUE; // taxonomia 'Carpeta'
+
+		// $form['taxonomy']['34']['#default_value']=2733; // opcio per defecte
+		unset($form['taxonomy']['34']['#options']['0']); //acte
+		unset($form['taxonomy']['34']['#options']['1']); //informe
+		}
+	break;
+	case 'arxiuintern_node_form': 
+		$form['attachments']['#collapsed'] = FALSE;
+
+		  // Altres camps
+		  // amagar la secció de configuració del menu
+		  unset($form['menu']);
+		  // amagar la secció de configuració dels comentaris
+		  unset($form['comment_settings']);
+		  // amagar la secció de configuració del path
+		  unset($form['path']);
+		 
+		  unset($form['options']);
+		  unset($form['revision_information']);
+		  unset($form['comment_settings']);
+		  unset($form['menu']);
+		  unset($form['content_extra_fields']['print']);
+		  unset($form['webfm-attach']);
+		  unset($form['print']);
+		  // amagar els botons Suprimir i Previsualitzar
+		  //unset($form['buttons']['delete']);
+		  unset($form['buttons']['preview']);
+
+	break;
+      case 'content_punt_node_form':
+        global $user;
+        if (in_array('ODC',$user->roles)) {
+		// camps que volem amagar al rol ODC
+		  // titol del node
+          $form['title']['#attributes']=array('readonly' => 'readonly', 'class' => 'po_fitxa_camp_noedit');
+          /*$form['title']['#required'] = FALSE;
+		  $form['title']['#attributes'] = array('disabled' => TRUE); funciona pero a la hora de desar el fromulari, s'esborra el valor que havia i llavors Drupal no desa guardar els canvis. Es un bug conegut: http://drupal.org/node/227966 */
+          //$form['title']['#attributes']=array('onBlur'=>'javascript:this.value=this.value.toUpperCase()');
+          //$form['title']['#attributes']=array('disabled'=>TRUE);
+          //$form['title']['#attributes']= array('onfocus' => "if (this.value == '') {this.value = 'valor per defecte';}", 'onblur' => "if (this.value == '') {this.value = 'valor per defecte';}");
+          // location
+          //unset($form['locations']); // fieldset geolocalitzacio. No funciona
+          //$form['locations'][0]['map']['#attributes']=array('readonly' => 'readonly', 'class' => 'po_fitxa_camp_noedit');
+		  //$form['locations'][0]['name']['#attributes']=array('readonly' => 'readonly', 'class' => 'po_fitxa_camp_noedit');
+		  //$form['locations'][0]['name']['#required'] = FALSE;
+		  //$form['locations'][0]['name']['#attributes'] = array('disabled' => TRUE);
+		  //$form['locations'][0]['city']['#required'] = FALSE;
+		  //$form['locations'][0]['city']['#attributes'] = array('disabled' => TRUE);
+		  /*$form['locations'][0]['longitude']['#attributes']=array('readonly' => 'readonly', 'class' => 'po_fitxa_camp_noedit');
+		  $form['locations'][0]['latitude']['#attributes']=array('readonly' => 'readonly', 'class' => 'po_fitxa_camp_noedit');
+		  $form['locations'][0]['longitude']['#required'] = FALSE;
+		  $form['locations'][0]['longitude']['#attributes'] = array('disabled' => TRUE); cap de les 2 metodes funcionen */
+		  // taxonomy
+          //unset($form['taxonomy']); // tota la taxonomia
+		  $form['taxonomy']['20']['#required'] = FALSE; // Convocatòria o temporada d'inici
+		  $form['taxonomy']['20']['#attributes'] = array('disabled' => TRUE);
+		  
+		  // UNSET _________> funciona si el camp no es requerit??? (amb locations no, perque no determinem cami camp)
+		  
+		  // Altres camps
+		  // amagar la secció de configuració del menu
+		  unset($form['menu']);
+		  // amagar la secció de configuració dels comentaris
+		  unset($form['comment_settings']);
+		  // amagar la secció de configuració del path
+		  unset($form['path']);
+		  // amagar els botons Suprimir i Previsualitzar
+		  unset($form['buttons']['delete']);
+		  unset($form['buttons']['preview']);
+        }
+        if (in_array('DGAC',$user->roles)) {
+		// camps que volem amagar al rol DGACC
+          //unset($form['title']);
+          $form['title']['#attributes']=array('readonly' => 'readonly', 'class' => 'po_fitxa_camp_noedit');
+          $form['locations'][0]['#collapsed'] = TRUE;
+		  $form['locations'][0]['name']['#attributes']=array('readonly' => 'readonly', 'class' => 'po_fitxa_camp_noedit');
+		  $form['locations'][0]['street']['#attributes']=array('readonly' => 'readonly', 'class' => 'po_fitxa_camp_noedit');
+		  $form['locations'][0]['additional']['#attributes']=array('readonly' => 'readonly', 'class' => 'po_fitxa_camp_noedit');
+		  $form['locations'][0]['city']['#attributes']=array('readonly' => 'readonly', 'class' => 'po_fitxa_camp_noedit');
+		  $form['locations'][0]['province']['#attributes']=array('readonly' => 'readonly', 'class' => 'po_fitxa_camp_noedit');
+		  $form['locations'][0]['postal_code']['#attributes']=array('readonly' => 'readonly', 'class' => 'po_fitxa_camp_noedit');
+          $form['taxonomy']['17']['#required'] = FALSE; // provincia
+		  $form['taxonomy']['17']['#attributes'] = array('disabled' => TRUE);
+		  $form['taxonomy']['18']['#required'] = FALSE; // v-c-m
+		  //unset($form['taxonomy']['18']); // fem aixo perque no funciona el disabled, pero tampoco funciona: esborra l'info anterior...
+		  //unset($form['image_attach']); // no funciona
+		  $form['image_attach']['#collapsed'] = TRUE;
+		  unset($form['menu']);
+		  unset($form['comment_settings']);
+		  unset($form['path']);
+		  unset($form['buttons']['delete']);
+		  unset($form['buttons']['preview']);
+        }
+        if (in_array('OT',$user->roles)) {
+		// camps que volem amagar al rol OT
+          $form['taxonomy']['20']['#required'] = FALSE; // Convocatòria o temporada d'inici
+		  $form['taxonomy']['20']['#attributes'] = array('disabled' => TRUE);
+        }
+        if (in_array('dinamitzadors',$user->roles)) {
+		// camps que volem amagar al rol Dinamitzadors
+		  // Nom del punt
+		  $form['title']['#attributes']=array('readonly' => 'readonly', 'class' => 'po_fitxa_camp_noedit');
+		  // Geolocalització
+          //unset($form['locations']); // funciona pero s'esborren les dades previes!!
+          $form['locations'][0]['#collapsed'] = TRUE; // --> solució salxitxera provisional!
+		  $form['locations'][0]['name']['#attributes']=array('readonly' => 'readonly', 'class' => 'po_fitxa_camp_noedit');
+		  $form['locations'][0]['street']['#attributes']=array('readonly' => 'readonly', 'class' => 'po_fitxa_camp_noedit');
+		  $form['locations'][0]['additional']['#attributes']=array('readonly' => 'readonly', 'class' => 'po_fitxa_camp_noedit');
+		  $form['locations'][0]['city']['#attributes']=array('readonly' => 'readonly', 'class' => 'po_fitxa_camp_noedit');
+		  $form['locations'][0]['province']['#attributes']=array('readonly' => 'readonly', 'class' => 'po_fitxa_camp_noedit');
+		  $form['locations'][0]['postal_code']['#attributes']=array('readonly' => 'readonly', 'class' => 'po_fitxa_camp_noedit');
+		  // (FALTEN LATITUD I LONGITUD!! No aconsegueixo amagar aquestos 2 camps numèrics)
+		  // Taxonomia
+          $form['taxonomy']['17']['#required'] = FALSE; // provincia
+		  $form['taxonomy']['17']['#attributes'] = array('disabled' => TRUE);
+		  $form['taxonomy']['18']['#required'] = FALSE; // v-c-m
+		  $form['taxonomy']['20']['#required'] = FALSE; // Convocatòria o temporada d'inici
+		  $form['taxonomy']['20']['#attributes'] = array('disabled' => TRUE);
+		  
+		  unset($form['buttons']['preview']);
+        }
+        // camps que afecten a tots els rols, inclos Administradors i Admin
+        $form['taxonomy']['#attributes']=array('class' => 'po-taxonomia'); // treure el fieldset via CSS
+        $form['image_attach']['#collapsed'] = FALSE;
+        /*$form['webfm-attach']['#collapsed'] = FALSE;
+        $form['webfm-attachments']['attach']['#weight'] = 50;
+        $form['webfm_attachments']['attach']['#weight'] = 50;
+        $form['webfm-attachments']['#weight'] = 50;*/
+        $form['webfm-attach']['webfm_attachments']['#weight'] = 50;
+
+        // snippet per poder veure els IDs dels camps
+        /*if (in_array('administradors',$user->roles)) {
+		  return print_r($form);
+        }*/
+        // un altre snippet per poder veure els IDs dels camps, més modern
+        //krumo::backtrace();
+        
+        break;
+        
+        /* DADES PERSONALS */
+        
+        case 'profile':
+		  // (Dades Personals) L'OT només pot editar el mail, la DGAC rés, pero no cal fer rés aqui: tots els camps son CCK i estan controlats desde /permissions. Només volem que el CP (camp cck compartit amb l'altre tipus de contingut Punt Òmnia) no sigui requerit.
+		  //$form['zip_code']['#required'] = FALSE;
+		  
+		/* RELACIO */
+		
+		case 'relacio_node_form':
+		// Meitat OT, meitat ODC, els camps cck estan controlats des de la pagina /permissions. Pel rol DGAC, denegem directament el permis d'edició
+		global $user;
+		if (in_array('ODC',$user->roles)) {
+		  unset($form['path']);
+		  unset($form['buttons']['preview']);
+		}
+		break;
+		
+		/* ENTRADA */
+		
+		case 'entrada_node_form':
+		global $user;
+		if (in_array('dinamitzadors',$GLOBALS['user']->roles)) {
+		// si fem un UNSET, el dina no ve la taxo, pero en canvi quan desa el node, s'esborra qualsevol taxo previa... per tant, utilitzem aquesta tècnica, que deixa al dina veure la taxo, pero no la pot tocar.
+		  $form['taxonomy']['22']['#required'] = FALSE; // taxonomia 'Col·lectius'
+		  $form['taxonomy']['22']['#attributes'] = array('disabled' => TRUE);
+		  $form['taxonomy']['23']['#required'] = FALSE; // taxonomia 'Tipus de contingut'
+		  $form['taxonomy']['23']['#attributes'] = array('disabled' => TRUE);
+		}
+		break;
+
+    }
+        
+  }
+
+
+/**
+ * Redefineix vistes
+ */
+function po_views_pre_execute(&$view){
+
+  if ($view->name == 'informepo' and $view->current_display == 'fitxatecnica')
+  {
+	    $sql= $view->query->final_query;
+	    $view->query->final_query=$view->query->count_query=$view->query->query=str_replace('INNER JOIN', 'LEFT JOIN', $sql);
+  }
+}
+?>

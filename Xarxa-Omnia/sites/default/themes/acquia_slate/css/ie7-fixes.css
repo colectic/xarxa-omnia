@@ -1,0 +1,210 @@
+/* $Id: ie7-fixes.css,v 1.2 2010/07/02 23:14:21 eternalistic Exp $ */
+
+/* Wrapper margins so rows don't touch */
+#header-group-wrapper.without-preface-top #header-group-inner,
+.postscript-bottom-wrapper {
+  margin-bottom: 1.5em;
+}
+
+/* Form inputs */
+.form-item .form-radio,
+.form-item .form-checkbox {
+  background: none !important;
+}
+
+/* NODE SENCER*/
+
+/*pestanyes de gestio abans d'un node*/
+#content-tabs {
+  padding-bottom: 20px !important;
+}
+/*espai entre titol, autor i resum*/
+.node.teaser .meta .submitted {padding: 10px 0 !important;}
+/*espais entre titol i paragrafs, espai entre paragrafs i paragrafs, text i imatge */
+.contingut-central .panel-panel .view-content .views-field-title {
+padding: 5px 0 !important;
+}
+.full-node h1, .full-node h2, .full-node h3, .full-node p {margin-top: 5px !important; margin-bottom: 10px !important;}
+.full-node h2.img {padding-left: 10px !important;}
+
+.page-taxonomy .node .imatge-node .field-item, 
+.page-node .node .imatge-node .field-item, 
+.page-comment .node .imatge-node .field-item { 
+padding-left:0px !important;
+padding-right:10px !important;
+}
+
+.page-taxonomy .teaser .content {
+padding-bottom: 15px !important;
+}
+
+#content-content .dades-node {
+	width:180px;
+	margin-top:20px !important;
+	margin-left:5px !important;
+	padding: 5px 15px 5px 20px !important;
+}
+.page-taxonomy .teaser .links .links-inner {
+padding: 10px 0 10px 0 !important;
+}
+.page-node .node .links .links-inner {
+padding-top: 10px !important;
+}
+.node-dreta .dades-node .meta .node-submitted-po {padding-top: 8px !important;}
+
+/*posició dels 2 destacats en capcalera*/
+#destacats-header{
+	float:right !important;
+	text-align:left;
+top: 45px !important;
+	right:0px;
+	position:absolute !important;
+	width:405px;
+	margin-top:10px;
+	font-size:13px;
+	background-image:url('/sites/xarxa-omnia.org/themes/acquia_slate/images/1px-1px-ffffff-transparencia50.png');
+padding:10px;
+}
+
+/*evitar que surtin bullets*/
+#sidebar-first li, #sidebar-last li {
+list-style:none !important;
+list-style-type: none !important;
+list-style-image: none !important;
+}
+
+/*imatge al costat del resum*/
+.panel-col-last {
+float:left !important;
+}
+
+.panel-col-last .views-field-field-imatge-fid .field-content img.imagecache.imagecache-llista_panel.imagecache-default.imagecache-llista_panel_default,
+.panel-col-last .views-field-field-imatge-fid .field-content img.imagecache.imagecache-llista_panel.imagecache-default.imagecache-llista_panel_default,
+.panel-col-last .views-field-field-imatge-fid .field-content img,
+.panel-col-last .views-field-field-imatge-fid .field-content img,
+.panel-col-last .views-field-field-imatge-fid .field-content,
+.panel-col-last .views-field-field-imatge-fid .field-content,
+.panel-col-last .views-field-field-imatge-fid,
+.panel-col-last .views-field-field-imatge-fid {
+float:left !important;
+position: relative !important;
+width: 110px !important;
+}
+.contingut-central .panel-col-last .view .more-link{
+margin-top: 10px !important;
+float: right !important;
+clear: right !important;
+}
+
+.contingut-central .panel-col-last .view-content .views-field-teaser .field-content,
+.contingut-central .panel-col-last .views-field-teaser{
+/*position: absolute !important;
+float: right !important;
+padding: 0 0 16px 0 !important;
+width: 240px !important;
+height: 185px !important;
+margin-top: 0!important;*/
+float: right !important;
+position: relative !important;
+width: 240px !important;
+margin-left: 5px !important;
+}
+#contingut-central-inner .panel-2col-bricks .panel-col-last{width:49% !important;}
+
+/*enllacos en postscript de pagina*/
+#postscript-bottom-wrapper .block {text-align: left !important;}
+#postscript-bottom-wrapper .block .title {text-align: left !important; border-bottom:2px solid #ccc;width: 80px; margin-left: 90px;}
+.postscript-bottom ul li a {
+	padding:3px 3px 2px 20px !important;
+	background-image:url('/sites/xarxa-omnia.org/themes/acquia_slate/images/fletxa.png') !important;
+	background-repeat:no-repeat !important;
+	background-position:0 center !important;
+border-bottom:1px dashed #ccc !important;
+}
+.postscript-bottom ul li a:hover {
+text-decoration: none !important;
+}
+
+/*pestanyes del menu intern*/
+/* remove <li> list styling off */
+#header-group-wrapper .block-menu ul {text-align:left !important;  position:relative; width: 400px !important;}
+#block-menu-primary-links{
+	text-align:right !important; 
+	position:relative; 
+	margin:0px;
+	padding:7px 0 0 0 !important;
+}
+
+/* cercador amb mapa */
+
+.view-llistat-punts-omnia .views-exposed-widgets {
+width: 95%;
+}
+.view-llistat-punts-omnia input#edit-distance-search-distance.form-text, 
+.view-llistat-punts-omnia input#edit-distance-postal-code.form-text {
+margin-top: 5px !important;
+}
+
+.view-llistat-punts-omnia.view-display-id-page_1.view-dom-id-2 .view-content, 
+.view-llistat-punts-omnia.view-display-id-page_1.view-dom-id-2 .view-empty {
+padding: 10px 0 20px 10px !important;
+}
+.view-llistat-punts-omnia.view-display-id-page_1.view-dom-id-2 .attachment.attachment-after .view-content, 
+.view-llistat-punts-omnia.view-display-id-page_1.view-dom-id-2 .attachment.attachment-after .view-empty {
+padding: 0 !important;
+}
+.view-llistat-punts-omnia.view-display-id-page_1.view-dom-id-2 .view-content h3 {
+white-space: wrap !important;
+padding-right: 10px !important;
+}
+.view-llistat-punts-omnia .view-content h3 {
+padding: 5px 0;
+}
+.view-header .actualitzat2 {
+margin-top: 200px !important;
+}
+.view-llistat-punts-omnia.view-display-id-page_1.view-dom-id-2 .view-footer fieldset {
+width: 348px !important;
+}
+.view-llistat-punts-omnia .mapa_dels_punts_omnia-llegenda {
+padding: 10px !important;
+}
+.view-llistat-punts-omnia .mapa_dels_punts_omnia-llegenda p {
+padding-bottom: 10px !important;
+}
+.view-llistat-punts-omnia .mapa_dels_punts_omnia-llegenda ul {
+padding-left: 0 !important;
+margin-left: 0 !important;
+}
+.view-llistat-punts-omnia .mapa_dels_punts_omnia-llegenda p, 
+.view-llistat-punts-omnia .mapa_dels_punts_omnia-llegenda li {
+font-size: 11px !important;
+}
+
+/*thickbox*/
+.TB_overlayBG {
+  -ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=75)"; /* ie8 hack */
+  filter: alpha(opacity=75); /* ie6 and ie7 hack */
+}
+
+#TB_HideSelect {
+  -ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=0)"; /* ie8 hack */
+  filter: alpha(opacity=0); /* ie6 and ie7 hack */
+}
+
+/*boto del cerca*/
+#search_header.search_submit {
+background-image:url(/sites/xarxa-omnia.org/themes/acquia_slate/images/fletxa.png);
+background-repeat:no-repeat;
+background-position:left -1px !important;
+border:0;
+height:12px !important;
+width:12px !important;
+color: #FFF;
+cursor:pointer;
+background-color:#FFF;
+text-indent:-1000px !important;
+border-style:none;
+padding: 0;
+margin:0 20px 0 0 !important;
+}

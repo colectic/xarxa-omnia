@@ -1,0 +1,9 @@
+A l'arxiu ckeditor.config.js (linia 29)
+
+/* Hem afegit manualment aquestes condicions per a que funcioni el corrector del Firefox */
+	config.disableNativeSpellChecker = false;
+	config.browserContextMenuOnCtrl = false;
+	config.FirefoxSpellChecker = true ;
+	config.BrowserContextMenu = true ;
+	config.removePlugins = 'scayt,menubutton,contextmenu';
+/* ************************************************************************************* */

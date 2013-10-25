@@ -1,0 +1,20 @@
+<?php
+
+/**
+ * @file views_tablesorter.install
+ *
+ * Install/update/uninstall functions for the views tablesorter module.
+ */
+
+/**
+ * Implementation of hook_uninstall().
+ */
+function views_tablesorter_uninstall() {
+  variable_del('views_tablesorter_compression_type');
+  variable_del('views_tablesorter_date_format');
+  variable_del('views_tablesorter_width_fixed_cols');
+  variable_del('views_tablesorter_page_size');
+  variable_del('views_tablesorter_current_page_divider');
+  variable_del('views_tablesorter_single_page_pager');
+  variable_del('views_tablesorter_use_custom_pager');
+}

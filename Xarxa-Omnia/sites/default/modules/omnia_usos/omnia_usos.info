@@ -1,0 +1,5 @@
+name = Usos Omnia
+description = Contingut per registrar els usos dels equipaments Omnia
+core = 6.x
+package = Omnia
+dependencies[] = pathauto
