@@ -1,0 +1,25 @@
+A l'arxiu ckeditor.config.js (linia 29)
+
+/* Hem afegit manualment aquestes condicions per a que funcioni el corrector del Firefox */
+	config.disableNativeSpellChecker = false;
+	config.browserContextMenuOnCtrl = false;
+	config.FirefoxSpellChecker = true ;
+	config.BrowserContextMenu = true ;
+	config.removePlugins = 'scayt,menubutton,contextmenu';
+/* ************************************************************************************* */
+
+
+
+/* Davant d'un problema de generació d'espais en blanc al començament de les sortides html. Tiquet 1011689 */
+	A index.php he afegit al principi
+
+	ob_start('neteja_espais_en_blanc'); 
+	function neteja_espais_en_blanc($buffer){ 
+	    return trim($buffer); 
+	}
+
+	Al mateix index.php he afegit al final del document:
+
+	ob_end_flush();
+
+/* ************************************************************************************* */

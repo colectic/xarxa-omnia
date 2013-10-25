@@ -1,0 +1,12 @@
+; $Id: webfm_image.info,v 1.1 2009/02/08 06:24:05 robmilne Exp $
+name = WebFM Image
+description = Extends the WebFM contextmenu for resizing image files
+package = WebFM
+dependencies[] = webfm
+core = 6.x
+; Information added by drupal.org packaging script on January 1, 1970 - 00:00
+version = "6.x-2.x-dev"
+core = "6.x"
+project = "webfm"
+datestamp = "1295225025"
+

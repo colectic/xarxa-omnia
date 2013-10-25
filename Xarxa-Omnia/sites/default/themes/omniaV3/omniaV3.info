@@ -1,0 +1,23 @@
+; $Id: omniaV3.info,v 1.5 2010/04/08 Exp $
+name = omniaV3
+description = omnia theme.
+version = VERSION
+core = 6.x
+engine = phptemplate
+
+regions[left] = Left sidebar
+regions[right] = Right sidebar
+regions[content] = Content
+regions[header] = Header
+regions[footer] = Footer
+regions[filtres] = Filtres
+regions[destacats] = Destacats
+
+stylesheets[all][] = style.css
+stylesheets[print][] = print.css
+
+; Information added by drupal.org packaging script on 2010-03-04
+version = "6.16"
+project = "drupal"
+datestamp = "1267662008"
+

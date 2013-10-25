@@ -1,0 +1,13 @@
+; $Id: lopd.info,v 1.3 2011/02/03 16:55:02 julien.reulos Exp $
+name = LOPD
+description = LOPD automatically adds a checkbox to personal contact, site-wide contact and comments forms, that forces the user to accept the LOPD (spanish "Organic Law on Data Protection").
+core = 6.x 
+
+
+
+; Information added by drupal.org packaging script on 2010-03-08
+version = "6.x-1.0"
+core = "6.x"
+project = "LOPD"
+datestamp = "1268089206"
+

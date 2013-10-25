@@ -1,0 +1,8 @@
+name = Usos Omnia action
+description = Accions del mòdul Usos Omnia.
+dependencies[] = omnia_usos
+dependencies[] = trigger
+package = Omnia
+core = 6.x
+
+

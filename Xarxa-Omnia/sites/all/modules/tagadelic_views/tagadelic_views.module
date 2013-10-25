@@ -1,0 +1,16 @@
+<?php
+/**
+ * @file
+ * Blank file so that module can be loaded.
+ * Can this be removed?
+ */
+
+/**
+* Implementation of hook_views_api().
+*/
+function tagadelic_views_views_api() {
+  return array(
+    'api' => 2,
+    'path' => drupal_get_path('module', 'tagadelic_views') .'/includes',
+  );
+}

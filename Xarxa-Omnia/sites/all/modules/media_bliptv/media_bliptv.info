@@ -1,0 +1,14 @@
+
+name = Media: BlipTV
+description = Provides BlipTV support to the Embedded Media Field module.
+package = "Media"
+core = 6.x
+dependencies[] = emfield
+dependencies[] = emvideo
+
+; Information added by drupal.org packaging script on 2011-07-21
+version = "6.x-1.x-dev"
+core = "6.x"
+project = "media_bliptv"
+datestamp = "1311207734"
+

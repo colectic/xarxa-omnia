@@ -1,0 +1,25 @@
+// $Id: video.js,v 1.0 2011/05/31 23:14:21 opaloa Exp $
+
+function video(tipo, video, width, height) {
+    	var objectvideo;
+  	tipo = typeof(tipo) != 'undefined' ? tipo : 'imatge';
+  	width = typeof(width) != 'undefined' ? width : 400;
+  	height = typeof(height) != 'undefined' ? height : 300;
+
+
+	switch(tipo)
+	{
+		case 'blip':
+		    objectvideo= "<object classid='clsid:D27CDB6E-AE6D-11cf-96B8-444553540000' codebase='http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=6,0,40,0' width='"+width+"' height='"+height+"'><param name='movie' value='http://blip.tv/play/"+video+"' /><param name='quality' value='high' /><param name='bgcolor' value='#FFFFFF' /><param name='wmode' value='transparent' /><!--[if !IE]> <--><object data='http://blip.tv/play/"+video+"' width='"+width+"' height='"+height+"' type='application/x-shockwave-flash'><param name='quality' value='high' /><param name='bgcolor' value='#FFFFFF' /><param name='pluginurl' value='http://www.adobe.com/go/getflashplayer' /><p><a href='http://blip.tv/play/"+video+"' lang='ca' title='vídeo'>Clica aqu&iacute; per veure el v&iacute;deo</a></p></object><!--> <![endif]-->";
+		break;
+		case 'youtube':
+		    objectvideo= "<!--[if !IE]> --><object type='application/x-shockwave-flash' data='http://www.youtube.com/v/"+video+"' width='"+width+"' height='"+height+"'><!-- <![endif]--><!--[if IE]><object classid='clsid:D27CDB6E-AE6D-11cf-96B8-444553540000' width='"+width+"' height='"+height+"' codebase='http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=6,0,0,0'><param name='movie' value='http://www.youtube.com/v/"+video+"' /><!--><!--dgx--><param name='quality' value='high' /><param name='bgcolor' value='#FFFFFF' /><param name='wmode' value='opaque' /><param name='allowfullscreen' value='true' /><p><a href='http://www.youtube.com/v/"+video+"' title='vídeo' lang='ca'>Clica aquí per veure el vídeo</a></p></object><!-- <![endif]-->";
+		break;
+		case 'imatge':
+		    objectvideo= "<a href='"+video+"' lang='ca' title='vídeo'><img src='/sites/xarxa-omnia.org/themes/acquia_slate/images/video.png' alt='video' class='video-imatge' /></a>";
+		break;
+		default:
+		  objectvideo= "<object classid='clsid:D27CDB6E-AE6D-11cf-96B8-444553540000' codebase='http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=6,0,40,0' width='"+width+"' height='"+height+"'><param name='movie' value='http://blip.tv/play/"+video+"' /><param name='quality' value='high' /><param name='bgcolor' value='#FFFFFF' /><param name='wmode' value='transparent' /><!--[if !IE]> <--><object data='http://blip.tv/play/"+video+"' width='"+width+"' height='"+height+"' type='application/x-shockwave-flash'><param name='quality' value='high' /><param name='bgcolor' value='#FFFFFF' /><param name='pluginurl' value='http://www.adobe.com/go/getflashplayer' /><p><a href='http://blip.tv/play/"+video+"' lang='ca' title='vídeo'>Clica aqu&iacute; per veure el v&iacute;deo</a></p></object><!--> <![endif]-->";
+	}
+    document.write(objectvideo);
+};

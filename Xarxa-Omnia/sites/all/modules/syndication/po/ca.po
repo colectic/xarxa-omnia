@@ -1,0 +1,207 @@
+# French translation of Drupal (general)
+# Copyright Jean-Philippe Fleury <contact@jpfleury.net>
+# Generated from files:
+#  syndication.module,v 1.58.2.4 2009/02/23 06:30:58 aaron1234nz
+#  syndication.info,v 1.2.2.1 2009/01/18 06:14:53 aaron1234nz
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: 1.0\n"
+"POT-Creation-Date: 2009-04-17 22:19+1200\n"
+"PO-Revision-Date: 2010-06-07 11:41+0100\n"
+"Last-Translator: Julien Reulos <julien.reulos@ravalnet.org>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n>1);\n"
+"X-Poedit-Language: Catalan\n"
+
+#: syndication.module:48
+msgid "Syndicate (more)"
+msgstr "sindicació (més)"
+
+#: syndication.module:53
+msgid "Syndicate"
+msgstr "Sindicar"
+
+#: syndication.module:62
+msgid "More"
+msgstr "Més"
+
+#: syndication.module:63
+msgid "more"
+msgstr "més"
+
+#: syndication.module:63
+msgid "Review all XML feeds exported by %sn"
+msgstr "Repassar tots els canals XML exportats per %sn"
+
+#: syndication.module:78;160;176;453;462
+msgid "Atom feed"
+msgstr "Canal Atom"
+
+#: syndication.module:78
+msgid "Atom front page feed"
+msgstr "Canal atom de la pagina d'inici"
+
+#: syndication.module:83;443
+msgid "Blogs"
+msgstr "Blocs"
+
+#: syndication.module:88
+msgid "External feeds"
+msgstr "Canals externs"
+
+#: syndication.module:100
+msgid "Categories"
+msgstr "Categories"
+
+#: syndication.module:107;497
+msgid "Views"
+msgstr "Views"
+
+#: syndication.module:122
+msgid "Sorry, there are no feeds available."
+msgstr "No hi han canals disponibles."
+
+#: syndication.module:134
+msgid "At <i>%sn</i>, all users have a <a href='!rss'>RSS</a> and <a href='!atom'>Atom<a> feed for their blog, as well as each individual user."
+msgstr "A <i>%sn</i>, tots els usuaris tenen un <a href='!rss'>RSS</a> i un canal <a href='!atom'>Atom<a> pel seu bloc."
+
+#: syndication.module:138
+msgid "At <i>%sn</i>, <a href='!all'>all users</a> and each user, have an RSS feed for their blog."
+msgstr "A <i>%sn</i>, %all i cada usuari, tenen un canal RSS pel seu bloc."
+
+#: syndication.module:143
+msgid "Search users"
+msgstr "Cercar usuaris"
+
+#: syndication.module:145
+msgid "Enter a username to view her blog feed, and other details."
+msgstr "Tecleja un nom d'usuari per visualitzar el seu canal d'usuari i més detalls."
+
+#: syndication.module:148
+msgid "Search"
+msgstr "Cercar"
+
+#: syndication.module:159;174
+msgid "RSS feed"
+msgstr "Canals RSS"
+
+#: syndication.module:164
+msgid "Recent Blog Authors"
+msgstr "Autors de bloc recents"
+
+#: syndication.module:178
+msgid "blog"
+msgstr "bloc"
+
+#: syndication.module:211
+msgid "Combine terms into a single feed"
+msgstr "Combinar elements en un canal RSS únic"
+
+#: syndication.module:260
+msgid "You can subscribe to more than one category in a single RSS feed.  Please select the RSS feeds you would like to subscribe to then press the \"Generate feed\" button."
+msgstr "Es possible subscriure's a més d'una categoria en un canal RSS únic. Selecciona els canals als quals vols subscriure i fes clic al boto \"Generar canal\"."
+
+#: syndication.module:264
+msgid "You may also subscribe all terms on this site."
+msgstr "Pot subscriure també a tots els termes."
+
+#: syndication.module:304
+msgid "Generate feed"
+msgstr "Generar canal"
+
+#: syndication.module:354
+msgid "Username not found."
+msgstr "Nom d'usuari no trobat."
+
+#: syndication.module:363
+msgid "In addition to displaying RSS feeds, <i>%sn</i> offers <a href=\"!link\">this OPML</a> which lists all RSS feeds that are collected here."
+msgstr "A més a més de presentar canals RSS, <i>%sn</i> ofereix %link que llista tots els canals RSS que estén recollits aquí."
+
+#: syndication.module:434
+msgid "Columns"
+msgstr "Columnes"
+
+#: syndication.module:436
+msgid "The number of columns to use on the display page?"
+msgstr "Numero de columnes a la pagina de presentació dels canals?"
+
+#: syndication.module:445
+msgid "Should be blogs be included on the syndication page?"
+msgstr "Els blogs haurien d'estar inclòs a la pagina de sindicació?"
+
+#: syndication.module:455
+msgid "Should be front page atom feed be included on the syndication page?"
+msgstr "El canal atom de la pagina d'inici hauria d'estar inclòs a la pagina de sindicació?"
+
+#: syndication.module:464
+msgid "Should be aggregator OPML feed be included on the syndication page?"
+msgstr "El canal de l'agregador OPML hauria d'estar inclòs a la pagina de sindicació?"
+
+#: syndication.module:475
+msgid "Vocabularies"
+msgstr "Vocabularis"
+
+#: syndication.module:478
+msgid "Select the vocabularies which should appear in the <em>Categories</em> block on the <a href=\"@syndication\">syndication page</a>"
+msgstr "Select the vocabularies which should appear in the <em>Categories</em> block on the <a href=\"@syndication\">syndication page</a>"
+
+#: syndication.module:482
+msgid "Taxonomy terms with no nodes"
+msgstr "Elements de la taxonomia sense nodes"
+
+#: syndication.module:483
+msgid "Do not show terms which are not used by any nodes"
+msgstr "No mostrar elements que no són utilitzats per cap nodes"
+
+#: syndication.module:483
+msgid "Show terms which are not used by any nodes"
+msgstr "Mostrar elements que no són utilitzats per cap nodes"
+
+#: syndication.module:500
+msgid "Select the views which should appear in the <em>Views</em> block on the <a href=\"@syndication\">syncidation page</a>"
+msgstr "Selecciona les Views que haurien d'aparèixer al bloc <em>Views</em> de la <a href=\"@canals-rss\">pagina de sindicació</a>."
+
+#: syndication.module:517
+msgid "Other"
+msgstr "Altre"
+
+#: syndication.module:520
+msgid "Select the other feeds which should appear in the <em>Other</em> block on the <a href=\"@syndication\">syncidation page</a>"
+msgstr "Selecciona els altres canals que haurien d'aparèixer al bloc <em>Altre</em> de la <a href=\"@canals-rss\">pagina de sindicació</a>."
+
+#: syndication.module:536
+msgid "Adds a Syndication block, links to more feeds"
+msgstr "Ajoute a bloc de syndication, et lie vers d'autres flux"
+
+#: syndication.module:17
+msgid "RSS feeds"
+msgstr "Canal RSS"
+
+#: syndication.module:23
+msgid "RSS feed syndication"
+msgstr "Sindicació de canals RSS"
+
+#: syndication.module:29
+msgid "RSS feed builder"
+msgstr "Generador de canal RSS"
+
+#: syndication.module:35
+msgid "All feeds"
+msgstr "Tots els canals"
+
+#: syndication.module:0
+msgid "syndication"
+msgstr "sindicació"
+
+#: syndication.info:0
+msgid "Syndication"
+msgstr "Sindicació"
+
+#: syndication.info:0
+msgid "Module to consolidate RSS feeds on to a single page."
+msgstr "Mòdul per consolidar canals RSS dins d'una sola pagina."
+

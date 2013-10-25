@@ -1,0 +1,12 @@
+/*
+ * MODIFICACIONS DEL CODI ORIGINAL
+ * @Module: Print v.6.x-1.12
+ * @File: /sites/all/modules/print/print_pdf.pages line 61-64
+ * @Description: es vol generar un nom d'arxiu diferent per el tipo de contingut acta
+ * @Author: Toni Domènech
+ * @Data: 21/03/2012
+*/
+	if ($node->type=='acta'){
+		$pdf_filename = "[field_dataacta-yyyy][field_dataacta-mm][field_dataacta-dd]-[term-raw]-[title-raw]";
+	} else {variable_get('print_pdf_filename', PRINT_PDF_FILENAME_DEFAULT); }
+    	$pdf_filename = token_replace($pdf_filename, 'node', $node) .'.pdf';

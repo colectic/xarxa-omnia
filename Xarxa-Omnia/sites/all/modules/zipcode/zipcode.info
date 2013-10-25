@@ -1,0 +1,12 @@
+name = Zipcode (CCK)
+description = "This module provides a Postal Code / Zipcode field type for CCK."
+package = CCK
+core = 6.x
+dependencies[] = content
+
+; Information added by drupal.org packaging script on 2012-03-29
+version = "6.x-2.10"
+core = "6.x"
+project = "zipcode"
+datestamp = "1333041360"
+

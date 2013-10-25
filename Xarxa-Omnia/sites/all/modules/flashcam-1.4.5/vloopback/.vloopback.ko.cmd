@@ -1,0 +1,1 @@
+cmd_/home/toni/Baixades/flashcam-1.4.5/vloopback/vloopback.ko := ld -r -m elf_i386 -T /usr/src/linux-headers-2.6.35-22-generic/scripts/module-common.lds --build-id -o /home/toni/Baixades/flashcam-1.4.5/vloopback/vloopback.ko /home/toni/Baixades/flashcam-1.4.5/vloopback/vloopback.o /home/toni/Baixades/flashcam-1.4.5/vloopback/vloopback.mod.o

@@ -1,0 +1,46 @@
+
+table.views-tablesorter thead tr .header-sortable {
+  background-image: url(images/sortable.gif);
+  background-repeat: no-repeat;
+  background-position: center right;
+  cursor: pointer;
+  padding-right: 21px;
+}
+
+table.views-tablesorter thead tr .header-sort-asc {
+  background-image: url(images/sort-asc.gif);
+}
+
+table.views-tablesorter thead tr .header-sort-desc {
+  background-image: url(images/sort-desc.gif);
+}
+
+table.views-tablesorter tfoot tr.pager {
+  text-align: center;
+}
+
+table.views-tablesorter tfoot tr.pager td {
+  padding-top: 10px;
+}
+
+table.views-tablesorter tfoot tr.pager img.first,
+table.views-tablesorter tfoot tr.pager img.last {
+  margin: 0 5px;
+}
+
+table.views-tablesorter tfoot tr.pager span.current-page {
+  margin: 0 10px;
+}
+
+table.views-tablesorter tfoot tr.pager td div.size-option {
+  margin-top: 5px;
+}
+
+#views-tablesorter-sort-msg {
+  display: none;
+  text-align: center;
+}
+
+#tablesorter-pager input.pagedisplay {
+  width: 8em;
+}

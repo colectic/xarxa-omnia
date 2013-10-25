@@ -1,0 +1,14 @@
+name = Message Effects
+description = Calls more attention to Drupal messages.
+package = User Interface
+dependencies[] = jquery_update
+dependencies[] = jquery_ui
+dependencies[] = colorpicker
+core = 6.x
+
+; Information added by drupal.org packaging script on 2011-02-25
+version = "6.x-1.x-dev"
+core = "6.x"
+project = "messagefx"
+datestamp = "1298619641"
+

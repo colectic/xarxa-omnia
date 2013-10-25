@@ -1,0 +1,14 @@
+name = CCK Fields
+description = Provides CCK field data as mail variables.
+package = "Subscriptions"
+dependencies[] = subscriptions
+dependencies[] = subscriptions_content
+dependencies[] = content
+core = 6.x
+
+; Information added by drupal.org packaging script on 2012-05-27
+version = "6.x-1.5"
+core = "6.x"
+project = "subscriptions"
+datestamp = "1338156698"
+

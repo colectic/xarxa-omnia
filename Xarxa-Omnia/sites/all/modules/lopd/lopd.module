@@ -1,0 +1,120 @@
+<?php
+/* 
+ * 
+ * Mòdul creat per obligar els usuaris sense privilegis a acceptar la LOPD per poder:
+ * - enviar un comentari
+ * - usar el formulari de contacte general del web
+ * - usar el formulari de contacte d'un usuari
+ * Mòdul inspirat de http://thedrupalblog.com/adding-terms-and-conditions-user-registration-form
+ * 
+ * El mòdul Spain LOPD es equivalent però porta 1 any i mig sense haver estat publicat. Veure http://drupal.org/project/lopd.
+ * 
+ * /
+
+/**
+ * Implementation of hook_perm().
+ * Crear els permisos per rol a la pagina de permisos de Drupal
+ * 
+ */
+function lopd_perm() {
+  return array(
+    'administer LOPD',
+    'bypass LOPD validation',
+  );
+}
+
+/**
+ * Implementation of hook_menu().
+ * Crear el element de menu per administrar el mòdul.
+ * 
+ */
+function lopd_menu () {
+  $items = array();
+	
+  $items['admin/settings/lopd'] = array (
+    'title' => 'LOPD',
+    'description' => 'Change settings for the LOPD module.',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array ('lopd_admin_settings_form'),
+    'access arguments' => array ('administer LOPD'),
+    'type' => MENU_NORMAL_ITEM,
+  );
+
+  /*$items[check_plain(variable_get('lopd_page_url', LOPD_PAGE_URL))] = array(
+    'access arguments' => array('access content'),
+    'description' => 'The lopd page.',
+    'page callback' => 'lopd_page',
+    'title' => check_plain(variable_get('lopd_page_title', LOPD_PAGE_TITLE)),
+    'type' => MENU_CALLBACK,
+  );*/
+
+  return $items;
+}
+
+/**
+ * Callback for admin/settings/lopd
+ * Defines the settings form using FAPI.
+ * Definir els continguts de la pàgina d'administració del mòdul. Bàsicament es tracta d'oferir un text sobre la LOPD per defecte
+ * i de poder canviar-lo.
+ * 
+ */
+function lopd_admin_settings_form() {
+  $form = array();
+  $form['lopd_terms_conditions'] = array(
+    '#type'             => 'textarea',
+    '#title'            => t('Text de la LOPD'),
+    '#default_value'    => variable_get('lopd_terms_conditions', ''),
+    '#required'         => FALSE,
+  );
+  return system_settings_form($form);
+}
+
+/**
+ * Implements hook_form_alter().
+ *
+ * This function contact &comments forms in Drupal in order to force the user to accept the LOPD
+ * Crear una funció que obliga l'usuari a selecciona la casella per acceptar la LOPD abans de poder enviar el formulari. 
+ * 
+ */
+function lopd_form_alter(&$form, $form_state, $form_id) {
+	//if ($type == 'comment' && user_access('administer comments') {
+	// veure també modul webfm, linia 501
+	if (!user_access('bypass LOPD validation')) {
+	  // Aquí definim els formularis on volem que intervengui la funció. En el cas del web d'ômnia son el fomulari de contacte fgeneral, els comentaris, i el formulari de contacte de cada usuari (en el cas que l'hagi activat)
+	  if ($form_id == 'contact_mail_page' || $form_id == 'comment_form' || $form_id == 'contact_mail_user') {
+		$terms = variable_get('lopd_terms_conditions', '');
+		if (strlen($terms)) {
+		  // add terms and conditions
+		  $form['terms'] = array(
+			'#type'    => 'checkbox',
+			'#required' => TRUE,
+			'#weight' => 10,
+			'#title' => "Accepto la <a title='Fes clic per veure per sota la Llei Org&agrave;nica de Protecci&oacute; de Dades' id='termsAndConditionsLink'>LOPD</a>.<div style='display:none;' id='termsAndConditionsText'>$terms</div>",
+		  );
+		}
+		// Aqui aprofitem per canviar alguns parametres: posició del botó Enviar, i label del botó Enviar per cada formulari
+		$form['submit']['#weight'] = 20;
+		if ($form_id == 'contact_mail_page') {
+			$nom_boto = 'Enviar e-correu';
+		}
+		if ($form_id == 'comment_form') {
+			$nom_boto = 'Enviar';
+		}
+		if ($form_id == 'contact_mail_user') {
+			$nom_boto = 'Enviar e-correu';
+		}
+		$form['submit']['#value'] = $nom_boto;
+	  }
+	}
+}
+
+// validation to the field where in defining the form under hook_form_alter
+// Per utilitzar aquesta funcionalitat, hem d'instalar primer el mòdul CHECKBOX VALIDATE!
+function lopd_user_register_terms_validate ($element, $form_state) {
+  if(!$form_state['values']['terms']) {
+    form_error($element, t('Has d\'acceptar la LOPD per poder continuar.'));
+  }
+}
+
+// Incloure un fitxer javascript que crea un efecte bonic quan es fa clic en "Accepto la LOPD": s'obre el text complet amb un efecte deslizante
+drupal_add_js(drupal_get_path('module', 'lopd') .'/includes/common.js'); 

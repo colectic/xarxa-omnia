@@ -1,0 +1,14 @@
+#!/bin/bash
+FCPATH=%FCPATH%
+prog=`basename $0`
+if [ $prog = flashcamwrap ]; then
+    env LD_PRELOAD=$FCPATH/flashcamhook.so $*
+else
+    for path in ${PATH//:/ }; do
+	[ $path = $FCPATH/bin ] && continue
+	if [ -x "$path/$prog" ]; then
+	    env LD_PRELOAD=$FCPATH/flashcamhook.so $path/$prog $*
+	    exit
+	fi
+    done
+fi

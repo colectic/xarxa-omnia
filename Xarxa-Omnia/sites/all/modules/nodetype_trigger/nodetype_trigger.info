@@ -1,0 +1,19 @@
+name = Nodetype trigger
+description = Nodetype trigger creates triggers that launch after a node with certain nodetype is created or deleted
+dependencies[] = trigger
+core =6.x
+
+
+; Information added by drupal.org packaging script on 2010-11-10
+version = "6.x-1.x-dev"
+core = "6.x"
+project = "nodetype_trigger"
+datestamp = "1289348625"
+
+
+; Information added by drupal.org packaging script on 2011-06-20
+version = "6.x-1.x-dev"
+core = "6.x"
+project = "nodetype_trigger"
+datestamp = "1308529523"
+

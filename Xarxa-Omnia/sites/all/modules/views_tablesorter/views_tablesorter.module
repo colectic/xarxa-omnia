@@ -1,0 +1,276 @@
+<?php
+
+/**
+ * @file
+ * This is the main module file for the views tablesorter module.
+ * It adds a views style that is a table sortable using the
+ * tablesorter jQuery plugin.
+ *
+ * jQuery plugin - http://tablesorter.com/docs/
+ */
+
+/**
+ * Implementation of hook_menu().
+ */
+function views_tablesorter_menu() {
+  $items = array();
+
+  $items['admin/settings/views-tablesorter'] = array(
+    'title' => 'Views tablesorter settings',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('views_tablesorter_settings_form'),
+    'access arguments' => array('administer views tablesorter'),
+    'file' => 'views_tablesorter.admin.inc',
+  );
+
+  return $items;
+}
+
+/**
+ * Implementation of hook_perm().
+ */
+function views_tablesorter_perm() {
+  return array('administer views tablesorter');
+}
+
+/**
+ * Implementation of hook_theme().
+ */
+function views_tablesorter_theme() {
+  return array(
+    'views_tablesorter_style_plugin_tablesorter' => array(
+      'arguments' => array('form' => NULL),
+      'file' => 'views_tablesorter.theme.inc',
+    ),
+    'views_tablesorter_pager' => array(
+      'arguments' => array('view' => NULL, 'size_options' => array()),
+      'file' => 'views_tablesorter.theme.inc',
+    ),
+    'views_tablesorter_current_page' => array(
+      'arguments' => array('current_page' => '', 'total_rows' => 0),
+      'file' => 'views_tablesorter.theme.inc',
+    ),
+  );
+}
+
+/**
+ * Implementation of hook_views_api().
+ */
+function views_tablesorter_views_api() {
+  return array(
+    'api' => 2,
+  );
+}
+
+/**
+ * Preprocessor function for the tablesorter style.
+ */
+function template_preprocess_views_tablesorter_view_tablesorter(&$vars) {
+  $view = $vars['view'];
+
+  // We need the raw data for this grouping, which is passed in as $vars['rows'].
+  // However, the template also needs to use for the rendered fields.  We
+  // therefore swap the raw data out to a new variable and reset $vars['rows']
+  // so that it can get rebuilt.
+  // Store rows so that they may be used by further preprocess functions.
+  $result = $vars['result'] = $vars['rows'];
+  $vars['rows'] = array();
+  $vars['col_count'] = 0;
+
+  $options = $view->style_plugin->options;
+  $handler = $view->style_plugin;
+
+  $fields = &$view->field;
+  $columns = $handler->sanitize_columns($options['columns'], $fields);
+
+  $vars['message'] = $options['wait_msg_enabled'] ? $options['wait_msg'] : '';
+
+  // Fields must be rendered in order as of Views 2.3, so we will pre-render everything.
+  $renders = $handler->render_fields($result);
+
+  foreach ($columns as $field => $column) {
+    // Render the header labels
+    if ($field == $column && empty($fields[$field]->options['exclude'])) {
+      $label = !empty($fields[$field]) ? check_plain($fields[$field]->label()) : '';
+      $vars['header'][$field] = $label;
+      $vars['col_count']++;
+    }
+
+    // Create a second variable so we can easily find what fields we have and what the
+    // CSS classes should be.
+    $vars['fields'][$field] = views_css_safe($field);
+
+    // Render each field into its appropriate column.
+    foreach ($result as $num => $row) {
+      if (!empty($fields[$field]) && empty($fields[$field]->options['exclude'])) {
+        $field_output = $renders[$num][$field];
+
+        if (!isset($vars['rows'][$num][$column])) {
+          $vars['rows'][$num][$column] = '';
+        }
+
+        // Don't bother with separators and stuff if the field does not show up.
+        if ($field_output === '') {
+          continue;
+        }
+
+        // Place the field into the column, along with an optional separator.
+        if ($vars['rows'][$num][$column] !== '') {
+          if (!empty($options['info'][$column]['separator'])) {
+            $vars['rows'][$num][$column] .= filter_xss_admin($options['info'][$column]['separator']);
+          }
+        }
+
+        $vars['rows'][$num][$column] .= $field_output;
+      }
+    }
+  }
+
+  if (isset($options['pager']) && $options['pager']['use_pager']) {
+    $vars['pager'] = theme('views_tablesorter_pager', $view, views_tablesorter_get_pager_size_options($view));
+  }
+
+  $count = 0;
+  foreach ($vars['rows'] as $num => $row) {
+    $vars['row_classes'][$num][] = ($count++ % 2 == 0) ? 'odd' : 'even';
+  }
+
+  $vars['row_classes'][0][] = 'views-row-first';
+  $vars['row_classes'][count($vars['row_classes']) - 1][] = 'views-row-last';
+
+  $vars['class'] = 'views-tablesorter';
+  if (!empty($options['sticky'])) {
+    drupal_add_js('misc/tableheader.js');
+    $vars['class'] .= " sticky-enabled";
+  }
+  $vars['class'] .= ' cols-' . count($vars['rows']);
+
+  // Add the required javascript & css.
+  views_tablesorter_add_js_css($view, $options);
+}
+
+/**
+ * Get the options that will be available to the user for items per page.
+ *
+ * @param $view
+ *   The view object.
+ *
+ * @return
+ *   An array of the options.
+ */
+function views_tablesorter_get_pager_size_options($view) {
+  // Get the size options and add the view's items_to_display.
+  $size_options = variable_get('views_tablesorter_page_size', array(10, 15, 20, 25));
+  $size_options[] = $view->style_plugin->options['pager']['items_per_page'];
+  $size_options = array_unique($size_options);
+  asort($size_options);
+  return $size_options;
+}
+
+/**
+ * Create sort list for a tablesorter view table.
+ *
+ * @param $view
+ *   The view object.
+ *
+ * @return
+ *   A keyed array containing the following:
+ *     default_sort => An array of the default sort.
+ *     unsortable => An array of the unsortable columns.
+ */
+function views_tablesorter_create_sort_list($view) {
+  // Create the default sort list from the settings.
+  $unsortable = array();
+  $default_sort = array();
+  $col_no = 0;
+  $included = array();
+
+  // We can't sort on excluded fields so leave them out.
+  $fields = $view->display_handler->get_handlers('field');
+  foreach ($fields as $field) {
+    if (!$field->options['exclude']) {
+      $included[] = $field->field;
+    }
+  }
+
+  foreach ($included as $field) {
+    if (!isset($view->style_options['info'][$field])) {
+      continue;
+    }
+    $info = $view->style_options['info'][$field];
+    // Add to the unsortable cols list if not sortable.
+    if (!isset($info['sortable']) || !$info['sortable']) {
+      $unsortable[$col_no] = array('sorter' => FALSE);
+    }
+    // Get the default sort options in a useable form if we are overriding the view's sorting.
+    else if ($info['default_priority'] && $view->style_options['override']) {
+      $default_sort[$info['default_priority']] = array($col_no, $info['default_order']);
+    }
+    $col_no++;
+  }
+
+  // Reorder defaults by priority and index from zero.
+  if (!empty($default_sort)) {
+    ksort($default_sort);
+    $default_sort = array_values($default_sort);
+  }
+
+  return array($default_sort, $unsortable);
+}
+
+/**
+ * Include views tablesorter .js files.
+ *
+ * @param $view
+ *   The view object.
+ * @param $options
+ *   Style plugin options for the view.
+ */
+function views_tablesorter_add_js_css($view, $options) {
+  // If javascript has been disabled by the user, never add js files.
+  if (variable_get('views_no_javascript', FALSE)) {
+    return;
+  }
+
+  $path = drupal_get_path('module', 'views_tablesorter');
+  $library = libraries_get_path('tablesorter');
+
+  // If there is only one page, don't load pager js if the admin option has been set to no pager.
+  $use_pager = (isset($options['pager']) && $options['pager']['use_pager'] && 
+                ($view->total_rows > $view->style_plugin->options['pager']['items_per_page'] || variable_get('views_tablesorter_single_page_pager', 'none') != 'none'));
+
+  list($default_sort, $unsortable) = views_tablesorter_create_sort_list($view);
+
+  // Add variables to use in the js.
+  $tablesorter_settings = array(
+    'default_sort' => $default_sort,
+    'unsortable_cols' => $unsortable,
+    'date_format' => variable_get('views_tablesorter_date_format', 'us'),
+    'width_fixed' => variable_get('views_tablesorter_width_fixed_cols', TRUE),
+    'wait_msg' => $options['wait_msg_enabled'],
+  );
+  drupal_add_js(array('views_tablesorter' => array('tablesorter_settings' => $tablesorter_settings)), 'setting');
+  drupal_add_js(array('views_tablesorter' => array('use_pager' => $use_pager)), 'setting');
+  if ($use_pager) {
+    $pager_settings = array(
+      'pager_size' => $options['pager']['items_per_page'] ? $options['pager']['items_per_page'] : 10,
+      'current_page_separator' => variable_get('views_tablesorter_current_page_divider', ' of '),
+    );
+    drupal_add_js(array('views_tablesorter' => array('pager_settings' => $pager_settings)), 'setting');
+    if (variable_get('views_tablesorter_use_custom_pager', TRUE)) {
+      drupal_add_js($path . '/jquery.tablesorter.pager_custom.js');
+    }
+    else {
+      drupal_add_js($library . '/addons/pager/jquery.tablesorter.pager.js');
+    }
+  }
+
+  if (variable_get('views_tablesorter_compression_type', 'min') == 'min') {
+    drupal_add_js($library . '/jquery.tablesorter.min.js');
+  }
+  else {
+    drupal_add_js($library . '/jquery.tablesorter.js');
+  }
+  drupal_add_js($path . '/views_tablesorter.js');
+  drupal_add_css($path . '/views_tablesorter.css');
+}

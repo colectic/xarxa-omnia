@@ -1,0 +1,89 @@
+<?php
+	/**
+	* @file
+	* Omnia Usos module's install and uninstall code.
+	*/
+
+	/**
+	* Implementation of hook_install().
+	*/
+	function omnia_usos_install() {
+		$ret = drupal_install_schema('omnia_usos');
+	}
+	
+	/**
+	* Implementation of hook_uninstall().
+	*/
+	function omnia_usos_uninstall() {
+		drupal_uninstall_schema('omnia_usos');
+	}
+	
+	/**
+	* Implementation of hook_schema().
+	*/
+	function omnia_usos_schema() {
+		// TODO : S'ha de generar una taula per cada any
+  		$schema = array();
+	  	$schema['omnia_usos'] = array(
+	    	'description' => 'Estadístiques d\'us d\'Òmnia',
+	   		'fields' => array(
+	   			'nid' => array('type' => 'int', 'unsigned' => TRUE, 'not null' => TRUE, 'default' => 0),
+	   			//Dades de l'ús	
+	   			'usid' => array('type' => 'serial', 'unsigned' => TRUE, 'not null' => TRUE), //Ús ID
+   				'usin' => array('type' => 'int', 'unsigned' => TRUE, 'not null' => TRUE, 'default' => 0), //timestamp d'inici
+   				'usfi' => array('type' => 'int', 'unsigned' => TRUE, 'not null' => TRUE, 'default' => 0), //timestamp de finalització
+   				'usgr' => array('type' => 'varchar', 'length' => 256, 'not null' => FALSE, 'default' => null), //Grup
+   				'usca' => array('type' => 'int', 'unsigned' => TRUE, 'not null' => FALSE, 'default' => null), //Campanya (camp per confirmar)				
+	   			//Dades Punt Omnia	
+				'oid' => array('type' => 'int', 'unsigned' => TRUE, 'not null' => TRUE, 'default' => 0), //Omnia ID
+				'odem' => array('type' => 'int', 'unsigned' => TRUE, 'not null' => TRUE, 'default' => 0), //Demarcació Tax ID
+				'ocom' => array('type' => 'int', 'unsigned' => TRUE, 'not null' => TRUE, 'default' => 0), //Comarca Tax ID
+	   			'opob' => array('type' => 'int', 'unsigned' => TRUE, 'not null' => TRUE, 'default' => 0), //Població Tax ID
+	   			'ogen' => array('type' => 'int', 'unsigned' => TRUE, 'not null' => TRUE, 'default' => 0), //Tipus d'equipament Tax ID
+	   			'omes' => array('type' => 'int', 'unsigned' => TRUE, 'not null' => TRUE, 'default' => 0, 'size' => 'tiny'), //Població > 20000 hab 1/0 
+	   			'ofin' => array('type' => 'int', 'unsigned' => TRUE, 'not null' => TRUE, 'default' => 0), //Tipus de finançament Tax ID
+	   			'otip' => array('type' => 'int', 'unsigned' => TRUE, 'not null' => TRUE, 'default' => 0), //Tipus d'equipament Tax ID
+	   			//Dades Usuari Omnia
+	   			'uid' => array('type' => 'int', 'unsigned' => TRUE, 'not null' => FALSE, 'default' => null), //User ID
+				'uage' => array('type' => 'int', 'unsigned' => TRUE, 'not null' => FALSE, 'default' => null), //Edat calculada
+				'upai' => array('type' => 'int', 'unsigned' => TRUE, 'not null' => FALSE, 'default' => null), //País d'origen Tax ID
+	   			'usex' => array('type' => 'int', 'unsigned' => TRUE, 'not null' => FALSE, 'default' => null, 'size' => 'tiny'), //Sexe Home(1)/Dona(0)
+	   			'uany' => array('type' => 'int', 'unsigned' => TRUE, 'not null' => FALSE, 'default' => null), //Any d'arribada
+   				'upct' => array('type' => 'int', 'unsigned' => TRUE, 'not null' => FALSE, 'default' => null, 'size' => 'tiny'), //Parla català 1/0
+   				'uect' => array('type' => 'int', 'unsigned' => TRUE, 'not null' => FALSE, 'default' => null, 'size' => 'tiny'), //Escriu català 1/0
+   				'upcs' => array('type' => 'int', 'unsigned' => TRUE, 'not null' => FALSE, 'default' => null, 'size' => 'tiny'), //Parla castellà 1/0
+   				'uecs' => array('type' => 'int', 'unsigned' => TRUE, 'not null' => FALSE, 'default' => null, 'size' => 'tiny'), //Escriu castellà 1/0
+	   			'uest' => array('type' => 'int', 'unsigned' => TRUE, 'not null' => FALSE, 'default' => null), //Estudis Tax ID
+	   			//Dades Activitat
+	   			'aid' => array('type' => 'int', 'unsigned' => TRUE, 'not null' => TRUE, 'default' => 0), //Activitat ID
+	   			'adur' => array('type' => 'int', 'unsigned' => TRUE, 'not null' => TRUE, 'default' => 0), //Durada en hores
+	   			'ases' => array('type' => 'int', 'unsigned' => TRUE, 'not null' => TRUE, 'default' => 0), //Durada en sessions
+   				'aobj' => array('type' => 'int', 'unsigned' => TRUE, 'not null' => TRUE, 'default' => 0), //Objectiu social Tax ID
+   				'acom' => array('type' => 'int', 'unsigned' => TRUE, 'not null' => TRUE, 'default' => 0), //Competència digital Tax ID
+   				'astd' => array('type' => 'int', 'unsigned' => TRUE, 'not null' => TRUE, 'default' => 0), //Estratègia DGAC - dina Tax ID
+   				'acol' => array('type' => 'int', 'unsigned' => TRUE, 'not null' => TRUE, 'default' => 0), //Col·lectiu destinatari Tax ID
+   				'afor' => array('type' => 'int', 'unsigned' => TRUE, 'not null' => TRUE, 'default' => 0), //Format de l'activitat Tax ID
+   				'apla' => array('type' => 'int', 'unsigned' => TRUE, 'not null' => TRUE, 'default' => 0), //Places ofertes
+   				'aorg' => array('type' => 'int', 'unsigned' => TRUE, 'not null' => TRUE, 'default' => 0), //Organitzador Tax ID
+   				'aixp' => array('type' => 'int', 'unsigned' => TRUE, 'not null' => FALSE, 'default' => null), //Eix principal Tax ID
+   				'aixs' => array('type' => 'int', 'unsigned' => TRUE, 'not null' => FALSE, 'default' => null), //Eix secundari Tax ID
+   				'astc' => array('type' => 'int', 'unsigned' => TRUE, 'not null' => FALSE, 'default' => null), //Estratègia DGAC - coord Tax ID
+   				//Dades Entitat
+	   			'eid' => array('type' => 'int', 'unsigned' => TRUE, 'not null' => FALSE, 'default' => null), //Entitat ID
+   				'etip' => array('type' => 'int', 'unsigned' => TRUE, 'not null' => FALSE, 'default' => null), //Tipus d'entitat Tax ID
+   				'eder' => array('type' => 'int', 'unsigned' => TRUE, 'not null' => FALSE, 'default' => null, 'size' => 'tiny'), //Deriva persones 1/0
+   				'ecoo' => array('type' => 'int', 'unsigned' => TRUE, 'not null' => FALSE, 'default' => null, 'size' => 'tiny'), //Hi ha coordinació 1/0
+   				'epro' => array('type' => 'int', 'unsigned' => TRUE, 'not null' => FALSE, 'default' => null, 'size' => 'tiny'), //Protocol de coordinació 1/0
+   				'efre' => array('type' => 'int', 'unsigned' => TRUE, 'not null' => FALSE, 'default' => null), //Freqüència de coordinació Tax ID
+			),
+			'primary key' => array('usid'),
+			'indexes' => array(
+				'nid' => array('oid'),
+				'uid' => array('uid'),
+				'oid' => array('oid'),
+				'aid' => array('aid'),
+				'eid' => array('eid'),
+			),
+		    );
+	return $schema;
+	}

@@ -1,0 +1,2329 @@
+<?php
+	global $checkbox_fields, $date_fields, $taxonomy_fields, $reference_fields, $field_translate;
+	
+	$checkbox_fields = array('upct', 'uect', 'upcs', 'uecs', 'omes');
+	$date_fields = array('usin', 'usfi');
+	$taxonomy_fields = array('odem', 'ocom', 'opob', 'ogen', 'ofin', 'otip', 'upai', 'uest', 'aobj', 'acom', 'astd', 'acol', 'afor', 'aorg', 'aixp', 'aixs', 'astc', 'etip', 'efre', 'usca');
+	$reference_fields = array('oid');
+	$field_translate = array(
+			'usca' => 'Campanya',
+			'usin' => 'Data d\'inici',
+			'usfi' => 'Data de finalització',
+			'uage' => 'Edat',
+			'upai' => 'País d\'origen',
+			'usex' => 'Sexe',
+			'uany' => 'Any d\'arribada',
+			'upct' => 'Entén el català',
+			'uect' => 'Escriu en català',
+			'upcs' => 'Entén el castellà',
+			'uecs' => 'Escriu el castellà',
+			'uest' => 'Nivell d\'estudis',
+			'adur' => 'Durada en minuts',
+			'ases' => 'Número de sessions',
+			'aobj' => 'Objectiu social',
+			'acom' => 'Competència digital',
+			'astd' => 'Estratègia DGACC',
+			'acol' => 'Col·lectiu destinatari',
+			'afor' => 'Format de l\'activitat',
+			'apla' => 'Places ofertes',
+			'aorg' => 'Organització',
+			'aixp' => 'Eix principal',
+			'aixs' => 'Eix secundari',
+			'astc' => 'Estratègia DGACC - Coord.',
+			'odem' => 'Demarcació',
+			'oid' => 'Punt Omnia',
+			'ocom' => 'Comarca',
+			'opob' => 'Població',
+			'ogen' => 'Tipus d\'equipament',
+			'omes' => 'Més de 20 000 hab.',
+			'ofin' => 'Tipus de finançament',
+			'otip' => 'Tipus d\'entitat gestora',
+			'users' => 'Participants',
+			'uses' => 'Usos',
+			'actuacions' => 'Actuacions',
+			'activities' => 'Activitats',
+			'sessions' => 'Sessions');
+
+	function omnia_usos_init() {
+		//TODO: Mirar de que no calgui clavar les taules
+		global $oid;
+		global $user;
+		$sql = "SELECT node.nid AS nid FROM node node 
+ 				INNER JOIN content_type_content_punt node_data_field_active ON node.vid = node_data_field_active.vid
+ 				LEFT JOIN content_type_content_punt node_data_field_1r_dinamitzador_a ON node.vid = node_data_field_1r_dinamitzador_a.vid
+ 				LEFT JOIN content_field_puntomnia_dinas2 node_data_field_puntomnia_dinas2 ON node.vid = node_data_field_puntomnia_dinas2.vid
+ 				WHERE node.status = 1 AND node.type ='content_punt'
+				AND (node_data_field_1r_dinamitzador_a.field_1r_dinamitzador_a_uid=".$user->uid."
+ 				OR node_data_field_puntomnia_dinas2.field_puntomnia_dinas2_uid =".$user->uid." )";
+		$oid = db_result(db_query($sql));
+		module_load_include('inc', 'omnia_usos', 'omnia_usos');
+	}
+
+	/**
+	 * Implementation of hook_menu().
+	 */
+	function omnia_usos_menu($may_cache) {
+		$items['omnia_usos/autocomplete/%'] = array(
+		    'page callback' => 'omnia_usos_autocomplete',
+		    'page arguments' => array(2),
+		    'type' => MENU_CALLBACK,
+		    'access arguments' => array('access omnia_usos'),
+		);
+		$items['omnia_usos/omnia_usos_user_item'] = array(
+			'page callback' => 'omnia_usos_callback',
+			'page arguments' => array('omnia_usos_user_item'),
+			'access arguments' => array('access omnia_usos'),
+			'type' => MENU_CALLBACK,
+		);
+		$items['admin/settings/omnia_usos'] = array(
+			'title' => 'Omnia Usos settings',
+			'page callback' => 'drupal_get_form',
+			'page arguments' => array('omnia_usos_admin'),
+			'access arguments' => array('administer settings'),
+			'type' => MENU_NORMAL_ITEM,
+		);
+		$items['estadistiques_omnia/eina_estadistiques'] = array(
+			'page callback' => 'omnia_usos_stats_tool_page',
+			'access arguments' => array('access omnia_usos'),
+			'type' => MENU_CALLBACK,
+		);
+		$items['estadistiques_omnia/estadistiques_globals'] = array(
+			'page callback' => 'omnia_usos_stats_global_page',
+			'access arguments' => array('access omnia_usos'),
+			'type' => MENU_CALLBACK,
+		);
+		
+		/*if ($may_cache){
+			$items[] = array(
+					'path' => 'estadistiques',
+					'title'=> t('Estadístiques d\'ús'),
+					'callback' => 'omnia_usos_formulariconsultes_page',
+					'access' => TRUE,
+					'access arguments' => array('access omnia_usos'),
+			);
+		}*/
+		
+		return $items; 
+	}
+
+	/**
+	 * Module definition
+	 */
+	function omnia_usos_info() {
+		return t('Mòdul per a registrar els usos dels equipaments Omnia');
+	}
+	
+	/**
+	 * Implementation of hook_node_info().
+	 *
+	 * This is a required node hook. This function describes the nodes provided by
+	 * this module.
+	 */
+	function omnia_usos_node_info() {
+		return array(
+			'omnia_usos_type' => array(
+				'name' => t('Usos Omnia'),
+				'module' => 'omnia_usos',
+				'description' => t("Node per a registrar els usos dels equipaments Omnia"),
+				'has_title' => FALSE,
+				'has_body' => FALSE,                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            
+			)
+		);
+	}
+	
+	/**
+	 * Implementation of hook_access().
+	 *
+	 * Node modules may implement node_access() to determine the operations
+	 * users may perform on nodes. This example uses a very common access pattern.
+	 */
+	function omnia_usos_access($op, $node, $account) {
+		if ($op == 'create') {
+			return user_access('crear registres', $account);
+		}
+		if ($op == 'update') {
+			if (user_access('editar qualsevol registre', $account) || (user_access('editar els propis registres', $account) && ($account->uid == $node->uid))) {
+				return TRUE;
+			}
+		}
+		if ($op == 'delete') {
+			if (user_access('eliminar qualsevol registre', $account) || (user_access('eliminar els propis registres', $account) && ($account->uid == $node->uid))) {
+				return TRUE;
+			}
+		}
+	}
+	
+	/**
+	 * Implementation of hook_perm().
+	 *
+	 * Since we are limiting the ability to create new nodes to certain users,
+	 * we need to define what those permissions are here. We also define a permission
+	 * to allow users to edit the nodes they created.
+	 */
+	function omnia_usos_perm() {
+		return array(
+				'crear registres',
+				'editar qualsevol registre',
+				'editar els propis registres',
+				'eliminar qualsevol registre',
+				'eliminar els propis registres',
+				'access omnia_usos',
+				'access estadístiques omnia'
+		);
+	}
+	
+	/**
+	 * Implementation of hook_form().
+	 *
+	 * Now it's time to describe the form for collecting the information
+	 * specific to this node type. This hook requires us to return an array with
+	 * a sub array containing information for each element in the form.
+	 */
+	function omnia_usos_form(&$node, $form_state) {
+		$activity_node = variable_get('omnia_usos_activity_node', '');
+		if (is_null($activity_node)) form_set_error('activity_node', t('Activity node is null.'));
+		$field = variable_get('omnia_usos_punt_field', '');
+		if (is_null($field)) form_set_error('punt_field', t('Punt field NID is null.'));
+		$camp_tax = variable_get('omnia_usos_campaign_tax', '');
+		if (is_null($camp_tax)) form_set_error('campaign_tax', t('Campaign taxonomy i not set.'));
+		
+		$campaigns = taxonomy_get_tree($camp_tax);
+		$camp_array = array(0 => t('Cap campanya seleccionada'));
+		foreach ($campaigns as $campaign) {
+			$camp_array[$campaign->tid] = $campaign->name;
+		}
+		
+		$date = date('Y-m-d H:i:s');
+		$date_ = date('Y-m-d H:i:s', time()+5400);
+		
+		$activity = isset($node->activity) ? $node->activity : '';
+		$group = isset($node->group) ? $node->group : null;
+		$camp = isset($node->campaign) ? $node->campaign : 0;
+		$startdate = isset($node->startdate) ? $node->startdate : $date;
+		$enddate = isset($node->enddate) ? $node->enddate : $date_;
+		
+		//Load cloned use
+		if (isset($_GET['usid'])) {
+			$query = "SELECT nid, uid, aid, usgr, usin, usfi, usca FROM {omnia_usos} WHERE nid = {$_GET['usid']}";
+			$query = db_query($query);
+			
+			$users = array();
+			while ($nuse = db_fetch_object($query)) {
+				if (!is_null($nuse->uid)) $users[] = $nuse->uid;
+				$use = $nuse;
+			}				
+			//$node = node_load($nid);
+			$activity = node_load($use->aid);
+			$data = array ( 'users' => $users);
+			$activity = $activity->title." [{$use->aid}]";
+			$group = $use->usgr;
+			$camp = $use->usca;
+			$startdate = substr($startdate, 0, -9).' '.date('H:i:s', $use->usin);
+			$enddate = substr($enddate, 0, -9).' '.date('H:i:s', $use->usfi);
+		}
+		
+		//Load activity if it's defined in $_GET
+		if (!$activity && isset($_GET['aid'])) {
+			$activity = node_load($_GET['aid']);	
+			$activity = $activity->title." [{$_GET['aid']}]";
+		}
+		
+		$attributes = array();
+		
+		if (isset($node->activity)) {
+			$form['disabled_activity'] = array(
+					'#type' => 'textfield',
+					'#title' => t('Activitat'),
+					'#lenght' => 30,
+					'#autocomplete_path' => "omnia_usos/autocomplete/{$activity_node}",
+					'#default_value' => $activity,
+					'#disabled' => true,
+			);
+			$attributes['class'] = 'omnia_usos_activity_hidden';
+		}
+		$form['activity'] = array(
+				'#type' => 'textfield',
+				'#title' => isset($node->activity) ? '' : t('Activitat'),
+				'#lenght' => 30,
+				'#autocomplete_path' => "omnia_usos/autocomplete/{$activity_node}",
+				'#default_value' => $activity,
+				//'#required' => true,
+				'#attributes' => $attributes,
+				'#description' => isset($node->activity) ? '' : t('Comença a escriure el títol d\'una activitat ja inserida i selecciona-la quan aparegui a la llista'),
+		);
+		$form['startdate'] = array(
+				'#type' => 'date_popup',
+				'#title' => t('Data d\'inici de l\'activitat'),
+				'#format' => 'Y-m-d H:i',
+				'#default_value' => $startdate,
+				//'#required' => true,
+				//'#disabled' => isset($node->startdate) ? true : false,
+				'#attributes' => array('id' => 'omnia_usos_startdate')
+		);
+		$form['enddate'] = array(
+				'#type' => 'date_popup',
+				'#title' => t('Data de finalització de l\'activitat'),
+				'#format' => 'Y-m-d H:i',
+				'#default_value' => $enddate,
+				//'#required' => true,
+				//'#disabled' => isset($node->enddate) ? true : false,
+				'#attributes' => array('id' => 'omnia_usos_enddate')
+		);
+		$form['group'] = array(
+				'#type' => 'textfield',
+				'#title' => t('Grup/Edició'),
+				'#lenght' => 30,
+				'#default_value' => $group,
+				'#required' => false,
+				//'#disabled' => isset($node->group) ? true : false,
+				'#attributes' => array('id' => 'omnia_usos_group')
+		);
+		$form['campaign'] = array(
+				'#type' => 'select',
+				'#title' => t('Campanya'),
+				'#default_value' => $camp,
+				'#options' => $camp_array,
+				'#attributes' => array('id' => 'omnia_usos_campaign')			
+		);		
+		
+		//Update user data in form_state
+		$initial_users = 8;
+		if (empty($form_state['values']['omnia_usos_user_item']) && !empty($node->users)){
+			$initial_users = count($node->users);
+			$form_state['omnia_usos_user_item_count'] = isset($form_state['omnia_usos_user_item_count']) ? $form_state['omnia_usos_user_item_count'] : $initial_users;
+			foreach ($node->users as $user){
+				$form_state['values']['omnia_usos_user_item'][]['user'] = $user;
+			}
+		}
+		
+		//Charge preset users
+		if (empty($form_state['values']['omnia_usos_user_item']) && !empty($users)){
+			$initial_users = count($users);
+			$form_state['omnia_usos_user_item_count'] = isset($form_state['omnia_usos_user_item_count']) ? $form_state['omnia_usos_user_item_count'] : $initial_users;
+			foreach ($users as $uid) {
+				$node = node_load($uid);
+				$form_state['values']['omnia_usos_user_item'][]['user'] = "{$node->title} [{$uid}]";
+			}
+		}
+				
+		omnia_usos_wrapper($form, $form_state, 'omnia_usos_user_item');
+				
+		return $form;
+	}
+	
+	/**
+	 * Autocomplete function
+	 */
+	function omnia_usos_autocomplete($node, $string) {
+		global $oid;
+		
+		//Llista de nodes dels punts corresponents
+		$field = variable_get('omnia_usos_punt_field', '').'_nid';
+		$table = 'content_'.variable_get('omnia_usos_punt_field', '');
+		
+		$res = db_query("SELECT nid FROM {$table} WHERE {$field} = {$oid}");		
+		$nids = array();
+		while ($row = db_fetch_array($res)) {
+			$nids[] = $row['nid'];
+		}
+		$nids = implode(",", $nids);
+		$matches = array();
+		
+		$lowerstring = strtolower($string);
+		$ucstring = ucfirst($lowerstring);
+		$query = "SELECT title, nid FROM {node} WHERE ((LOWER(title) LIKE ('%{$lowerstring}%')) OR (title LIKE ('%{$ucstring}%')) OR (nid LIKE ('{$lowerstring}'))) AND type = '{$node}' AND nid IN ({$nids})";
+		$res = db_query($query);
+
+		while ($row = db_fetch_array($res)) {
+			$matches[$row['title'].' ['.$row['nid'].']'] = $row['title'].' ['.$row['nid'].']';
+		}
+		
+		drupal_json($matches);
+	}
+	
+	/**
+	 * Implementation of hook_validate().
+	 *
+	 * Errors should be signaled with form_set_error().
+	 */
+	function omnia_usos_validate($node, &$form) {
+		//Validate activity 
+		if($form['activity']['#disabled'] != 1) {
+			if ($node->activity == ''){
+				form_set_error('no_activity', t('Cal especificar una activitat'));
+			} else {
+				$aid = explode('[', $node->activity);
+				$aid = substr($aid[1], 0, -1);
+				if (!node_load($aid)) form_set_error('activity_no_exist', t('L\'activitat no ha estat registrada'));
+			}
+		}
+		
+		$uid_array = array(); 
+		//Validate users
+		foreach ($node->omnia_usos_user_item as $user){
+			if ($user['user'] != '') {
+				$uid = explode('[', $user['user']);
+				$uid = substr($uid[1], 0, -1);
+				if (!node_load($uid)) form_set_error('user_no_exist', t('Usuari no existent'));
+				if (in_array($uid, $uid_array)) {
+					form_set_error('user_duplicated', t('Usuari repetit'));
+				} else {
+					$uid_array[] = $uid;
+				}
+			}
+		}
+	}
+	
+	
+	/**
+	 * Implementation of hook_insert().
+	 *
+	 * As a new node is being inserted into the database, we need to do our own
+	 * database inserts.
+	 */
+	function omnia_usos_insert($node) {
+		global $oid;
+
+		$aid = explode('[', $node->activity);
+		$aid = substr($aid[1], 0, -1);
+		
+		$starttime = strtotime($node->startdate);
+		$endtime = strtotime($node->enddate);
+		$group = str_replace('"', "'", $node->group);
+		$campaign = $node->campaign;
+		$users = false;
+		
+		//Get all users
+		foreach ($node->omnia_usos_user_item as $user){
+			if ($user['user'] != ''){
+				$users = true;
+				$uid = explode('[', $user['user']);
+				$uid = substr($uid[1], 0, -1);
+				omnia_usos_insert_user($node->nid, $aid, $uid, $starttime, $endtime, $group, $campaign);
+			}
+		}
+		
+		//If no users, insert activity row
+		if (!$users){
+			omnia_usos_insert_user($node->nid, $aid, null, $starttime, $endtime, $group, $campaign);
+		}
+
+		//Node title construction
+		$activity = explode(' [', $node->activity);
+		$grup = ($node->group != '') ? ' - Grup/Edició:'.$group : '';
+		$date = date('d/m/Y', $starttime);
+		$title = $activity[0].' - '.$date.$grup;
+		db_query("UPDATE {node} SET title = \"{$title}\" WHERE nid = {$node->nid}");
+		db_query("UPDATE {node_revisions} SET title = \"{$title}\" WHERE nid = {$node->nid}");
+		$node->title = $title;
+		pathauto_node_update_alias($node, 'insert');
+	}
+	
+	
+	/**
+	 * External function to insert each user
+	 */
+	function omnia_usos_insert_user($nid, $aid, $uid, $starttime, $endtime, $group, $campaign){
+		global $oid;
+		
+		//Use information
+		$usin = $starttime;
+		$usfi = $endtime;
+		$usgr = $group;
+		$usca = ($campaign == 0) ? null : $campaign;
+		
+		//Omnia information
+		$omnia_node = node_load($oid);
+		$omnia_place_array = array();
+		//Get taxonomy terms
+		foreach ($omnia_node->taxonomy as $tax){
+			if ($tax->vid == variable_get('omnia_usos_place_tax', '')){
+				$omnia_place_array[$tax->weight] = $tax->tid;
+			}
+		}
+		ksort($omnia_place_array);
+		$odem = array_shift($omnia_place_array);
+		$ocom = array_shift($omnia_place_array);
+		$opob = array_shift($omnia_place_array);
+		$ofin = $omnia_node->field_financament[0]['value'];
+		$ogen = $omnia_node->field_puntomnia_tipus_equipament[0]['value'];
+		$omes = (is_null($omnia_node->field_habitants[0]['value'])) ? 0 : $omnia_node->field_habitants[0]['value'];
+		$otip = ($omnia_node->field_po_entitat_gest_tip[0]['value'] == '') ? 0 : $omnia_node->field_po_entitat_gest_tip[0]['value'];
+			
+		//Activity information
+		$activity_node = node_load($aid);
+		$adur = $activity_node->field_activitat_omnia_durada[0]['value'];
+		$ases = $activity_node->field_activitat_omnia_sessions[0]['value'];
+		$aobj = $activity_node->field_activitat_omnia_objectius[0]['value'];
+		$acom = $activity_node->field_activitat_omnia_competenci[0]['value'];
+		$astd = $activity_node->field_activitat_omnia_estrat[0]['value'];
+		$acol = $activity_node->field_activitat_omnia_collectiu[0]['value'];
+		$afor = $activity_node->field_activitat_omnia_format[0]['value'];
+		$apla = $activity_node->field_activitat_omnia_places[0]['value'];
+		$aorg = $activity_node->field_activitat_omnia_organit[0]['value'];
+		$aixp = $activity_node->field_activitat_omnia_eix[0]['value'];
+		$aixs = $activity_node->field_activitat_omnia_eix_sec[0]['value'];
+		$astc = $activity_node->field_activitat_omnia_estrat_coo[0]['value'];
+
+		//Entity information
+		$eid = $activity_node->field_activitat_omnia_entitat[0]['nid'];
+		if (!is_null($eid)) $entity_node = node_load($eid);
+		$etip = (!is_null($eid)) ? $entity_node->field_entitat_omnia_tipus[0]['value'] : null;
+		$eder = (!is_null($eid)) ? $entity_node->field_entitat_omnia_deriva[0]['value'] : null;
+		$ecoo = (!is_null($eid)) ? $entity_node->field_entitat_omnia_coord[0]['value'] : null;
+		$epro = (!is_null($eid)) ? $entity_node->field_entitat_omnia_protocol[0]['value'] : null;
+		$efre = (!is_null($eid)) ? $entity_node->field_entitat_omnia_frequencia[0]['value'] : null;
+				
+		//User information
+		if (!is_null($uid)) {
+			$user_node = node_load($uid);
+			$bday = new DateTime($user_node->field_usuari_omnia_naixement[0]['value']);
+			$today = new DateTime('00:00:00');
+			$diff = $today->diff($bday);
+			$uage = $diff->y;
+		} else {
+			$uage = null;
+		}
+		$upai = (!is_null($uid)) ? $user_node->field_usuari_omnia_pais_origen[0]['value'] : null;
+		$usex = (!is_null($uid)) ? $user_node->field_usuari_omnia_sexe[0]['value'] : null;
+		$year = explode('-', $user_node->field_usuari_omnia_arribada[0]['value']);
+		$uany = (!is_null($uid)) ? $year[0] : null;
+		$upct = (!is_null($uid)) ? $user_node->field_usuari_omnia_parla_cat[0]['value'] : null;
+		$uect = (!is_null($uid)) ? $user_node->field_usuari_omnia_escriu_cat[0]['value'] : null;
+		$upcs = (!is_null($uid)) ? $user_node->field_usuari_omnia_parla_cas[0]['value'] : null;
+		$uecs = (!is_null($uid)) ? $user_node->field_usuari_omnia_escriu_cas[0]['value'] : null;
+		$uest = (!is_null($uid)) ? $user_node->field_usuari_omnia_estudis[0]['value'] : null;
+		
+		$values_array = array($nid,$usin,$usfi,$usgr,$usca,$oid,$odem,$ocom,$opob,$ogen,$omes,$ofin,$otip,$uid,$uage,$upai,$usex,$uany,$upct,$uect,$upcs,$uecs,$uest,$aid,$adur,$ases,$aobj,$acom,$astd,$acol,$afor,$apla,$aorg,$aixp,$aixs,$astc,$eid,$etip,$eder,$ecoo,$epro,$efre);
+		$values = '';
+		foreach ($values_array as $value) {
+			$values .= ((string)$value == '') ? 'null' : '"'.$value.'"';
+			$values .= ',';
+		}
+		$values = substr($values, 0, -1);
+		$query = 	"INSERT INTO {omnia_usos} (nid, usin, usfi, usgr, usca, oid, odem, ocom, opob, ogen, omes, ofin, otip, uid, uage, upai, usex, uany, upct, uect, upcs, uecs, uest, aid, adur, ases, aobj, acom, astd, acol, afor, apla, aorg, aixp, aixs, astc, eid, etip, eder, ecoo, epro, efre)
+					VALUES({$values})";
+		$res = db_query($query);
+		
+		/**************************/
+		/*global $user;
+		if ($user->name == 'dinamitzadora'){
+			print_r($query);
+			die('Proves');
+		}*/
+		/***************************/
+	}
+	
+	
+	/**
+	 * Implementation of hook_update().
+	 *
+	 * As an existing node is being updated in the database, we need to do our own
+	 * database updates.
+	 */
+	function omnia_usos_update($node) {
+		// if this is a new node or we're adding a new revision,
+		if ($node->revision) {
+			//TODO: Revisió ???
+			//node_example_insert($node);
+		}
+		else {
+			//Update group, campaign, startdate and enddate
+			$usgr = str_replace('"', "'", $node->group);
+			$usca = ((int)$node->campaign != 0) ? "'{$node->campaign}'" : 'null';
+			$usin = strtotime($node->startdate);
+			$usfi = strtotime($node->enddate);
+			$query = "UPDATE {omnia_usos} SET usgr=\"{$usgr}\", usca={$usca}, usin={$usin}, usfi={$usfi} WHERE nid={$node->nid}";
+			db_query($query);
+			
+			//Update node title
+			$activity = explode(' [', $node->activity);
+			$grup = ($usgr != '') ? ' - Grup/Edició:'.$usgr : '';
+			$date = date('d/m/Y', $usin);
+			$title = $activity[0].' - '.$date.$grup;
+			db_query("UPDATE {node} SET title = \"{$title}\" WHERE nid = {$node->nid}");
+			db_query("UPDATE {node_revisions} SET title = \"{$title}\" WHERE nid = {$node->nid}");
+			$node->title = $title;
+			pathauto_node_update_alias($node, 'insert');
+			
+			//Check users
+			$activity_usid = null;
+			$num_users = 0;
+			$res = db_query("SELECT usid, uid, aid, usin, usfi, usgr FROM {omnia_usos} WHERE nid = {$node->nid}");
+			$actual_uid = array();
+			while ($row = db_fetch_array($res)) {
+				$actual_uid[] = $row['uid'];
+				$aid = $row['aid'];
+				$starttime = $row['usin'];
+				$endtime = $row['usfi'];
+				$group = $row['usgr'];
+				if (is_null($row['uid'])){
+					$activity_usid = $row['usid'];			
+				} else {
+					$num_users++;
+				}
+			}
+			
+			//$group = $node->group;
+			$campaign = $node->campaign;
+			$users_removed = 0;
+			$users_added = 0;
+			
+			foreach ($node->omnia_usos_user_item as $key => $user){
+				if ($user['user'] != ''){
+					$uid = explode('[', $user['user']);
+					$uid = substr($uid[1], 0, -1);
+					if (!in_array($uid, $actual_uid)){
+						//Add new user
+						omnia_usos_insert_user($node->nid, $aid, $uid, $starttime, $endtime, $group, $campaign);
+						$users_added++;
+					}else{
+						unset($actual_uid[$key]);
+					}
+				}
+			}
+			//Remove old users
+			foreach ($actual_uid as $uid){
+				db_query("DELETE FROM {omnia_usos} WHERE nid = {$node->nid} AND uid = {$uid}");
+				$users_removed++;
+			}
+			if ($num_users == $users_removed) omnia_usos_insert_user($node->nid, $aid, null, $starttime, $endtime, $group, $campaign); //Activity row
+			if (($num_users == 0) && ($users_added > 0)) db_query("DELETE FROM {omnia_usos} WHERE usid = {$activity_usid}"); //Delete activity row
+		}
+	}
+	
+	/**
+	 * Implementation of hook_delete().
+	 *
+	 * When a node is deleted, we need to remove all related records from our table.
+	 */
+	function omnia_usos_delete($node) {
+		// Notice that we're matching all revision, by using the node's nid.
+		db_query('DELETE FROM {omnia_usos} WHERE nid = %d', $node->nid);
+	}
+	
+	/**
+	 * Implementation of hook_load().
+	 *
+	 * Now that we've defined how to manage the node data in the database, we
+	 * need to tell Drupal how to get the node back out. This hook is called
+	 * every time a node is loaded, and allows us to do some loading of our own.
+	 */
+	function omnia_usos_load($node) {
+		$data = db_fetch_object(db_query('SELECT aid, usin, usfi, usgr, usca FROM {omnia_usos} WHERE nid = %d', $node->nid));
+		$res = db_query('SELECT uid FROM {omnia_usos} WHERE nid = %d', $node->nid);
+		
+		$users = array();
+		while ($row = db_fetch_array($res)) {
+			if (is_null($row['uid'])) break; //Es tracta d'una cessió
+			$user =  node_load($row['uid']);
+			$users[] = $user->title.' ['.$row['uid'].']';
+		}
+		
+		$activity = node_load($data->aid);
+		
+		$additions = new stdClass();
+		$additions->group = $data->usgr;
+		$additions->campaign = $data->usca;
+		$additions->activity = $activity->title.' ['.$data->aid.']';
+		$additions->startdate = date('Y-m-d H:i:s', $data->usin);
+		$additions->enddate = date('Y-m-d H:i:s', $data->usfi);
+		$additions->users = $users; 
+		
+		return $additions;
+	}
+	
+	/**
+	 * Implementation of hook_view().
+	 *
+	 * This is a typical implementation that simply runs the node text through
+	 * the output filters.
+	 */
+	function omnia_usos_view($node, $teaser = FALSE, $page = FALSE) {
+		$node = node_prepare($node, $teaser);
+		$node->content['myfield'] = array(
+				'#value' => theme('omnia_usos_info', $node),
+				'#weight' => 1,
+		);
+		return $node;
+	}
+	
+	/**
+	 * Admin configuration form
+	 */
+	function omnia_usos_admin() {
+		$form = array();
+		$taxonomies = taxonomy_get_vocabularies();
+		$tax_array = array();
+		foreach ($taxonomies as $tax){
+			$tax_array[$tax->vid] = $tax->name;
+		}
+		
+		//Omnia fields
+		$form['omnia'] = array(
+				'#type' => 'fieldset',
+				'#title' => t('Dades del punt Omnia'),
+				'#collapsible' => TRUE,
+				'#collapsed' => FALSE,
+		);
+		$form['omnia']['omnia_usos_place_tax'] = array(
+				'#type' => 'select',
+				'#title' => t('Taxonomia del territori'),
+				'#options' => $tax_array,
+				'#default_value' => variable_get('omnia_usos_place_tax', ''),
+		);
+		$form['omnia']['omnia_usos_ogen_tax'] = array(
+				'#type' => 'select',
+				'#title' => t('Taxonomia del tipus d\'equipament'),
+				'#options' => $tax_array,
+				'#default_value' => variable_get('omnia_usos_ogen_tax', ''),
+		);
+		$form['omnia']['omnia_usos_ofin_tax'] = array(
+				'#type' => 'select',
+				'#title' => t('Taxonomia del tipus de finançament'),
+				'#options' => $tax_array,
+				'#default_value' => variable_get('omnia_usos_ofin_tax', ''),
+		);
+		$form['omnia']['omnia_usos_otip_tax'] = array(
+				'#type' => 'select',
+				'#title' => t('Taxonomia del tipus d\'entitat gestora'),
+				'#options' => $tax_array,
+				'#default_value' => variable_get('omnia_usos_otip_tax', ''),
+		);
+		
+		//Use fields
+		$form['use'] = array(
+				'#type' => 'fieldset',
+				'#title' => t('Dades de l\'ús'),
+				'#collapsible' => TRUE,
+				'#collapsed' => FALSE,
+		);
+		$form['use']['omnia_usos_campaign_tax'] = array(
+				'#type' => 'select',
+				'#title' => t('Taxonomia de la campanya'),
+				'#options' => $tax_array,
+				'#default_value' => variable_get('omnia_usos_campaign_tax', ''),
+		);
+		$form['use']['omnia_usos_activity_node'] = array(
+				'#type' => 'textfield',
+				'#title' => t('Activity Node'),
+				'#default_value' => variable_get('omnia_usos_activity_node', ''),
+				'#size' => 25,
+				'#maxlength' => 25,
+				'#required' => TRUE,
+		);
+		$form['use']['omnia_usos_users_node'] = array(
+				'#type' => 'textfield',
+				'#title' => t('Users Node'),
+				'#default_value' => variable_get('omnia_usos_users_node', ''),
+				'#size' => 25,
+				'#maxlength' => 25,
+				'#required' => TRUE,
+		);
+		$form['use']['omnia_usos_punt_field'] = array(
+				'#type' => 'textfield',
+				'#title' => t('Punt field'),
+				'#default_value' => variable_get('omnia_usos_punt_field', ''),
+				'#size' => 25,
+				'#maxlength' => 25,
+				'#required' => TRUE,
+		);
+		
+		//User fields
+		$form['user'] = array(
+				'#type' => 'fieldset',
+				'#title' => t('Dades del participant'),
+				'#collapsible' => TRUE,
+				'#collapsed' => FALSE,
+		);
+		$form['user']['omnia_usos_upai_tax'] = array(
+				'#type' => 'select',
+				'#title' => t('Taxonomia del país d\'origen'),
+				'#options' => $tax_array,
+				'#default_value' => variable_get('omnia_usos_upai_tax', ''),
+		);
+		$form['user']['omnia_usos_uest_tax'] = array(
+				'#type' => 'select',
+				'#title' => t('Taxonomia del nivell d\'estudis'),
+				'#options' => $tax_array,
+				'#default_value' => variable_get('omnia_usos_uest_tax', ''),
+		);
+
+		//Activity fields
+		$form['activity'] = array(
+				'#type' => 'fieldset',
+				'#title' => t('Dades de l\'activitat'),
+				'#collapsible' => TRUE,
+				'#collapsed' => FALSE,
+		);
+		$form['activity']['omnia_usos_aobj_tax'] = array(
+				'#type' => 'select',
+				'#title' => t('Taxonomia de l\'objectiu social'),
+				'#options' => $tax_array,
+				'#default_value' => variable_get('omnia_usos_aobj_tax', ''),
+		);
+		$form['activity']['omnia_usos_acom_tax'] = array(
+				'#type' => 'select',
+				'#title' => t('Taxonomia de competència digital'),
+				'#options' => $tax_array,
+				'#default_value' => variable_get('omnia_usos_acom_tax', ''),
+		);
+		$form['activity']['omnia_usos_astd_tax'] = array(
+				'#type' => 'select',
+				'#title' => t('Taxonomia d\'estratègia DGACC'),
+				'#options' => $tax_array,
+				'#default_value' => variable_get('omnia_usos_astd_tax', ''),
+		);
+		$form['activity']['omnia_usos_acol_tax'] = array(
+				'#type' => 'select',
+				'#title' => t('Taxonomia de col·lectiu destinatari'),
+				'#options' => $tax_array,
+				'#default_value' => variable_get('omnia_usos_acol_tax', ''),
+		);
+		$form['activity']['omnia_usos_afor_tax'] = array(
+				'#type' => 'select',
+				'#title' => t('Taxonomia de format'),
+				'#options' => $tax_array,
+				'#default_value' => variable_get('omnia_usos_afor_tax', ''),
+		);
+		$form['activity']['omnia_usos_aorg_tax'] = array(
+				'#type' => 'select',
+				'#title' => t('Taxonomia d\'organització'),
+				'#options' => $tax_array,
+				'#default_value' => variable_get('omnia_usos_aorg_tax', ''),
+		);
+		$form['activity']['omnia_usos_aixp_tax'] = array(
+				'#type' => 'select',
+				'#title' => t('Taxonomia d\'eixos d\'activitat'),
+				'#options' => $tax_array,
+				'#default_value' => variable_get('omnia_usos_aixp_tax', ''),
+		);
+		
+		return system_settings_form($form);
+	}
+	
+	
+	function omnia_usos_theme() {
+		return array(
+				'omnia_usos_user_item' => array(
+					'arguments' => array('form' => NULL),
+				),
+				'omnia_usos_info' => array(
+					'template' => 'templates/omnia_usos_info',
+			    	'arguments' => array('node' => null)
+			    ),
+		);
+	}
+	
+	function omnia_usos_preprocess_omnia_usos_info(&$vars){
+		$node = $vars['node'];
+		$users_header = array(t('Nom'), t('Edat'), t('Sexe'), t('Origen'), t('P/Cat'), t('E/Cat'), t('P/Cas'), t('E/Cas'), t('Estudis'));
+		$users_rows = array();
+		
+		$res = db_query('SELECT * FROM {omnia_usos} WHERE nid = %d', $node->nid);
+		$last_row = '';
+		while ($row = db_fetch_array($res)) {
+			$last_row = $row;
+			if (is_null($row['uid'])) break; //Es tracta d'una cessió
+				
+			$user_node =  node_load($row['uid']);
+			$user_row = array();
+			$user_row[] = "<a href='/node/{$row['uid']}'>{$user_node->title}</a>";
+			$user_row[] = $row['uage'];
+			$user_row[] = ($row['usex'] == 1) ? t('Masculí') : t('Femení');
+			$origin = taxonomy_get_term($row['upai']);
+			$user_row[] = $origin->name;
+			$user_row[] = ($row['upct']) ? t('Sí') : t('No');
+			$user_row[] = ($row['uect']) ? t('Sí') : t('No');
+			$user_row[] = ($row['upcs']) ? t('Sí') : t('No');
+			$user_row[] = ($row['uecs']) ? t('Sí') : t('No');
+			$studies = taxonomy_get_term($row['uest']);
+			$user_row[] = $studies->name;
+				
+			$users_rows[] = $user_row;
+		}
+		if (empty($users_rows)) {
+			$users_table = '<p>'.t('Aquest ús no té cap usuari/ària assignat/da. Possiblement es tracti d\'una cessió d\'espai').'</p>';
+		} else {
+			$users_table = theme_table($users_header, $users_rows, array('class' => 'fullsize'));
+		}
+		
+		$st_header = array(t('Camp'), t('Valor'));
+		
+		$act_rows = array();
+		$act_rows[] = array(t('Durada en minuts'), $last_row['adur']);
+		$act_rows[] = array(t('Durada en sessions'), $last_row['ases']);
+		$act_rows[] = array(t('Objectiu social'), taxonomy_get_term($last_row['aobj'])->name);
+		$act_rows[] = array(t('Competència digital'), taxonomy_get_term($last_row['acom'])->name);
+		$act_rows[] = array(t('Estratègia DGACC'), taxonomy_get_term($last_row['astd'])->name);
+		$act_rows[] = array(t('Col·lectiu destinatari'), taxonomy_get_term($last_row['acol'])->name);
+		$act_rows[] = array(t('Format de l\'activitat'), taxonomy_get_term($last_row['afor'])->name);
+		$act_rows[] = array(t('Places ofertes'), $last_row['apla']);
+		$act_rows[] = array(t('Organització'), taxonomy_get_term($last_row['aorg'])->name);
+		$act_table =  theme_table($st_header, $act_rows, array('class' => 'medsize'));
+		
+		$ent_table = '';
+		$ent_name = '';
+		if (!is_null($last_row['eid'])) {
+			$ent_rows = array();
+			$ent_rows[] = array(t('Tipus d\'entitat'), taxonomy_get_term($last_row['etip'])->name);
+			$ent_rows[] = array(t('Deriva persones'), ($last_row['eder']) ? 'Sí' : 'No');
+			$ent_rows[] = array(t('Hi ha coordinació'), ($last_row['ecoo']) ? 'Sí' : 'No');
+			if ($last_row['ecoo']) {
+				$ent_rows[] = array(t('Protocol coordinació'), ($last_row['epro']) ? 'Sí' : 'No');
+				$ent_rows[] = array(t('Freqüència de coordinació'), taxonomy_get_term($last_row['efre'])->name);
+			}
+			$ent_table =  theme_table($st_header, $ent_rows, array('class' => 'medsize'));
+			$entity_node = node_load($last_row['eid']);
+			$ent_name = $entity_node->title;
+		}
+		
+		$omnia_rows = array();
+		$omnia_rows[] = array(t('Demarcació'), taxonomy_get_term($last_row['odem'])->name);
+		$omnia_rows[] = array(t('Comarca'), taxonomy_get_term($last_row['ocom'])->name);
+		$omnia_rows[] = array(t('Població'), taxonomy_get_term($last_row['opob'])->name);
+		$omnia_rows[] = array(t('Tipus d\'equipament'), taxonomy_get_term($last_row['ogen'])->name);
+		$omnia_rows[] = array(t('Pobl. > 20000 hab.'), ($last_row['omes']) ? 'Sí' : 'No');
+		$omnia_rows[] = array(t('Tipus de finançament'), taxonomy_get_term($last_row['ofin'])->name);
+		$omnia_rows[] = array(t('Tipus d\'entitat gestora'), taxonomy_get_term($last_row['otip'])->name);
+		$omnia_table = theme_table($st_header, $omnia_rows, array('class' => 'medsize'));
+		
+		$vars['start'] = date('d/m/Y H:i', $last_row['usin']);
+		$vars['end'] = date('d/m/Y H:i', $last_row['usfi']);
+		$vars['group'] = $last_row['usgr'];
+		$vars['campaign'] = taxonomy_get_term($last_row['usca'])->name;
+		$vars['users_table'] = $users_table;
+		$vars['act_table'] = $act_table;
+		$vars['ent_table'] = $ent_table;
+		$vars['ent_name'] = $ent_name;
+		$vars['omnia_table'] = $omnia_table;
+	}
+	
+	function omnia_usos_user_item_form(&$item_form, $i, $item) {
+		$user_node = variable_get('omnia_usos_users_node', '');
+		if (is_null($user_node)) form_set_error('user_node', t('User node is null.'));
+		$field = variable_get('omnia_usos_punt_field', '');
+		if (is_null($field)) form_set_error('punt_field', t('Punt field NID is null.'));
+		
+		$item_form['user'] = array(
+				'#type' => 'textfield',
+				'#title' => t('Participant'),
+				'#size' => 3,
+				'#autocomplete_path' => "omnia_usos/autocomplete/{$user_node}",
+				'#default_value' => isset($item['user']) ? $item['user'] : '',
+				'#parents' => array('omnia_usos_user_item', $i, 'user'), // unfortunately needed
+				'#description' => t('Comença a escriure el nom d\'un usuari ja inserit i selecciona\'l quan aparegui a la llista'),
+		);
+	}
+	
+	function theme_omnia_usos_user_item($item_form) {
+		// You can do more fancy layout/HTML formatting here
+		return drupal_render($item_form);
+	}
+	
+	
+	/**
+	 * HOOKs per als formularis cck
+	 */
+	function omnia_usos_form_alter($form, &$form_state, $form_id){
+		$args = arg();
+		$omnia_forms = array('omnia_usos_type_node_form', 'usuari_omnia_node_form', 'activitat_omnia_node_form', 'entitat_omnia_node_form');
+		if (in_array($form_id, $omnia_forms)) drupal_add_css(drupal_get_path('module', 'omnia_usos') . '/css/omnia_usos.css');
+		if ($args[1] == 'add') {
+			switch ($form_id) {
+				case 'omnia_usos_type_node_form':
+					drupal_set_title(t('Recollir dades d\'usos'));
+					break;
+				case 'usuari_omnia_node_form':
+					drupal_set_title(t('Recollir dades de participants'));
+					break;
+				case 'activitat_omnia_node_form':
+					drupal_set_title(t('Recollir dades de programació'));
+					break;
+				case 'entitat_omnia_node_form':
+					drupal_set_title(t('Recollir dades d\'entitats'));
+					break;
+			}
+		}
+		
+		$arg2 = $args[2];
+		$arg2 = explode('?', $arg2);
+		$arg2 = $arg2[0];
+		if ($arg2 == 'edit') {
+			if ($form_id == 'activitat_omnia_node_form' && $_REQUEST['oid']) {
+				global $base_url;
+				$form['#redirect'] = $base_url .'/'. 'estadistiques_omnia/activitats?oid=' . $_REQUEST['oid'];
+			}
+		}
+		//Validate Omnia nodes
+		if (in_array($form_id, array('usuari_omnia_node_form', 'activitat_omnia_node_form', 'entitat_omnia_node_form'))) {
+			$form['#validate'][] = 'omnnia_usos_custom_validate';
+		}
+	}
+	
+	
+	/**
+	 * Funció per validar els continguts dels nodes Omnia 
+	 */
+	function omnnia_usos_custom_validate($form, &$form_state){
+		if ((strpos($form['#post']['title'], '[') !== FALSE) 
+			|| (strpos($form['#post']['title'], ']') !== FALSE)) form_set_error('invalid symbol', t('Símbols invàlids en el títol'));
+	}
+	
+	
+	/**
+	 * Hook per tractar els continguts de tipus Usuari, Entitat o Activitat
+	 */
+	function omnia_usos_nodeapi(&$node, $op){
+		global $user;
+	
+		$coord = false;
+		if (in_array('OT', array_values($user->roles)) || in_array('ODC', array_values($user->roles)) || in_array('DGAC', array_values($user->roles)) || in_array('entitat gestora', array_values($user->roles)) || in_array('administradors', array_values($user->roles))) $coord = true;
+		
+		$content_types = array('usuari_omnia', 'activitat_omnia', 'entitat_omnia', 'omnia_usos_type');
+		if (in_array($node->type, $content_types)) {
+			
+			$sql = "SELECT node.nid AS nid FROM node node
+			INNER JOIN content_type_content_punt node_data_field_active ON node.vid = node_data_field_active.vid
+			LEFT JOIN content_type_content_punt node_data_field_1r_dinamitzador_a ON node.vid = node_data_field_1r_dinamitzador_a.vid
+			LEFT JOIN content_field_puntomnia_dinas2 node_data_field_puntomnia_dinas2 ON node.vid = node_data_field_puntomnia_dinas2.vid
+			WHERE node.status = 1 AND node.type ='content_punt'
+			AND (node_data_field_1r_dinamitzador_a.field_1r_dinamitzador_a_uid=".$user->uid."
+			OR node_data_field_puntomnia_dinas2.field_puntomnia_dinas2_uid =".$user->uid." )";
+			$oid = db_result(db_query($sql));
+			
+			$omnia = $node->field_punt_omnia[0]['nid'];
+			if ($omnia && !$coord && ($oid != $omnia)) drupal_access_denied();
+			
+			if ($op == 'delete') {
+				switch ($node->type) {
+					case 'usuari_omnia':
+						drupal_goto("estadistiques_omnia/participants");
+						break;
+					case 'activitat_omnia':
+						drupal_goto("estadistiques_omnia/activitats");
+						break;
+					case 'entitat_omnia':
+						drupal_goto("estadistiques_omnia/entitats");
+						break;
+					case 'omnia_usos_type':
+						drupal_goto("estadistiques_omnia/portada");
+						break;
+				}
+			}
+		}
+	}
+	
+	
+	/**
+	 * Stats Tool Page
+	 */
+	function omnia_usos_stats_tool_page(){
+		$output = t("<h1>Eina d'explotació d'estadístiques</h1>");
+		drupal_set_message($message = "<h2>Eina d'explotació d'estadístiques en fase de proves!</h2>
+				Per reportar errors i millores contacta amb <b>suport@xarxa-omnia.org</b> ", $type = 'warning', $repeat = FALSE);
+		$output .= drupal_get_form (omnia_usos_stats_tool_form);
+		return $output;
+	}
+	
+	/**
+	 * Stats Tool form
+	 */
+	function omnia_usos_stats_tool_form(&$form_state){
+		
+		ctools_include('dependent');
+		
+		if (isset($form_state['query'])) {
+			$results = db_query($form_state['query']);
+			
+			$form['query'] = array(	'#type' => 'hidden',
+									'#value' => $form_state['query']);
+			$form['title'] = array('#value' => '<h2>'.$form_state['title'].'</h2>');
+			$form['filters'] = array('#value' => $form_state['filters']);
+			$form['new'] = array('#value' => '<p><a href="eina_estadistiques">Nova consulta</a></p>');
+			
+			$table = omnia_usos_stats_tool_table($results);
+			$form['table'] = array(
+					'#type' => 'fieldset',
+					'#title' => t('Resultats'),
+					'#collapsible' => TRUE,
+					'#collapsed' => FALSE,
+					'#attributes' => array('class' => 'table'),
+					'#value' => $table);
+			
+			$results->data_seek(0);
+			$graph = omnia_usos_stats_tool_graph($results);
+			$form['graph'] = array(
+					'#type' => 'fieldset',
+					'#title' => t('Gràfic'),
+					'#collapsible' => TRUE,
+					'#collapsed' => TRUE,
+					'#attributes' => array('class' => 'graph'),
+					'#value' => $graph);
+						
+		} else {
+			$form['s'] = array (
+					'#type' => 'fieldset',
+					'#title' => t('Vull analitzar'),
+					'#attributes' => array('class' => 'select')
+			);
+			
+			$form['s']['text'] = array(
+					'#value' => '<p>Selecciona quina dada vols veure. Serà l\'eix X de la gràfica.</p>'
+			);
+			
+			$form['s']['select'] = array (
+				'#type' => 'radios',				
+				'#options' => array (
+			    	'users' => t('Participants únics'),
+			    	'uses' => t('Usos'),
+					'activities' => t('Activitats'),
+					'actuations' => t('Actuacions'),
+					'sessions' => t('Sessions'),
+			  	),
+			);
+			
+				
+			$user_options = array (
+		    	'uage' => t('Edat'),
+		    	'upai' => t('País d\'origen'),
+		  		'usex' => t('Sexe'),
+		  		'uany' => t('Any d\'arribada'),
+		  		'upct' => t('Entén el català'),
+		  		'uect' => t('Escriu el català'),
+		  		'upcs' => t('Entén el castellà'),
+		  		'uecs' => t('Escriu el castellà'),
+		  		'uest' => t('Nivell d\'estudis'),
+			  );
+			
+			$activity_options = array (
+				'adur' => t('Durada en minuts'),
+				'adur' => t('Durada en minuts'),
+				'ases' => t('Durada en sessions'),
+				'aobj' => t('Objectiu social'),
+				'acom' => t('Competència digital'),
+				'astd' => t('Estratègia DGACC'),
+				'acol' => t('Col·lectiu destinatari'),
+				'afor' => t('Format de l\'activitat'),
+				'apla' => t('Places ofertes'),
+				'aorg' => t('Organitzador'),
+			);
+			
+			if (user_access('access estadístiques omnia')) {
+				$activity_options = array_merge($activity_options, array(
+						'aixp' => t('Eix principal'),
+						'aixs' => t('Eix secundari'),
+						'astc' => t('Estratègia DGACC - coord'),
+						));
+			}
+			
+			$omnia_options = array (
+				'oid' => t('Punt'),
+				'odem' => t('Demarcació'),
+				'ocom' => t('Comarca'),
+				'opob' => t('Població'),
+				'ogen' => t('Tipus d\'equipament'),
+				'omes' => t('Població >20000 hab'),
+				'ofin' => t('Tipus de finançament'),
+				'otip' => t('Tipus d\'entitat gestora'),
+			);
+			
+			
+			//Primer agrupament
+			/*$form['groupby1'] = array (
+			 '#type' => 'select',
+					'#title' => t('Agrupats segons'),
+					'#options' => array (
+							'none' => t('Sense agrupament'),
+							'user' => t('Participants'),
+							'use' => t('Usos'),
+							'activity' => t('Activitats'),
+							'omnia' => t('Punt Omnia'),
+					),
+					'#default_value' => 'none',
+			);*/
+			$form['groupby1'] = array (
+					'#type' => 'fieldset',
+					'#title' => t('Separats segons'),
+					'#attributes' => array('class' => 'groupby1')
+			);
+			
+			$form['groupby1']['text'] = array(
+				'#value' => '<p>Selecciona <b>UN</b> dels criteris que es mostren a continuació, et permetrà veure les dades agrupades segons aquest criteri.
+							<br/>Serà l\'eix Y de la gràfica. (opcional)</p>'			
+			);
+			
+			$form['groupby1']['groupby1_user'] = array (
+				'#type' => 'checkboxes',
+				'#title' => t('Criteris d\'usuari'),
+			  	'#options' => $user_options,
+				'#attributes' => array('class' => 'groupby1_block')
+			  	//'#process' => array('ctools_dependent_process'),
+			  	//'#dependency' => array('edit-groupby1' => array('user')),
+			);
+			
+			$form['groupby1']['groupby1_activity'] = array (
+				'#type' => 'checkboxes',
+				'#title' => t('Criteris d\'activitat'),
+				'#options' => $activity_options,
+				'#attributes' => array('class' => 'groupby1_block')
+				//'#process' => array('ctools_dependent_process'),
+				//'#dependency' => array('edit-groupby1' => array('activity')),
+			);
+			
+			if (user_access('access estadístiques omnia')) {
+				$form['groupby1']['groupby1_omnia'] = array (
+					'#type' => 'checkboxes',
+					'#title' => t('Criteris de punt'),
+					'#options' => $omnia_options,
+					'#attributes' => array('class' => 'groupby1_block')
+					//'#process' => array('ctools_dependent_process'),
+					//'#dependency' => array('edit-groupby1' => array('omnia')),
+				);
+			}
+			
+			$form['groupby1']['groupby1_use'] = array (
+					'#type' => 'checkboxes',
+					'#title' => t('Criteris d\'ús'),
+					'#options' => array (
+							'usca' => t('Campanya'),
+					),
+					'#attributes' => array('class' => 'groupby1_block')
+					//'#process' => array('ctools_dependent_process'),
+					//'#dependency' => array('edit-groupby1' => array('use')),
+			);
+			
+			/*$radio_options = array (
+					'user_uage' => t('Edat'),
+					'user_upai' => t('País d\'origen'),
+					'user_usex' => t('Sexe'),
+					'user_uany' => t('Any d\'arribada'),
+					'user_upct' => t('Entén el català'),
+					'user_uect' => t('Escriu el català'),
+					'user_upcs' => t('Entén el castellà'),
+					'user_uecs' => t('Escriu el castellà'),
+					'user_uest' => t('Nivell d\'estudis'),
+					'activity_adur' => t('Durada en minuts'),
+					'activity_adur' => t('Durada en minuts'),
+					'activity_ases' => t('Durada en sessions'),
+					'activity_aobj' => t('Objectiu social'),
+					'activity_acom' => t('Competència digital'),
+					'activity_astd' => t('Estratègia DGACC'),
+					'activity_acol' => t('Col·lectiu destinatari'),
+					'activity_afor' => t('Format de l\'activitat'),
+					'activity_apla' => t('Places ofertes'),
+					'activity_aorg' => t('Organitzador'),
+					'activity_aixp' => t('Eix principal'),
+					'activity_aixs' => t('Eix secundari'),
+					'activity_astc' => t('Estratègia DGACC - coord'),
+					'omnia_odem' => t('Demarcació'),
+					'omnia_ocom' => t('Comarca'),
+					'omnia_opob' => t('Població'),
+					'omnia_ogen' => t('Tipus d\'equipament'),
+					'omnia_omes' => t('Població >20000 hab'),
+					'omnia_ofin' => t('Tipus de finançament'),
+					'omnia_otip' => t('Tipus d\'entitat gestora'),
+					'use_usca' => t('Campanya'),
+			);
+			
+			//Primer agrupament
+			$form['groupby1'] = array (
+					'#type' => 'radios',
+					'#title' => t('Agrupats segons'),
+					'#options' => $radio_options,
+					'#default_value' => 'none',
+			);*/
+			
+			//Segon agrupament
+			$form['groupby2'] = array (
+				'#type' => 'select',
+				'#title' => t('Agrupats segons'),
+				'#options' => array (
+					'none' => t('Sense agrupament'),
+					'user' => t('Participants'),
+					'use' => t('Usos'),
+					'activity' => t('Activitats'),
+					'omnia' => t('Punt Omnia'),
+				),
+				'#process' => array('ctools_dependent_process'),
+				//'#dependency' => array('edit-groupby1' => array('user', 'use', 'activity', 'omnia')),
+				/*AMAGAT*/'#dependency' => array('edit-groupby1' => array('kk')),
+				'#default_value' => 'none',
+			);
+			
+			$form['groupby2_user'] = array (
+					'#type' => 'select',
+					'#options' => $user_options,
+					'#process' => array('ctools_dependent_process'),
+					'#dependency' => array('edit-groupby2' => array('user')),
+			);
+			
+			$form['groupby2_use'] = array (
+					'#type' => 'select',
+					'#options' => array (
+							'usca' => t('Campanya'),
+					),
+					'#process' => array('ctools_dependent_process'),
+					'#dependency' => array('edit-groupby2' => array('use')),
+			);
+			
+			$form['groupby2_activity'] = array (
+					'#type' => 'select',
+					'#options' => $activity_options,
+					'#process' => array('ctools_dependent_process'),
+					'#dependency' => array('edit-groupby2' => array('activity')),
+			);
+			
+			$form['groupby2_omnia'] = array (
+					'#type' => 'select',
+					'#options' => $omnia_options,
+					'#process' => array('ctools_dependent_process'),
+					'#dependency' => array('edit-groupby2' => array('omnia')),
+			);
+			
+			
+			//Filtres usos
+			$form['filter'] = array (
+				'#type' => 'fieldset',
+				'#title' => t('Filtrar')
+			);
+			
+			$form['filter']['text'] = array (
+				'#value' => '<p>Amb els següents filtres podeu acotar els resultats de la cerca. (Opcional)</p>',
+			);
+			
+			$form['filter']['filter_use'] = array (
+				'#type' => 'fieldset',
+				'#title' => t('Filtres temporals'),
+				'#collapsible' => TRUE,
+				'#collapsed' => TRUE,
+			);
+			
+			$form['filter']['filter_use']['filter_usin'] = array (
+				'#type' => 'date_popup',
+				'#title' => t('Data d\'inici'),
+				'#format' => 'Y-m-d',
+			);
+			
+			$form['filter']['filter_use']['filter_usfi'] = array (
+				'#type' => 'date_popup',
+				'#title' => t('Data de finalització'),
+				'#format' => 'Y-m-d',
+			);
+			
+			$tax = variable_get('omnia_usos_campaign_tax', '');
+			if (is_null($tax)) form_set_error('campaign_tax', t('Campaign taxonomy is not set.'));
+			$campaigns = taxonomy_get_tree($tax);
+			$camp_array = array();
+			foreach ($campaigns as $campaign) {
+				$camp_array[$campaign->tid] = $campaign->name;
+			}
+			
+			$form['filter']['filter_use']['filter_usca'] = array (
+				'#type' => 'select',
+				'#title' => t('Campanya'),
+				'#options' => $camp_array,
+				'#multiple' => TRUE
+			);
+			
+			//Filtres usuaris
+			$form['filter']['filter_user'] = array (
+				'#type' => 'fieldset',
+				'#title' => t('Característiques del participant'),
+				'#collapsible' => TRUE,
+				'#collapsed' => TRUE,
+			);
+			
+			$form['filter']['filter_user']['filter_uage_min'] = array (
+				'#type' => 'textfield',
+				'#title' => t('Edat mínima'),
+				'#size' => '3',
+			);
+			
+			$form['filter']['filter_user']['filter_uage_max'] = array (
+				'#type' => 'textfield',
+				'#title' => t('Edat màxima'),
+				'#size' => '3',
+			);
+			
+			$tax = variable_get('omnia_usos_upai_tax', '');
+			if (is_null($tax)) form_set_error('upai_tax', t('No s\'ha definit la taxonomia del país d\'origen'));
+			$terms = taxonomy_get_tree($tax);
+			$tax_array = array();
+			foreach ($terms as $term) {
+				$tax_array[$term->tid] = $term->name;
+			}
+			$form['filter']['filter_user']['filter_upai'] = array (
+					'#type' => 'select',
+					'#title' => t('País d\'origen'),
+					'#options' => $tax_array,
+					'#multiple' => TRUE
+			);
+			$form['filter']['filter_user']['filter_usex'] = array (
+					'#type' => 'select',
+					'#title' => t('Sexe'),
+					'#options' => array(null => '', '0' => 'Dona', '1' => 'Home'),
+			);
+			$form['filter']['filter_user']['filter_uany_min'] = array (
+					'#type' => 'textfield',
+					'#title' => t('Any d\'arribada mínim'),
+					'#size' => '3',
+			);
+			
+			$form['filter']['filter_user']['filter_uany_max'] = array (
+					'#type' => 'textfield',
+					'#title' => t('Any d\'arribada màxim'),
+					'#size' => '3',
+			);
+			$form['filter']['filter_user']['filter_upct'] = array (
+					'#type' => 'checkbox',
+					'#title' => t('Entén el català'),
+			);
+			$form['filter']['filter_user']['filter_uect'] = array (
+					'#type' => 'checkbox',
+					'#title' => t('Escriu en català'),
+			);
+			$form['filter']['filter_user']['filter_upcs'] = array (
+					'#type' => 'checkbox',
+					'#title' => t('Entén el castellà'),
+			);
+			$form['filter']['filter_user']['filter_uecs'] = array (
+					'#type' => 'checkbox',
+					'#title' => t('Escriu en castellà'),
+			);
+			
+			$tax = variable_get('omnia_usos_uest_tax', '');
+			if (is_null($tax)) form_set_error('uest_tax', t('No s\'ha definit la taxonomia del nivell d\'estudis'));
+			$terms = taxonomy_get_tree($tax);
+			$tax_array = array();
+			foreach ($terms as $term) {
+				$tax_array[$term->tid] = $term->name;
+			}
+			$form['filter']['filter_user']['filter_uest'] = array (
+				'#type' => 'select',
+				'#title' => t('Nivell d\'estudis'),
+				'#options' => $tax_array,
+				'#multiple' => TRUE
+			);
+			
+			
+			//Filtres activitats
+			$form['filter']['filter_activity'] = array (
+				'#type' => 'fieldset',
+				'#title' => t('Característiques de l\'activitat'),
+				'#collapsible' => TRUE,
+				'#collapsed' => TRUE,
+			);
+			
+			$form['filter']['filter_activity']['filter_adur'] = array (
+				'#type' => 'textfield',
+				'#size' => '3',
+				'#title' => t('Durada de l\'activitat'),
+				'#description' => t('en minuts')
+			);
+			
+			$form['filter']['filter_activity']['filter_ases'] = array (
+				'#type' => 'textfield',
+				'#size' => '3',
+				'#title' => t('Número de sessions'),
+			);
+			
+			$tax = variable_get('omnia_usos_aobj_tax', '');
+			if (is_null($tax)) form_set_error('aobj_tax', t('No s\'ha definit la taxonomia d\'objectiu social'));
+			$terms = taxonomy_get_tree($tax);
+			$tax_array = array();
+			foreach ($terms as $term) {
+				$tax_array[$term->tid] = $term->name;
+			}
+			$form['filter']['filter_activity']['filter_aobj'] = array (
+					'#type' => 'select',
+					'#title' => t('Objectiu social'),
+					'#options' => $tax_array,
+					'#multiple' => TRUE
+			);
+			
+			$tax = variable_get('omnia_usos_acom_tax', '');
+			if (is_null($tax)) form_set_error('acom_tax', t('No s\'ha definit la taxonomia de competència digital'));
+			$terms = taxonomy_get_tree($tax);
+			$tax_array = array();
+			foreach ($terms as $term) {
+				$tax_array[$term->tid] = $term->name;
+			}
+			$form['filter']['filter_activity']['filter_acom'] = array (
+					'#type' => 'select',
+					'#title' => t('Competència digital'),
+					'#options' => $tax_array,
+					'#multiple' => TRUE
+			);
+			
+			$tax = variable_get('omnia_usos_acol_tax', '');
+			if (is_null($tax)) form_set_error('acol_tax', t('No s\'ha definit la taxonomia de col·lectiu destinatari'));
+			$terms = taxonomy_get_tree($tax);
+			$tax_array = array();
+			foreach ($terms as $term) {
+				$tax_array[$term->tid] = $term->name;
+			}
+			$form['filter']['filter_activity']['filter_acol'] = array (
+					'#type' => 'select',
+					'#title' => t('Col·lectiu destinatari'),
+					'#options' => $tax_array,
+					'#multiple' => TRUE
+			);
+			
+			$tax = variable_get('omnia_usos_afor_tax', '');
+			if (is_null($tax)) form_set_error('afor_tax', t('No s\'ha definit la taxonomia de format de l\'activitat'));
+			$terms = taxonomy_get_tree($tax);
+			$tax_array = array();
+			foreach ($terms as $term) {
+				$tax_array[$term->tid] = $term->name;
+			}
+			$form['filter']['filter_activity']['filter_afor'] = array (
+					'#type' => 'select',
+					'#title' => t('Format de l\'activitat'),
+					'#options' => $tax_array,
+					'#multiple' => TRUE
+			);
+			
+			$form['filter']['filter_activity']['filter_apla'] = array (
+					'#type' => 'textfield',
+					'#size' => '3',
+					'#title' => t('Places ofertes')
+			);
+			
+			$tax = variable_get('omnia_usos_aorg_tax', '');
+			if (is_null($tax)) form_set_error('aorg_tax', t('No s\'ha definit la taxonomia d\'organització de l\'activitat'));
+			$terms = taxonomy_get_tree($tax);
+			$tax_array = array();
+			foreach ($terms as $term) {
+				$tax_array[$term->tid] = $term->name;
+			}
+			$form['filter']['filter_activity']['filter_aorg'] = array (
+					'#type' => 'select',
+					'#title' => t('Organització'),
+					'#options' => $tax_array,
+					'#multiple' => TRUE
+			);
+			
+			if (user_access('access estadístiques omnia')) {
+				$tax = variable_get('omnia_usos_aixp_tax', '');
+				if (is_null($tax)) form_set_error('aorg_tax', t('No s\'ha definit la taxonomia d\'eixos'));
+				$terms = taxonomy_get_tree($tax);
+				$tax_array = array();
+				foreach ($terms as $term) {
+					$tax_array[$term->tid] = $term->name;
+				}
+				$form['filter']['filter_activity']['filter_aixp'] = array (
+						'#type' => 'select',
+						'#title' => t('Eix principal'),
+						'#options' => $tax_array,
+						'#multiple' => TRUE
+				);
+				
+				$form['filter']['filter_activity']['filter_aixs'] = array (
+						'#type' => 'select',
+						'#title' => t('Eix secundari'),
+						'#options' => $tax_array,
+						'#multiple' => TRUE
+				);
+			}
+			
+			$tax = variable_get('omnia_usos_astd_tax', '');
+			if (is_null($tax)) form_set_error('aobj_tax', t('No s\'ha definit la taxonomia d\'estratègia DGACC'));
+			$terms = taxonomy_get_tree($tax);
+			$tax_array = array();
+			foreach ($terms as $term) {
+				$tax_array[$term->tid] = $term->name;
+			}
+			$form['filter']['filter_activity']['filter_astd'] = array (
+					'#type' => 'select',
+					'#title' => t('Estratègia DGACC'),
+					'#options' => $tax_array,
+					'#multiple' => TRUE
+			);
+			if (user_access('access estadístiques omnia')) {
+				$form['filter']['filter_activity']['filter_astc'] = array (
+						'#type' => 'select',
+						'#title' => t('Estratègia DGACC - Coord'),
+						'#options' => $tax_array,
+						'#multiple' => TRUE
+				);
+			}
+			
+			//Filtre Punt Omnia
+			if (user_access('access estadístiques omnia')) {
+				$form['filter']['filter_omnia'] = array (
+					'#type' => 'fieldset',
+					'#title' => t('Característiques del Punt Òmnia'),
+					'#collapsible' => TRUE,
+					'#collapsed' => TRUE,
+				);
+			
+				$query = "SELECT nid, title FROM {node} WHERE type='content_punt' AND status=1 ORDER BY title ASC";
+				$results = db_query($query);
+				$po = array();
+				while ($reg = db_fetch_array($results)) {
+					$po[$reg['nid']] = $reg['title']; 
+				}
+			
+				$form['filter']['filter_omnia']['filter_oid'] = array (
+						'#type' => 'select',
+						'#title' => t('Punt Omnia'),
+						'#options' => $po,
+						'#multiple' => TRUE
+				);
+			
+				$tax = variable_get('omnia_usos_place_tax', '');
+				if (is_null($tax)) form_set_error('aobj_tax', t('No s\'ha definit la taxonomia de territori del Punt Omnia'));
+				$terms = taxonomy_get_tree($tax);
+				$dem = array();
+				$com = array();
+				$pob = array();
+				foreach ($terms as $term) {
+					switch ($term->depth) {
+						case 0:
+							$dem[$term->tid] = $term->name;
+							break;
+						case 1:
+							$com[$term->tid] = $term->name;
+							break;
+						case 2:
+							$pob[$term->tid] = $term->name;
+							break;
+					}
+				}
+				asort($dem);
+				asort($com);
+				asort($pob);
+				$form['filter']['filter_omnia']['filter_odem'] = array (
+						'#type' => 'select',
+						'#title' => t('Demarcació'),
+						'#options' => $dem,
+						'#multiple' => TRUE
+				);
+				$form['filter']['filter_omnia']['filter_ocom'] = array (
+						'#type' => 'select',
+						'#title' => t('Comarca'),
+						'#options' => $com,
+						'#multiple' => TRUE
+				);
+				$form['filter']['filter_omnia']['filter_opob'] = array (
+						'#type' => 'select',
+						'#title' => t('Població'),
+						'#options' => $pob,
+						'#multiple' => TRUE
+				);
+				
+				$tax = variable_get('omnia_usos_ogen_tax', '');
+				if (is_null($tax)) form_set_error('ogen_tax', t('No s\'ha definit la taxonomia de tipus d\'equipament'));
+				$terms = taxonomy_get_tree($tax);
+				$tax_array = array();
+				foreach ($terms as $term) {
+					$tax_array[$term->tid] = $term->name;
+				}
+				$form['filter']['filter_omnia']['filter_ogen'] = array (
+						'#type' => 'select',
+						'#title' => t('Tipus d\'equipament'),
+						'#options' => $tax_array,
+						'#multiple' => TRUE
+				);
+				
+				$form['filter']['filter_omnia']['filter_omes'] = array (
+						'#type' => 'checkbox',
+						'#title' => t('Població de més de 20 000 hab.'),
+				);
+				
+				$tax = variable_get('omnia_usos_ofin_tax', '');
+				if (is_null($tax)) form_set_error('ofin_tax', t('No s\'ha definit la taxonomia de tipus de finançanment'));
+				$terms = taxonomy_get_tree($tax);
+				$tax_array = array();
+				foreach ($terms as $term) {
+					$tax_array[$term->tid] = $term->name;
+				}
+				$form['filter']['filter_omnia']['filter_ofin'] = array (
+						'#type' => 'select',
+						'#title' => t('Tipus de finançament'),
+						'#options' => $tax_array,
+						'#multiple' => TRUE
+				);
+				
+				$tax = variable_get('omnia_usos_otip_tax', '');
+				if (is_null($tax)) form_set_error('ogen_tax', t('No s\'ha definit la taxonomia de tipus d\'entitat gestora'));
+				$terms = taxonomy_get_tree($tax);
+				$tax_array = array();
+				foreach ($terms as $term) {
+					$tax_array[$term->tid] = $term->name;
+				}
+				$form['filter']['filter_omnia']['filter_otip'] = array (
+						'#type' => 'select',
+						'#title' => t('Tipus d\'entitat gestora'),
+						'#options' => $tax_array,
+						'#multiple' => TRUE
+				);
+			
+			}
+			$form['submit'] = array('#type' => 'submit', '#value' => t('Valida'));	
+		}
+		return $form;
+	}
+	
+	/**
+	 * Stats tool form validate
+	*/
+	function omnia_usos_stats_tool_form_validate($form, &$form_state) {
+		if (empty($form_state['values']['select'])) form_set_error('', t('Cal escollir un element a analitzar'));
+		
+		$groupby_array = array('user', 'activity', 'omnia', 'use');
+		$values = array();
+		foreach ($groupby_array as $gb) {
+			foreach ($form_state['values']['groupby1_'.$gb] as $value) {
+				if ($value != '0') $values[] = $value;
+			}
+		} 
+		if (count($values) > 1) form_set_error('', t('Només es pot escollir UN criteri de separació')); 
+	}
+	
+	/**
+	 * Stats tool form submit
+	*/
+	function omnia_usos_stats_tool_form_submit($form, &$form_state) {
+		global $field_translate;
+		
+		$select = '';
+		$where = '';
+		$groupby = '';
+		$from = 'FROM {omnia_usos} ';
+		$orderby = '';
+		
+		//SELECT
+		switch ($form_state['values']['select']) {
+			case 'users':
+				$select = "SELECT COUNT(DISTINCT uid) as 'users' ";
+				break;
+			case 'uses':
+				$select = "SELECT COUNT(DISTINCT usid) as 'uses' ";
+				$where = 'WHERE uid IS NOT NULL ';
+				break;
+			case 'activities':
+				$select = "SELECT COUNT(DISTINCT aid) as 'activities' ";
+				break;
+			case 'actuations':
+				$select = "SELECT COUNT( DISTINCT CONCAT(aid, COALESCE(usgr, ''))) AS 'actuations' ";
+				break;
+			case 'sessions':
+				$select = "SELECT COUNT(DISTINCT uid) COUNT(DISTINCT nid) AS 'sessions' ";
+				break;			
+		}
+		
+		//GROUP BY
+		$groupby_array = array('user', 'activity', 'omnia', 'use');
+		$groupby1 = '';
+		foreach ($groupby_array as $gb) {
+			foreach ($form_state['values']['groupby1_'.$gb] as $value) {
+				if ($value != '0') $groupby1 = $value;
+			}
+		}
+		
+		if ($groupby1) {
+			$groupby = 'GROUP BY '.$groupby1;
+			$select .= ', '.$groupby1.' ';
+			$orderby = ' ORDER BY '.$groupby1.' ASC';
+		}
+		
+		/*if ($form_state['values']['groupby2'] != 'none') {
+			$groupby_criteria = 'groupby2_'.$form_state['values']['groupby2'];
+			$groupby .= ', '.$form_state['values'][$groupby_criteria];
+			$groupby2 = $form_state['values'][$groupby_criteria];
+			$select .= ', '.$form_state['values'][$groupby_criteria].' ';
+			$orderby .= ', '.$form_state['values'][$groupby_criteria].' ASC';
+		}*/
+		
+		
+		//WHERE
+		global $checkbox_fields, $date_fields, $reference_fields;
+		$minvalue = array('usin', 'uage_min', 'uany_min');
+		$maxvalue = array('usfi', 'uage_max', 'uage_max');
+		
+		$filters = array();
+		foreach ($form_state['values'] as $key => $value) {
+			if (strpos($key, 'filter_') === 0) {
+				$field = str_replace('filter_', '', $key);
+				if (!empty($value)) {
+					if (is_array($value)) {
+						// Select
+						$where .= ($where != '') ? 'AND (' : 'WHERE (';
+						$first = true;
+						foreach ($value as $element) {
+							if ($first) { 
+								$where .= "{$field} = {$element}";
+								$first = false;
+							} else {
+								$where .= " OR {$field} = {$element}";
+							}
+							if (in_array($field, $reference_fields)) {
+								$node = node_load($element);
+								$element_str = $node->title;
+							} else {
+								$element_str = taxonomy_get_term($element);
+								$element_str = $element_str->name;
+							}
+							$filters[$field] = (!isset($filters[$field])) ? $field_translate[$field].' = '.$element_str : $filters[$field].' o '.$element_str;						
+						}
+						$where .= ') ';										
+					} else if (in_array($field, $checkbox_fields)) {
+						// Checkbox
+						if ($value == 1) {
+							$where .= ($where != '') ? 'AND '.$field.'=1 ' : 'WHERE '.$field.'=1 ';
+							$filters[$field] = $field_translate[$field].' = Sí';
+						} else {
+							$filters[$field] = $field_translate[$field].' = No';
+						}
+					} else {
+						// Free
+						$str_value = $value;
+						if (in_array($field, $date_fields)) {
+							$value = strtotime($value); //Date
+							$str_value = date('d-m-Y', $value);
+						}
+						if (in_array($field, $minvalue)) {
+							$field = str_replace('_min', '', $field);
+							$symbol = '>=';
+						} else if (in_array($field, $maxvalue)) {
+							$field = str_replace('_max', '', $field);
+							$symbol = '<=';
+						} else {
+							$symbol = '=';
+						}
+						$where .= ($where != '') ? "AND {$field}{$symbol}{$value} " : "WHERE {$field}{$symbol}{$value} ";
+						$filters[$field] = (!isset($filters[$field])) ? $field_translate[$field]." {$symbol} ".$str_value : $filters[$field]." i {$symbol} ".$str_value;
+					}
+				}
+				//Sexuality
+				if (($field == 'usex') && ($value!='')) {
+					$where .= ($where != '') ? 'AND '.$field.'='.$value.' ' : 'WHERE '.$field.'='.$value.' ';
+					$filters[$field] = ($value) ? $field_translate[$field].' = Home' : $field_translate[$field].' = Dona';
+				}
+			}
+		}
+		
+		//Dinamitzadors
+		if (!user_access('access estadístiques omnia')) {
+			global $oid;
+			$where .= ($where != '') ? "AND oid = {$oid} " : "WHERE oid = {$oid} ";
+		}
+		
+		$title = "Anàlisis de {$field_translate[$form_state['values']['select']]}";
+		if ($groupby1) $title .= ' separats/des per '.$field_translate[$groupby1];
+		//if ($form_state['values']['groupby2'] != 'none') $title .= ' i per '.$field_translate[$groupby2];
+				
+		$form_state["rebuild"] = TRUE;
+		$form_state["query"] = $select.$from.$where.$groupby.$orderby;
+		$form_state["title"] = $title;
+		
+		if (!empty($filters)) {
+			$form_state["filters"] = '<p><b>On:</b><br/>';
+			foreach ($filters as $filter) {
+				$form_state["filters"] .= $filter.'<br/>';
+			}
+			$form_state["filters"] .= '</p>';
+		}
+	}
+	
+	/**
+	 * Stats tool table generator
+	 */
+	function omnia_usos_stats_tool_table($results) {
+		global $checkbox_fields, $taxonomy_fields, $field_translate, $reference_fields;
+		
+		$fields = $results->fetch_fields();
+		$st_header = array();
+		
+		//2D Table
+		$first = $fields[1]->name;
+		$second = $fields[0]->name;
+		$st_header[] = $field_translate[$fields[1]->name]; 
+		$st_header[] = $field_translate[$fields[0]->name];
+		
+		$rows = array();
+		$values = array();
+		while ($reg = db_fetch_array($results)) {
+			$row = array();
+			if (in_array($first, $taxonomy_fields)) {
+				$name = taxonomy_get_term($reg[$first]);
+				$row[] = $name->name;
+			} elseif (in_array($first, $checkbox_fields)) {
+				$row[] = ($reg[$first] == 1) ? 'Sí' : 'No';
+			} elseif (in_array($first, $reference_fields)) {
+				$node = node_load($reg[$first]);
+				$row[] = $node->title;
+			} elseif ($first == 'usex') {
+				$row[] = ($reg[$first] == 1) ? 'Home' : 'Dona';
+			} else {
+				$row[] = $reg[$first];
+			}
+			$row[] = $reg[$second];
+			$values[] = $reg[$second];
+			$rows[] = $row;
+		}
+		
+		$table = '';
+		if (count($rows) > 1) {
+			$max = max($values);
+			$min = min($values);
+			$sum = array_sum($values);
+			$avg = round($sum / count($values), 2);
+			$table = "<p><b>Total:</b> {$sum}<br/><b>Valor màxim: </b>{$max}<br/><b>Valor mínim:</b> {$min}<br/><b>Mitjana:</b> {$avg}</p>";
+		}
+		$table .= theme_table($st_header, $rows, array('class' => 'results'));
+		return $table;		
+	}
+	
+	/**
+	 * Stats tool graph generator
+	 */
+	function omnia_usos_stats_tool_graph($results) {
+		require 'includes/googlechartphplib/GoogleChart.php';
+		require 'includes/googlechartphplib/markers/GoogleChartTextMarker.php';
+		require 'includes/googlechartphplib/GoogleScatterChart.php';
+		
+		global $checkbox_fields, $taxonomy_fields, $reference_fields;
+		$graph = '';
+		$values = array();
+		$x_field = '';
+		$y_field = '';
+		$z_field = '';
+		$max = 0;
+		
+		if ($results->field_count > 2) {
+			//Two groupby
+			while ($reg = db_fetch_array($results)) {
+				if (!$x_field && !$y_field && !$z_field) {
+					$keys = array_keys($reg);
+					$z_field = array_shift($keys);
+					$x_field = array_shift($keys);
+					$y_field = array_shift($keys);
+				}
+				if (!is_null($reg[$x_field]) && !is_null($reg[$x_field])) {
+					$values[] = array($reg[$x_field], $reg[$y_field], $reg[$z_field]);
+				}
+				if ($reg[$z_field] > $max) $max = $reg[$z_field];
+			}
+			
+			$graph = omnia_usos_stats_tool_scatterplot($values, $x_field, $y_field, $z_field, $max);
+			
+		} else {
+			//One groupby
+			while ($reg = db_fetch_array($results)) {
+				if (!$x_field && !$y_field) {
+					$keys = array_keys($reg);
+					$y_field = array_shift($keys);
+					$x_field = array_shift($keys);
+				}
+				//if (!is_null($reg[$x_field])) $values[$reg[$x_field]] = $reg[$y_field];
+				$values[$reg[$x_field]] = $reg[$y_field];
+				if ($reg[$y_field] > $max) $max = $reg[$y_field];
+			}
+			
+			$values_chunk = array_chunk($values, 20, true);
+			
+			foreach ($values_chunk as $value) {
+				$height = (count($value)*28)+15;					
+				$keys = array_keys($value);
+				
+				if (in_array($x_field, $checkbox_fields)) {
+					$keys = array(t('No'), t('Sí'));
+				}
+				if (in_array($x_field, $taxonomy_fields)) {
+					$old_keys = $keys;
+					$keys = array();
+					foreach ($old_keys as $key) {
+						$term = taxonomy_get_term($key);
+						$name = $term->name;
+						if (strlen($name) > 50) {
+							$name = substr($name, 0, 50);
+							$name .= ' ...';
+						}
+						$name .= ' ';
+						$keys[] = $name;
+					}
+				}
+				if ($x_field == 'usex') {
+					$keys = array(t('Dones'), t('Homes'));
+				}
+				if (in_array($x_field, $reference_fields)){
+					$old_keys = $keys;
+					$keys = array();
+					foreach ($old_keys as $key) {
+						$node = node_load($key);
+						$name = $node->title;
+						if (strlen($name) > 50) {
+							$name = substr($name, 0, 50);
+							$name .= ' ...';
+						}
+						$name .= ' ';
+						$keys[] = $name;
+					}
+				}
+				
+				$chart = new GoogleChart('bhs', 500, $height);
+				$chart->setScale(0,$max);
+				$chart->setLegendLabelOrder($label_order);
+				
+				$bars = new GoogleChartData($value);
+				$chart->addData($bars);
+				
+				$y_axis = new GoogleChartAxis('y');
+				$y_axis->setLabels(array_reverse($keys));
+				$chart->addAxis($y_axis);
+				
+				$x_axis = new GoogleChartAxis('x');
+				$x_axis->setRange(0, $max);					
+				$chart->addAxis($x_axis);
+				
+				$marker = new GoogleChartTextMarker();
+				$marker->setData($bars);
+				$chart->addMarker($marker);
+				
+				$graph .= '<div>'.$chart->toHtml().'</div>';
+			}
+		}
+		
+		return $graph;
+	}
+	
+	/**
+	 * Return Scatterplot html
+	 */
+	function omnia_usos_stats_tool_scatterplot($values, $x_field, $y_field, $z_field, $max) {
+		global $checkbox_fields;
+		global $taxonomy_fields;
+		
+		$path = drupal_get_path('module', 'omnia_usos');
+		drupal_add_js("{$path}/includes/d3/d3.min.js");
+		
+		$width = 960;
+		$height = 500;
+		
+		//Axis domains
+		$x_axis_relation = array();
+		$y_axis_relation = array();
+		$xi = 0;
+		$yi = 0;
+		$max_x = 0;
+		$min_x = null;
+		$max_y = 0;
+		$min_y = null;
+		$tick_x = '';
+		$tick_y = '';
+		$dataset = '[';
+		
+		//Get max & min
+		//Compose relation table
+		foreach ($values as $value) {
+			$x_value = $value[0];
+			$y_value = $value[1];
+			if (in_array($x_field, $taxonomy_fields)){
+				if (!isset($x_axis_relation[$value[0]])) {
+					$x_axis_relation[$value[0]] = $xi;
+					$term = taxonomy_get_term($value[0]);
+					$tick_x .= '"'.$term->name.'",'; 
+					$xi++;
+				}
+				$x_value =  $x_axis_relation[$value[0]];
+			} elseif (!in_array($x_field, $checkbox_fields) && ($x_field != 'usex')) {
+				if (is_null($min_x)) $min_x = $value[0];
+				if ($value[0] > $max_x) $max_x = $value[0];
+				if ($value[0] < $min_x) $min_x = $value[0];
+			}
+			if (in_array($y_field, $taxonomy_fields)){
+				if (!isset($y_axis_relation[$value[1]])) {
+					$y_axis_relation[$value[1]] = $yi;
+					$term = taxonomy_get_term($value[1]);
+					$tick_y .= '"'.$term->name.'",'; 
+					$yi++;
+				}
+				$y_value =  $y_axis_relation[$value[1]];
+			} elseif (!in_array($y_field, $checkbox_fields) && ($y_field != 'usex')) {
+				if (is_null($min_y)) $min_y = $value[1];
+				if ($value[1] > $max_y) $max_y = $value[1];
+				if ($value[1] < $min_y) $min_y = $value[1];
+			}
+			$dataset .= "[{$x_value}, {$y_value}, {$value[2]}],"; 
+		}
+		$dataset = substr($dataset, 0, -1);
+		$dataset .= ']';
+		
+		//Get domains & ticks
+		if (in_array($x_field, $taxonomy_fields)) {
+			$num = count($x_axis_relation) - 1;
+			$tick_x = substr($tick_x, 0, -1);
+			$x_domain = '[0,'.$num.']';
+			$x_values = $num;
+			$tick_x = "	.ticks({$num}).tickFormat(function (d, i) {return [{$tick_x}][d];})";
+		} elseif (in_array($x_field, $checkbox_fields) || ($x_field == 'usex')) {
+			$x_domain = '[0,1]';
+			$x_values = 2;
+			if ($x_field == 'usex') {
+				$tick_x = "	.ticks(2).tickFormat(function (d, i) {return ['Dona', 'Home'][d];})";
+			} else {
+				$tick_x = "	.ticks(2).tickFormat(function (d, i) {return ['Sí', 'No'][d];})";
+			}
+		} else {
+			$x_domain = '['.$min_x.','.$max_x.']';
+			$x_values = $max_x - $min_x;
+		}
+		
+		if (in_array($y_field, $taxonomy_fields)) {
+			$num = count($y_axis_relation) - 1;
+			$tick_y = substr($tick_y, 0, -1);
+			$y_domain = '[0,'.$num.']';
+			$y_values = $num;
+			$tick_y = "	.ticks({$num}).tickFormat(function (d, i) {return [{$tick_y}][d];})";			
+		} elseif (in_array($y_field, $checkbox_fields) || ($y_field == 'usex')) {
+			$y_domain = '[0,1]';
+			$y_values = 2;
+			if ($y_field == 'usex') {
+				$tick_y = "	.ticks(2).tickFormat(function (d, i) {return ['Dona', 'Home'][d];})";
+			} else {
+				$tick_y = "	.ticks(2).tickFormat(function (d, i) {return ['No', 'Sí'][d];})";
+			}
+		} else {
+			$y_domain = '['.$min_y.','.$max_y.']';
+			$y_values = $max_y - $min_y;
+		}
+		
+		//Get weight factor
+		$manual = 2; //Betwen 0 and 2
+		$cells = $x_values * $y_values;
+		$circle_max_size = (sqrt(($height * $width)/$cells))/$manual;
+		$factor = $circle_max_size/$max;
+		
+		$x_margin = $width/($x_values+1);
+		$y_margin = $height/($y_values+1);
+		
+		$javascript = "
+				var data = {$dataset};
+   
+			    var margin = {top: 20, right: 15, bottom: 60, left: 60}
+			      , width = {$width} - margin.left - margin.right
+			      , height = {$height} - margin.top - margin.bottom;
+			      
+			    var chart = d3.select('#scatterplot')
+					.append('svg:svg')
+					.attr('width', width + margin.right + margin.left)
+					.attr('height', height + margin.top + margin.bottom)
+					.attr('class', 'chart')
+			
+			    var main = chart.append('g')
+					.attr('transform', 'translate(' + margin.left + ',' + margin.top + ')')
+					.attr('width', width)
+					.attr('height', height)
+					.attr('class', 'main') 
+			    
+			    var x = d3.scale.linear().domain({$x_domain}).range([ {$x_margin}, width - {$x_margin}]);
+			    var fx = d3.scale.linear().range([ 0, width ]);
+			    
+			    var y = d3.scale.linear().domain({$y_domain}).range([ height - {$y_margin}, {$y_margin} ]);
+			    var fy = d3.scale.linear().range([ height, 0 ]);
+			 
+			    		        
+			    // draw the x axis
+			    var xAxis = d3.svg.axis().scale(x).orient('bottom'){$tick_x};
+			    var fxAxis = d3.svg.axis().scale(fx).orient('bottom').ticks(0);
+			
+			    main.append('g').attr('transform', 'translate(0,' + height + ')').attr('class', 'main axis date').call(xAxis);
+			    main.append('g').attr('transform', 'translate(0,' + height + ')').attr('class', 'main axis date').call(fxAxis);
+			
+			    // draw the y axis
+			    var yAxis = d3.svg.axis().scale(y).orient('left'){$tick_y};
+			    var fyAxis = d3.svg.axis().scale(fy).orient('left').ticks(0);
+			
+			    main.append('g').attr('transform', 'translate(0,0)').attr('class', 'main axis date').call(yAxis);
+			    main.append('g').attr('transform', 'translate(0,0)').attr('class', 'main axis date').call(fyAxis);
+			
+			    var g = main.append('svg:g'); 
+			    
+			    g.selectAll('scatter-dots')
+			      .data(data)
+			      .enter().append('svg:circle')
+			          .attr('cx', function (d,i) { return x(d[0]); } )
+			          .attr('cy', function (d) { return y(d[1]); } )
+			          .attr('r', function (d) { return d[2]*{$factor}; });
+				";		
+		
+		drupal_add_js($javascript, 'inline', 'footer');
+		return '<div id="scatterplot"></div>';
+	}
+	
+	/**
+	 * Global stats page 
+	 */
+	function omnia_usos_stats_global_page(){
+				
+		$output = t("<h1>Resultats globals</h1>");
+		$starttime = (isset($_GET['start'])) ? $_GET['start'] : strtotime('first day of january');
+		$endtime = (isset($_GET['end'])) ? $_GET['end'] : time();
+		
+		$output .= drupal_get_form (omnia_usos_stats_global_form);
+		$output .= omnia_usos_stats_global_table($starttime, $endtime);
+		
+		return $output;
+		
+	}
+	
+	/**
+	 * Global stats table
+	 */
+	function omnia_usos_stats_global_table($starttime, $endtime) {
+		global $user;
+		global $oid;
+		
+		$coord = false;
+		$egest = false;
+		if (in_array('OT', array_values($user->roles)) || in_array('ODC', array_values($user->roles)) || in_array('DGAC', array_values($user->roles)) || in_array('administradors', array_values($user->roles))) $coord = true;
+		if (in_array('entitat gestora', array_values($user->roles))) $egest = true;
+		
+		$punts = array();			
+		$where = "`usin`>={$starttime} AND `usfi`<={$endtime}";
+		
+		if ($coord) {
+			$query = "SELECT `nid`, `title` FROM {node} WHERE type='content_punt' AND status=1 ORDER BY `title` ASC";
+			$results = db_query($query);
+			while ($reg = db_fetch_array($results)) {
+				$punts[$reg['nid']] = array('title' => $reg['title'], 'uses' => '', 'sessions' => '', 'actuations' => '', 'users' => '', 'activities' => '', 'oid' => $reg['nid']);
+			}
+		} else if ($egest) {
+			$pos = views_get_view_result('poentitatgestora_simple');
+			$where .= ' AND `oid` IN (';
+			foreach ($pos as $po) {
+				$where .=  $po->nid.',';
+				$node = node_load($po->nid);
+				$punts[$po->nid] = array('title' => $node->title, 'uses' => '', 'sessions' => '', 'actuations' => '', 'users' => '', 'activities' => '', 'oid' => $po->nid);
+			}
+			$where = substr($where, 0, -1);
+			$where .= ')';
+		} else {
+			$where .= " AND `oid`={$oid}";
+			$node = node_load($oid);
+			$punts[$oid] = array('title' => $node->title, 'uses' => '', 'sessions' => '', 'actuations' => '', 'users' => '', 'activities' => '', 'oid' => $oid);
+		}
+				
+		$query = "SELECT `oid`,
+		COUNT(DISTINCT `usid`) AS 'uses',
+		COUNT(DISTINCT `uid`) AS 'users',
+		COUNT( DISTINCT CONCAT(`aid`, COALESCE(`usgr`, ''))) AS 'actuations',
+		COUNT(DISTINCT `nid`) AS 'sessions',
+		COUNT(DISTINCT `aid`) AS 'activities' FROM `omnia_usos` WHERE {$where} GROUP BY `oid`";
+		
+		$results = db_query($query);
+		$title_column = array();
+		$uses_column = array();
+		$sessions_column = array();
+		$actuations_column = array();
+		$users_column = array();
+		$activities_column = array();
+		
+		while ($reg = db_fetch_array($results)) {
+		$punts[$reg['oid']]['uses'] = $reg['uses'];
+			$punts[$reg['oid']]['users'] = $reg['users'];
+			$punts[$reg['oid']]['sessions'] = $reg['sessions'];
+			$punts[$reg['oid']]['actuations'] = $reg['actuations'];
+			$punts[$reg['oid']]['activities'] = $reg['activities'];
+		}
+		
+		foreach ($punts as $key => $punt) {
+			$title_column[$key] = $punt['title'];
+			$uses_column[$key] = $punt['uses'];
+			$sessions_column[$key] = $punt['sessions'];
+			$actuations_column[$key] = $punt['actuations'];
+			$users_column[$key] = $punt['users'];
+			$activities_column[$key] = $punt['activities'];
+		}
+		
+		$order = (isset($_GET['order'])) ? $_GET['order'] : 'title';
+		$ordercol = $order.'_column';
+		$ordersen = (isset($_GET['sen'])) ? $_GET['sen'] : 'ASC';
+		
+		if ($ordersen == 'ASC') {
+			array_multisort($$ordercol, SORT_ASC , $punts);
+		} else {
+			array_multisort($$ordercol, SORT_DESC , $punts);
+		}
+		
+		$newsen = ($ordersen == 'ASC') ? 'DESC' : 'ASC';
+		$url = "estadistiques_globals?start={$starttime}&end={$endtime}";
+		
+		$st_header = array();
+		$tit_header = ($order == 'title') ? "<a href='{$url}&sort=title&sen={$newsen}'>".t('Punt Omnia')."</a>" : "<a href='{$url}&sort=title&sen=ASC'>".t('Punt Omnia')."</a>";
+		if ($coord || $egest) $st_header[] = array('data' => $tit_header, 'class' => 'th1');
+		$st_header[] = ($order == 'uses') ? "<a href='{$url}&order=uses&sen={$newsen}'>".t('Usos')."</a>" : "<a href='{$url}&order=uses&sen=DESC'>".t('Usos')."</a>";
+		$st_header[] = ($order == 'sessions') ? "<a href='{$url}&order=sessions&sen={$newsen}'>".t('Sessions')."</a>" : "<a href='{$url}&order=sessions&sen=DESC'>".t('Sessions')."</a>";
+		$st_header[] = ($order == 'actuations') ? "<a href='{$url}&order=actuations&sen={$newsen}'>".t('Actuacions')."</a>" : "<a href='{$url}&order=actuations&sen=DESC'>".t('Actuacions')."</a>";
+		$st_header[] = ($order == 'activities') ? "<a href='{$url}&order=activities&sen={$newsen}'>".t('Activitats')."</a>" : "<a href='{$url}&order=activities&sen=DESC'>".t('Activitats')."</a>"; 
+		$st_header[] = ($order == 'users') ? "<a href='{$url}&order=users&sen={$newsen}'>".t('Participants')."</a>" : "<a href='{$url}&order=users&sen=DESC'>".t('Participants')."</a>";
+		
+		$rows = array();
+		foreach ($punts as $punt) {
+			$row = array();
+			if ($coord || $egest) $row[] = array('data' => $punt['title'], 'class' => 'td1');
+			$h = sha1($user->uid.$punt['oid'].'H35rD83X7z');
+			$h = '?oid='.$punt['oid'].'::'.$h;
+			$row[] = "<a href='/estadistiques_omnia/portada{$h}'>{$punt['uses']}</a>";
+			$row[] = $punt['sessions'];
+			$row[] = $punt['actuations'];
+			$row[] = $punt['activities'];
+			$row[] = $punt['users'];
+			$rows[] = $row;
+		}
+			
+		$table = theme_table($st_header, $rows, array('class' => 'globalstats'));
+		return $table;
+	}
+	
+	/*
+	 * Global stats form
+	 */
+	function omnia_usos_stats_global_form() {
+		$startdate = (isset($_GET['start'])) ? date('Y-m-d H:i:s', $_GET['start']) : date('Y-m-d H:i:s', strtotime('first day of january'));
+		$enddate = (isset($_GET['end'])) ? date('Y-m-d H:i:s', $_GET['end']) : date('Y-m-d H:i:s');
+		
+		$form['startdate'] = array(
+				'#type' => 'date_popup',
+				'#title' => t('Inici'),
+				'#format' => 'Y-m-d H:i',
+				'#default_value' => $startdate,
+				'#required' => true,
+				'#attributes' => array('id' => 'omnia_usos_startdate')
+		);
+		$form['enddate'] = array(
+				'#type' => 'date_popup',
+				'#title' => t('Final'),
+				'#format' => 'Y-m-d H:i',
+				'#default_value' => $enddate,
+				'#required' => true,
+				'#attributes' => array('id' => 'omnia_usos_enddate')
+		);
+		
+		$form['submit'] = array('#type' => 'submit', '#value' => t('Valida'));
+		
+		return $form;
+	}
+	
+	/*
+	 * Global stats form validate
+	 */
+	function omnia_usos_stats_global_form_validate($form, &$form_state) {
+		if (strtotime($form_state['values']['startdate']) > strtotime($form_state['values']['enddate'])) {
+			form_set_error('', t('La data d\'inici ha de ser previa a la de finalització'));
+		}
+	}
+	
+	/*
+	 * Global stats form submit
+	 */
+	function omnia_usos_stats_global_form_submit($form, &$form_state) {
+		
+		$starttime = strtotime($form_state['values']['startdate']);
+    	$endtime = strtotime($form_state['values']['enddate']);
+
+    	drupal_goto("estadistiques_omnia/estadistiques_globals", "start={$starttime}&end={$endtime}");
+	}

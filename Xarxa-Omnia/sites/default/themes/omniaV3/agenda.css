@@ -1,0 +1,216 @@
+﻿
+
+/* C A L E N D A R I */
+/* ***************** */
+
+/* Estil per a totes les visualitzacions: mes, setmana, dia, taula, llista */
+
+/* capçalera */
+#contingut .event-filter-control{width:300px; float:left;}
+#contingut .event-filter-control .description{font-size:12px; margin-top:10px;}
+#contingut ul.links li.event_week,
+#contingut ul.links li.event_month, 
+#contingut ul.links li.event_list, 
+#contingut ul.links li.event_table, 
+#contingut ul.links li.event_day
+{
+	background-image:url(http://xarxa-omnia.org/sites/xarxa-omnia.org/themes/omniaV2/css/fletxa.png);
+	background-repeat:no-repeat;
+	background-position:left center;
+	padding-left:15px;
+	margin-right:10px;
+	display:inline-block;
+	margin-top:15px;
+}
+
+.event-calendar{clear:both;}
+
+.event-calendar caption{font-weight:normal; margin-bottom:10px; font-size:18px; text-transform:capitalize;} /* titol de la data */
+.event-calendar caption .prev a{
+background-image:url("http://xarxa-omnia.org/sites/xarxa-omnia.org/themes/omniaV2/css/fletxa_esquerra.png"); 
+background-repeat:none;
+background-position:center bottom !important;
+display:inline-block;
+width:15px;
+height:15px;
+color:transparent;
+font-size:15px;
+}
+.event-calendar caption .next a{
+background-image:url("http://xarxa-omnia.org/sites/xarxa-omnia.org/themes/omniaV2/css/fletxa_dreta.png"); 
+background-repeat:none;
+background-position:center bottom !important;
+width:15px;
+display:inline-block;
+height:15px;
+color:transparent;
+font-size:15px;
+}
+
+/* Titolar taula Dl, Dm, Dmc, Dj, Dv, Ds, Diu */
+.event-calendar th {
+	background-color: #e6ffff; 
+	color:#000; font-size:12px; 
+	font-weight:normal; 
+	letter-spacing:0.2em; 
+	border:0px; 
+	border-right:1px solid #000;
+} 
+
+.event-calendar th.mon{border-left:0px solid #e6ffff !important;}
+
+.event-calendar div.event {background-color: #fff; font-size:12px; line-height:20px;} /* caixa d'un esdeveniment */
+.event-calendar td a{line-height:16px;} /* Enllaços */
+
+
+/* Cel·les buides */
+.event-calendar td.pad{border:0px; background-image:none !important;}
+
+/* Núm de dia */
+.event-calendar .day {background-color:#000 !important; color:#fff; font-weight:bold; border:none !important;}
+
+/* El dia d'avui */
+.event-calendar td.today {background: transparent;} /* Color de fons en la cel·la del dia d'avui */
+.event-calendar td.today .day{background: #ffe300 !important; color:#000;} /* Núm del dia d'avui */
+
+
+/* cap de setmana */
+.event-calendar td.sat, .event-calendar td.sun {background-color:#004773 !important; color:#fff;} /* Fons columnes cap de setmana */
+.event-calendar td.sat a, .event-calendar td.sun a{color:#fff !important; }  /* Enllaços cap de setmana */
+
+
+/* Titol de l'esdeveniment */
+.event-calendar div.title a {
+	color: #004773;
+	text-decoration:none; 
+	font-style:normal;
+	font-weight:normal;
+} /* titol esdeveniment - enllaç  */
+.event-calendar div.title a:hover {
+	color: #004773; 
+	text-decoration: underline; 
+	font-style:normal;
+} /* titol esdeveniment - enlla  hover */
+
+.event-calendar td .event{
+	border:none !important; 
+	line-height:14px; 
+	margin-bottom:20px;
+	margin-top:0px;
+	margin-left:-1px; 
+	background-color:transparent
+}
+
+.event-calendar td{
+	margin:0px; 
+	padding-left:-5px;
+}
+
+/* Files del calendari (eodd:imparells, even:parells*/
+.event-calendar .odd td, .event-calendar .even td{
+	text-align:center; 
+	padding:0px; 
+	background-color:transparent; 
+	border:0px; 
+	padding:5px; 
+	padding-top:12px;
+	margin:0px; 
+}
+
+/* Taula del calendari */
+.event-calendar table {border:0px !important;}
+.event-calendar table tbody{border:1px solid #ccc !important;}
+
+
+/* Color i alçada de la capçalera d'un esdeveniment */
+.event-calendar .event .stripe-5 {background-color: #ffe300; height:1px;} /* color distintiu tipo de contingut 1 */
+.event-calendar .event .stripe-4 {background-color: #4cb748; height:1px;} /* color distintiu tipo de contingut 2 */
+.event-calendar .event .stripe-3 {background-color: #00adef; height:1px;} /* color distintiu tipo de contingut 3 */
+.event-calendar .event .stripe-2 {background-color: #00ad3f; height:1px;} /* color distintiu tipo de contingut 4 */
+.event-calendar .event .stripe-1 {background-color: #8177b7; height:1px;} /* color distintiu tipo de contingut 5 */
+.event-calendar .event .stripe-10 {background-color: #ffe300; height:1px;} /* color distintiu tipo de contingut 6 */
+.event-calendar .event .stripe-9 {background-color: #4cb748; height:1px;} /* color distintiu tipo de contingut 7 */
+.event-calendar .event .stripe-8 {background-color: #00adef; height:1px;} /* color distintiu tipo de contingut 8 */
+.event-calendar .event .stripe-7 {background-color: #00ad3f; height:1px;} /* color distintiu tipo de contingut 9 */
+.event-calendar .event .stripe-6 {background-color: #8177b7; height:1px;} /* color distintiu tipo de contingut 10 */
+
+
+/* Estil Mes */
+/* ********* */
+
+.event-calendar div.month-view table tbody tr.even,
+.event-calendar div.month-view table tbody tr.odd{
+	border-bottom:10px solid #000 !important;
+}
+.event-calendar div.week-view .title a {font-size:0.8em;}
+
+/* Camps start i end (inici i fi de l'esdeveniment */
+.event-calendar .month-view td .start{font-size:10px; text-align:center;} /* Inici: 12:45 */
+.event-calendar .month-view td .end{font-size:10px; text-align:center;} /* Fi: 12:45 */
+.event-calendar .month-view td .ongoing{display:none;} /* Tot el dia */
+/* Camps start i end el cap de setmana */
+.event-calendar .month-view td.sat .event .start,
+.event-calendar .month-view td.sat .event .end{color:#ccc;} 
+.event-calendar .month-view td.sun .event .start, 
+.event-calendar .month-view td.sun .event .end{color:#ccc;} 
+.event-calendar .month-view .odd td, 
+.event-calendar .month-view .even td{
+	background-image:url("http://xarxa-omnia.org/sites/xarxa-omnia.org/themes/omniaV2/css/agendabg_blanc.gif");
+	width:96px !important;
+}
+/* Estil Setmana */
+/* ************* */
+
+.event-calendar div.week-view .title a {font-size:0.8em;}
+.event-calendar .week-view table {border-bottom:10px solid #000 !important;}
+/* Camps start i end (inici i fi de l'esdeveniment */
+.event-calendar .week-view td .start{font-size:10px; text-align:center;} /* Inici: 12:45 */
+.event-calendar .week-view td .end{font-size:10px; text-align:center;} /* Fi: 12:45 */
+.event-calendar .week-view td .ongoing{display:none;} /* Tot el dia */
+/* Camps start i end el cap de setmana */
+.event-calendar .week-view  td.sat .event .start,
+.event-calendar .week-view  td.sat .event .end{color:#ccc;} 
+.event-calendar .week-view  td.sun .event .start, 
+.event-calendar .week-view  td.sun .event .end{color:#ccc;} 
+.event-calendar .week-view .odd td, 
+.event-calendar .week-view .even td{
+	background-image:url("http://xarxa-omnia.org/sites/xarxa-omnia.org/themes/omniaV2/css/agendabg_blanc.gif");
+	width:96px !important;
+}
+
+/* Estil Dia */
+/* ********* */
+.event-calendar .day-view td .start{font-size:10px; text-align:left;} /* Inici: 12:45 */
+.event-calendar .day-view td .end{font-size:10px; text-align:left;} /* Fi: 12:45 */
+.event-calendar .day-view td .ongoing{display:block; font-size:10px; text-align:left;} /* Tot el dia */
+.event-calendar .day-view td.sat .event .start,
+.event-calendar .day-view td.sat .event .end, 
+.event-calendar .day-view td.sat .event .ongoing,
+.event-calendar .day-view td.sun .event .start, 
+.event-calendar .day-view td.sun .event .end,
+.event-calendar .day-view td.sun .event .ongoing {color:#ccc;} 
+
+/* Estil Taula */
+/* ************ */
+.event-calendar .table-view td .start{font-size:10px; text-align:left;} /* Inici: 12:45 */
+.event-calendar .table-view td .end{font-size:10px; text-align:left;} /* Fi: 12:45 */
+.event-calendar .table-view td .ongoing{display:block; font-size:10px; text-align:left;} /* Tot el dia */
+.event-calendar .table-view td.sat .event .start,
+.event-calendar .table-view td.sat .event .end,
+.event-calendar .table-view td.sat .event .ongoing,
+.event-calendar .table-view td.sun .event .start, 
+.event-calendar .table-view td.sun .event .end,
+.event-calendar .table-view td.sun .event .ongoing {color:#ccc;} 
+
+/* Estil Llista */
+/* ************ */
+.event-calendar .list-view td .start{font-size:10px; text-align:left;} /* Inici: 12:45 */
+.event-calendar .list-view td .end{font-size:10px; text-align:left;} /* Fi: 12:45 */
+.event-calendar .list-view td .ongoing{display:block; font-size:10px; text-align:left;} /* Tot el dia */
+.event-calendar .list-view td.sat .event .start,
+.event-calendar .list-view td.sat .event .end,
+.event-calendar .list-view td.sat .event .ongoing,
+.event-calendar .list-view td.sun .event .start, 
+.event-calendar .list-view td.sun .event .end,
+.event-calendar .list-view td.sun .event .ongoing {color:#ccc;} 
+
