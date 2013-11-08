@@ -371,6 +371,11 @@ $output2 .= "<strong>Tel&egrave;fon mòbil</strong>: " . $node->field_mobile_num
 }
 $output2 .= "<strong>Correu electr&ograve;nic</strong>: " . $node->field_e_mail[0]['safe'];
 
+//Enllaç a les estadístiques
+$oid = $node->nid;
+$h = sha1($GLOBALS['user']->uid.$oid.'H35rD83X7z'); 
+$output2 .= "<p><strong>Estadístiques: </strong><a href='/estadistiques_omnia/portada?oid={$oid}::{$h}'>Estadístiques del punt</a></p>";
+
 $output2 .= "<p><strong>Dinamitzador principal del Punt TIC</strong></p>";
 
 // Dinamitzador ppal del PO (nid present a l'url)
