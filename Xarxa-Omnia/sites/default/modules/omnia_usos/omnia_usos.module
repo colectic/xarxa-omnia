@@ -969,8 +969,32 @@
 	 * Funció per validar els continguts dels nodes Omnia 
 	 */
 	function omnnia_usos_custom_validate($form, &$form_state){
+		global $oid;
+		
 		if ((strpos($form['#post']['title'], '[') !== FALSE) 
 			|| (strpos($form['#post']['title'], ']') !== FALSE)) form_set_error('invalid symbol', t('Símbols invàlids en el títol'));
+		
+		if ($form['form_id']['#value'] == 'usuari_omnia_node_form'){
+			$title = $form['#post']['title'];
+			$name = strtolower($title);
+			$name_m = strtoupper($title);
+			$name_fl = ucwords($title);			
+			
+			$punt_table = 'content_'.variable_get('omnia_usos_punt_field');
+			$nid_field = variable_get('omnia_usos_punt_field').'_nid';
+			$user_type = variable_get('omnia_usos_users_node');
+			
+			$query = "SELECT node.title, node.nid FROM {$punt_table} INNER JOIN node ON {$punt_table}.nid = node.nid 
+						WHERE `{$nid_field}` = {$oid} 
+						AND node.type='{$user_type}'
+						AND node.status=1
+						AND (node.title LIKE '%{$name}%' OR node.title LIKE '%{$name_m}%' OR node.title LIKE '%{$name_fl}%')";
+			$results = db_query($query);
+			
+			while ($reg = db_fetch_array($results)) {
+				form_set_error('user created', t("El nom del participant coincideix amb de <a href='/node/{$reg['nid']}'>{$reg['title']}</a>"));
+			}
+		}
 	}
 	
 	/**
