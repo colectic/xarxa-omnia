@@ -959,6 +959,9 @@
 		if (in_array($form_id, array('usuari_omnia_node_form', 'activitat_omnia_node_form', 'entitat_omnia_node_form'))) {
 			$form['#validate'][] = 'omnnia_usos_custom_validate';
 		}
+		if (in_array($form_id, array('usuari_omnia_node_form', 'activitat_omnia_node_form', 'entitat_omnia_node_form', 'omnia_usos_type_node_form'))) {
+			$form['#submit'][] = 'omnnia_usos_custom_submit';
+		}
 	}
 	
 	
@@ -968,6 +971,26 @@
 	function omnnia_usos_custom_validate($form, &$form_state){
 		if ((strpos($form['#post']['title'], '[') !== FALSE) 
 			|| (strpos($form['#post']['title'], ']') !== FALSE)) form_set_error('invalid symbol', t('Símbols invàlids en el títol'));
+	}
+	
+	/**
+	 * Funció per validar els continguts dels nodes Omnia
+	 */
+	function omnnia_usos_custom_submit($form, &$form_state){
+		switch($form['form_id']['#value']) {
+			case 'usuari_omnia_node_form':
+				drupal_set_message(t('Participant creat correctament. Afegeix un <a href="/node/add/usuari-omnia"><b>nou participant</b></a>'));
+				break;
+			case 'activitat_omnia_node_form':
+				drupal_set_message(t('Activitat creada correctament. Afegeix una <a href="/node/add/activitat-omnia"><b>nova activitat</b></a>'));
+				break;
+			case 'entitat_omnia_node_form':
+				drupal_set_message(t('Entitat creada correctament. Afegeix un <a href="/node/add/entitat-omnia"><b>nova entitat</b></a>'));
+				break;
+			case 'omnia_usos_type_node_form':
+				drupal_set_message(t('Ús creat correctament. Afegeix un <a href="/node/add/omnia-usos-type"><b>nou ús</b></a>'));
+				break;
+		}
 	}
 	
 	
