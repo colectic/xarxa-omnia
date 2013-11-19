@@ -127,3 +127,12 @@
 #omnia-usos-stats-tool-form fieldset.groupby1 > div {float: left; width: 18%;}
 #omnia-usos-stats-tool-form fieldset.graph img {margin-top: 15px}
 #omnia-usos-stats-tool-form fieldset.table table {width: auto; margin-top: 15px}
+
+/********** PÀGINA DE CERCA ************/
+.page-estadistiques-omnia .view-cercador-estadistiques .view-filters { margin-bottom: 10px !important; }
+.page-estadistiques-omnia .estadistiques-omnia-cerca-row td { padding: 5px 3px !important; }
+
+/********** BLOC DE CERCA ************/
+#block-custom_search_blocks-1 label { margin: 10px 0 5px; }
+#block-custom_search_blocks-1 .button { margin-top: 5px; }
+
