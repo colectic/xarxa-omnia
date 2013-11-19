@@ -974,11 +974,12 @@
 		if ((strpos($form['#post']['title'], '[') !== FALSE) 
 			|| (strpos($form['#post']['title'], ']') !== FALSE)) form_set_error('invalid symbol', t('Símbols invàlids en el títol'));
 		
-		if ($form['form_id']['#value'] == 'usuari_omnia_node_form'){
+		if (($form['form_id']['#value'] == 'usuari_omnia_node_form') && ($form_state['clicked_button']['#id'] != 'edit-delete')){			
 			$title = $form['#post']['title'];
 			$name = strtolower($title);
 			$name_m = strtoupper($title);
-			$name_fl = ucwords($title);			
+			$name_fl = ucwords($title);
+			$nid = ($form['nid']['#value']) ? $form['nid']['#value'] : 0;
 			
 			$punt_table = 'content_'.variable_get('omnia_usos_punt_field');
 			$nid_field = variable_get('omnia_usos_punt_field').'_nid';
@@ -988,7 +989,8 @@
 						WHERE `{$nid_field}` = {$oid} 
 						AND node.type='{$user_type}'
 						AND node.status=1
-						AND (node.title LIKE '%{$name}%' OR node.title LIKE '%{$name_m}%' OR node.title LIKE '%{$name_fl}%')";
+						AND (node.title LIKE '%{$name}%' OR node.title LIKE '%{$name_m}%' OR node.title LIKE '%{$name_fl}%')
+						AND node.nid != {$nid}";
 			$results = db_query($query);
 			
 			while ($reg = db_fetch_array($results)) {
