@@ -9,6 +9,8 @@
 			'usca' => 'Campanya',
 			'usin' => 'Data d\'inici',
 			'usfi' => 'Data de finalització',
+			'usinh' => 'Hora d\'inici',
+			'usfih' => 'Hora de finalització',
 			'uage' => 'Edat',
 			'upai' => 'País d\'origen',
 			'usex' => 'Sexe',
@@ -1361,7 +1363,7 @@
 			
 			$form['filter']['filter_use'] = array (
 				'#type' => 'fieldset',
-				'#title' => t('Filtres temporals'),
+				'#title' => t('Característiques de l\'ús'),
 				'#collapsible' => TRUE,
 				'#collapsed' => TRUE,
 			);
@@ -1376,6 +1378,20 @@
 				'#type' => 'date_popup',
 				'#title' => t('Data de finalització'),
 				'#format' => 'Y-m-d',
+			);
+			
+			$form['filter']['filter_use']['filter_usinh'] = array (
+					'#type' => 'textfield',
+					'#size' => '5',
+					'#title' => t('Hora d\'inici'),
+					'#description' => t('Format hh:mm')
+			);
+			
+			$form['filter']['filter_use']['filter_usfih'] = array (
+					'#type' => 'textfield',
+					'#size' => '5',
+					'#title' => t('Hora de finalització'),
+					'#description' => t('Format hh:mm')
 			);
 			
 			$tax = variable_get('omnia_usos_campaign_tax', '');
@@ -1807,14 +1823,15 @@
 		
 		//WHERE
 		global $checkbox_fields, $date_fields, $reference_fields;
-		$minvalue = array('usin', 'uage_min', 'uany_min');
-		$maxvalue = array('usfi', 'uage_max', 'uage_max');
+		$minvalue = array('usin', 'usinh', 'uage_min', 'uany_min');
+		$maxvalue = array('usfi', 'usfih', 'uage_max', 'uage_max');
+		$specialfields = array('usinh', 'usfih');
 		
 		$filters = array();
 		foreach ($form_state['values'] as $key => $value) {
 			if (strpos($key, 'filter_') === 0) {
 				$field = str_replace('filter_', '', $key);
-				if (!empty($value)) {
+				if (!empty($value)) {					
 					if (is_array($value)) {
 						// Select
 						$where .= ($where != '') ? 'AND (' : 'WHERE (';
@@ -1853,14 +1870,29 @@
 						}
 						if (in_array($field, $minvalue)) {
 							$field = str_replace('_min', '', $field);
+							if ($field == 'usinh') {
+								//Special
+								$value = str_replace(':', '', $value);
+								$specialfield = "DATE_FORMAT(FROM_UNIXTIME(`usin`), '%H%i')";
+							}
 							$symbol = '>=';
 						} else if (in_array($field, $maxvalue)) {
 							$field = str_replace('_max', '', $field);
+							if ($field == 'usfih') {
+								//Special
+								$value = str_replace(':', '', $value);
+								$specialfield = "DATE_FORMAT(FROM_UNIXTIME(`usfi`), '%H%i')";
+							}
 							$symbol = '<=';
 						} else {
 							$symbol = '=';
 						}
-						$where .= ($where != '') ? "AND {$field}{$symbol}{$value} " : "WHERE {$field}{$symbol}{$value} ";
+						
+						if(in_array($field, $specialfields)) {
+							$where .= ($where != '') ? "AND {$specialfield}{$symbol}{$value} " : "WHERE {$specialfield}{$symbol}{$value} ";
+						} else {
+							$where .= ($where != '') ? "AND {$field}{$symbol}{$value} " : "WHERE {$field}{$symbol}{$value} ";
+						}						
 						$filters[$field] = (!isset($filters[$field])) ? $field_translate[$field]." {$symbol} ".$str_value : $filters[$field]." i {$symbol} ".$str_value;
 					}
 				}
