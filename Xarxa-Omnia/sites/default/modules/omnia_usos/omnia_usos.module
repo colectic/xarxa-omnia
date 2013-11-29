@@ -1014,7 +1014,7 @@
 			$birth = $form['#post']['field_usuari_omnia_naixement'][0]['value']['date'];
 			$arrib = $form['#post']['field_usuari_omnia_arribada'][0]['value']['date'];
 			$actual = date('Y');
-			if ($birth >= $actual) form_set_error('invalid value', t('Any de naixement incorrecte'));
+			if ($birth >= $actual-3) form_set_error('invalid value', t('Any de naixement incorrecte'));
 			if ($arrib < $birth) form_set_error('invalid value', t('Any d\'arribada incorrecte'));
 		}
 	}
