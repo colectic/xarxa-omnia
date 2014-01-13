@@ -1,6 +1,5 @@
 <?php
 
-date_default_timezone_set('UTC+1');
 drupal_add_css(drupal_get_path('module', 'omnia_usos') . '/css/omnia_usos.css');
 
 global $user;
@@ -32,10 +31,19 @@ foreach ($rows as $row) {
 	$newrow[] = ($node->field_usuari_omnia_sexe[0]['value']) ? 'Home' : 'Dona';
 	$term = taxonomy_get_term($node->field_usuari_omnia_pais_origen[0]['value']);
 	$newrow[] = $term->name;
-	$year = explode('-', $node->field_usuari_omnia_naixement[0]['value']);
-	$newrow[] = $year[0];
-	$year = explode('-', $node->field_usuari_omnia_arribada[0]['value']);
-	$newrow[] = $year[0];
+	
+	$date = new DateTime($node->field_usuari_omnia_naixement[0]['value'], new DateTimeZone('UTC'));
+	$date->setTimeZone(new DateTimeZone('Europe/Madrid'));	
+	$newrow[] = $date->format('Y');
+	
+	if ($node->field_usuari_omnia_arribada[0]['value']) {
+		$date = new DateTime($node->field_usuari_omnia_arribada[0]['value'], new DateTimeZone('UTC'));
+		$date->setTimeZone(new DateTimeZone('Europe/Madrid'));
+		$newrow[] = $date->format('Y');
+	} else {
+		$newrow[] = '';
+	}
+	
 	$newrow[] = ($node->field_usuari_omnia_parla_cat[0]['value']) ? 'Sí' : 'No';
 	$newrow[] = ($node->field_usuari_omnia_escriu_cat[0]['value']) ? 'Sí' : 'No';
 	$newrow[] = ($node->field_usuari_omnia_parla_cas[0]['value']) ? 'Sí' : 'No';
@@ -45,7 +53,8 @@ foreach ($rows as $row) {
 	
 	$url = url(drupal_get_path_alias( 'node/' . $node->nid));
 	$actions = "<a href='{$url}'><img src='http://{$_SERVER['HTTP_HOST']}/".drupal_get_path('module', 'omnia_usos') . "/pics/view.png' alt='mostra' class='icon'></a>
-				<a href='/node/{$node->nid}/edit'><img src='http://{$_SERVER['HTTP_HOST']}/".drupal_get_path('module', 'omnia_usos')."/pics/edit.png' alt='edita' class='icon'></a>";
+				<a href='/node/{$node->nid}/edit'><img src='http://{$_SERVER['HTTP_HOST']}/".drupal_get_path('module', 'omnia_usos')."/pics/edit.png' alt='edita' class='icon'></a>
+				<a href='/estadistiques_omnia/informes?uid={$node->nid}'><img src='http://{$_SERVER['HTTP_HOST']}/".drupal_get_path('module', 'omnia_usos')."/pics/export.png' alt='exporta' class='icon'></a>";
 	if ($dina) $newrow[] = $actions;
 	
 	$trows[] = $newrow;	

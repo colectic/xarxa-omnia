@@ -66,6 +66,7 @@ foreach ($rows as $row) {
 	$actions = "<a href='{$url}{$oid}'><img src='http://{$_SERVER['HTTP_HOST']}/".drupal_get_path('module', 'omnia_usos') . "/pics/view.png' alt='mostra' class='icon'></a>
 				<a href='/node/{$node->nid}/edit{$oid}'><img src='http://{$_SERVER['HTTP_HOST']}/".drupal_get_path('module', 'omnia_usos')."/pics/edit.png' alt='edita' class='icon'></a>";
 	
+	if ($dina) $actions .= "<a href='/estadistiques_omnia/informes?aid={$node->nid}'><img src='http://{$_SERVER['HTTP_HOST']}/".drupal_get_path('module', 'omnia_usos')."/pics/export.png' alt='exporta' class='icon'></a>";	
 	if ($coord || $dina) $newrow[] = $actions;
 	
 	$trows[] = $newrow;	

@@ -104,3 +104,16 @@ function omnia_usos_wrapper(&$form, $form_state, $item_name) {
   return $wrapper;
 }
 
+
+function array_to_csv_download($data, $filename = "export.csv") {
+	header('Content-Type: application/csv; charset=utf-8');
+	header('Content-Disposition: attachment; filename="'.$filename.'"');
+		
+	$fp = fopen('php://output', 'w');
+	foreach ( $data as $line ) {
+	    fputcsv($fp, $line, ';');
+	}
+	fclose($fp);
+	exit;
+}
+

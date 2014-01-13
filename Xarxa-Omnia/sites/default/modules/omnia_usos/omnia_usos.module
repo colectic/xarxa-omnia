@@ -94,6 +94,20 @@
 			'access arguments' => array('access omnia_usos'),
 			'type' => MENU_CALLBACK,
 		);
+		$items['estadistiques_omnia/informes'] = array(
+			'page callback' => 'omnia_usos_stats_export_page',
+			'access arguments' => array('access omnia_usos'),
+			'type' => MENU_CALLBACK,
+		);
+		$items['node/%node/omnia_usos_export'] = array(
+				'title' => t('Informes'),
+				'type' => MENU_LOCAL_TASK,
+				'access callback' => 'omnia_usos_stats_export_tab_access',
+				'access arguments' => array(1),
+				'page callback' => 'omnia_usos_stats_export_tab_page',
+				'page arguments' => array(1),
+				'weight' => 2,
+		);
 		
 		/*if ($may_cache){
 			$items[] = array(
@@ -1015,7 +1029,9 @@
 			$arrib = $form['#post']['field_usuari_omnia_arribada'][0]['value']['date'];
 			$actual = date('Y');
 			if ($birth >= $actual-3) form_set_error('invalid value', t('Any de naixement incorrecte'));
-			if ($arrib < $birth) form_set_error('invalid value', t('Any d\'arribada incorrecte'));
+			if ($arrib) {
+				if ($arrib < $birth) form_set_error('invalid value', t('Any d\'arribada incorrecte'));
+			}
 		}
 	}
 	
@@ -1107,6 +1123,7 @@
 			
 			$form['query'] = array(	'#type' => 'hidden',
 									'#value' => $form_state['query']);
+			
 			$form['title'] = array('#value' => '<h2>'.$form_state['title'].'</h2>');
 			$form['filters'] = array('#value' => $form_state['filters']);
 			$form['new'] = array('#value' => '<p><a href="eina_estadistiques">Nova consulta</a></p>');
@@ -1777,6 +1794,10 @@
 		$from = 'FROM {omnia_usos} ';
 		$orderby = '';
 		
+		//Secondary query
+		$select2 = '';
+		$where2 = '';
+		
 		//SELECT
 		switch ($form_state['values']['select']) {
 			case 'users':
@@ -1785,6 +1806,8 @@
 			case 'uses':
 				$select = "SELECT COUNT(DISTINCT usid) as 'uses' ";
 				$where = 'WHERE uid IS NOT NULL ';
+				$select2 = "SELECT SUM(apla) as 'uses' ";
+				$where2 = 'WHERE uid IS NULL ';
 				break;
 			case 'activities':
 				$select = "SELECT COUNT(DISTINCT aid) as 'activities' ";
@@ -1793,23 +1816,36 @@
 				$select = "SELECT COUNT( DISTINCT CONCAT(aid, COALESCE(usgr, ''))) AS 'actuations' ";
 				break;
 			case 'sessions':
-				$select = "SELECT COUNT(DISTINCT uid) COUNT(DISTINCT nid) AS 'sessions' ";
+				$select = "SELECT COUNT(DISTINCT nid) AS 'sessions' ";
 				break;			
 		}
 		
 		//GROUP BY
 		$groupby_array = array('user', 'activity', 'omnia', 'use');
 		$groupby1 = '';
+		$groupby_group = '';
 		foreach ($groupby_array as $gb) {
 			foreach ($form_state['values']['groupby1_'.$gb] as $value) {
 				if ($value != '0') $groupby1 = $value;
+				$groupby_group = $gb;
 			}
 		}
 		
 		if ($groupby1) {
 			$groupby = 'GROUP BY '.$groupby1;
 			$select .= ', '.$groupby1.' ';
+			if ($select2 != '') $select2 .= ', '.$groupby1.' ';
 			$orderby = ' ORDER BY '.$groupby1.' ASC';
+			if ($groupby_group = 'user') {
+				//Discard null values
+				$where .= ($where != '') ? 'AND (' : 'WHERE (';
+				$where .= "$groupby1 IS NOT NULL";
+				$where .= ') ';
+				$where2 .= ($where2 != '') ? 'AND (' : 'WHERE (';
+				$where2 .= "$groupby1 IS NOT NULL";
+				$where2 .= ') ';
+				
+			}
 		}
 		
 		/*if ($form_state['values']['groupby2'] != 'none') {
@@ -1835,13 +1871,16 @@
 					if (is_array($value)) {
 						// Select
 						$where .= ($where != '') ? 'AND (' : 'WHERE (';
+						$where2 .= ($where2 != '') ? 'AND (' : 'WHERE (';
 						$first = true;
 						foreach ($value as $element) {
 							if ($first) { 
 								$where .= "{$field} = {$element}";
+								$where2 .= "{$field} = {$element}";
 								$first = false;
 							} else {
 								$where .= " OR {$field} = {$element}";
+								$where2 .= " OR {$field} = {$element}";
 							}
 							if (in_array($field, $reference_fields)) {
 								$node = node_load($element);
@@ -1852,11 +1891,13 @@
 							}
 							$filters[$field] = (!isset($filters[$field])) ? $field_translate[$field].' = '.$element_str : $filters[$field].' o '.$element_str;						
 						}
-						$where .= ') ';										
+						$where .= ') ';
+						$where2 .= ') ';
 					} else if (in_array($field, $checkbox_fields)) {
 						// Checkbox
 						if ($value == 1) {
 							$where .= ($where != '') ? 'AND '.$field.'=1 ' : 'WHERE '.$field.'=1 ';
+							$where2 .= ($where2 != '') ? 'AND '.$field.'=1 ' : 'WHERE '.$field.'=1 ';
 							$filters[$field] = $field_translate[$field].' = Sí';
 						} else {
 							$filters[$field] = $field_translate[$field].' = No';
@@ -1890,8 +1931,10 @@
 						
 						if(in_array($field, $specialfields)) {
 							$where .= ($where != '') ? "AND {$specialfield}{$symbol}{$value} " : "WHERE {$specialfield}{$symbol}{$value} ";
+							$where2 .= ($where2 != '') ? "AND {$specialfield}{$symbol}{$value} " : "WHERE {$specialfield}{$symbol}{$value} ";
 						} else {
 							$where .= ($where != '') ? "AND {$field}{$symbol}{$value} " : "WHERE {$field}{$symbol}{$value} ";
+							$where2 .= ($where2 != '') ? "AND {$field}{$symbol}{$value} " : "WHERE {$field}{$symbol}{$value} ";
 						}						
 						$filters[$field] = (!isset($filters[$field])) ? $field_translate[$field]." {$symbol} ".$str_value : $filters[$field]." i {$symbol} ".$str_value;
 					}
@@ -1899,6 +1942,7 @@
 				//Sexuality
 				if (($field == 'usex') && ($value!='')) {
 					$where .= ($where != '') ? 'AND '.$field.'='.$value.' ' : 'WHERE '.$field.'='.$value.' ';
+					$where2 .= ($where2 != '') ? 'AND '.$field.'='.$value.' ' : 'WHERE '.$field.'='.$value.' ';
 					$filters[$field] = ($value) ? $field_translate[$field].' = Home' : $field_translate[$field].' = Dona';
 				}
 			}
@@ -1908,14 +1952,26 @@
 		if (!user_access('access estadístiques omnia')) {
 			global $oid;
 			$where .= ($where != '') ? "AND oid = {$oid} " : "WHERE oid = {$oid} ";
+			$where2 .= ($where2 != '') ? "AND oid = {$oid} " : "WHERE oid = {$oid} ";
 		}
 		
 		$title = "Anàlisis de {$field_translate[$form_state['values']['select']]}";
 		if ($groupby1) $title .= ' separats/des per '.$field_translate[$groupby1];
 		//if ($form_state['values']['groupby2'] != 'none') $title .= ' i per '.$field_translate[$groupby2];
+		
+		$query = $select.$from.$where.$groupby;
 				
+		if ($select2 != '') {
+			//Subquery generation
+			$query2 = $select2.$from.$where2.$groupby;
+			$type = $form_state['values']['select'];
+			$sgb = ($groupby1 != '') ? ', '.$groupby1.' ' : '';
+			$query = "SELECT SUM({$type}) AS '{$type}'{$sgb} FROM ({$query} UNION ALL {$query2}) `x` {$groupby}";
+		}
+		$query .= $orderby;
+		
 		$form_state["rebuild"] = TRUE;
-		$form_state["query"] = $select.$from.$where.$groupby.$orderby;
+		$form_state["query"] = $query;
 		$form_state["title"] = $title;
 		
 		if (!empty($filters)) {
@@ -2312,7 +2368,7 @@
 		COUNT(DISTINCT `uid`) AS 'users',
 		COUNT( DISTINCT CONCAT(`aid`, COALESCE(`usgr`, ''))) AS 'actuations',
 		COUNT(DISTINCT `nid`) AS 'sessions',
-		COUNT(DISTINCT `aid`) AS 'activities' FROM `omnia_usos` WHERE {$where} GROUP BY `oid`";
+		COUNT(DISTINCT `aid`) AS 'activities' FROM `omnia_usos` WHERE {$where} AND `uid` IS NOT NULL GROUP BY `oid`";
 		
 		$results = db_query($query);
 		$title_column = array();
@@ -2426,4 +2482,314 @@
     	$endtime = strtotime($form_state['values']['enddate']);
 
     	drupal_goto("estadistiques_omnia/estadistiques_globals", "start={$starttime}&end={$endtime}");
+	}
+	
+	/*
+	 * Export stats page
+	 */
+	function omnia_usos_stats_export_page() {
+		$output = t("<h1>Informes</h1>");
+		$output .= drupal_get_form (omnia_usos_stats_export_form);
+		
+		return $output;
+	}
+	
+	/*
+	 * Export stats form
+	 */
+	function omnia_usos_stats_export_form() {
+		$activity_node = variable_get('omnia_usos_activity_node', '');
+		if (is_null($activity_node)) form_set_error('activity_node', t('Activity node is null.'));
+		$user_node = variable_get('omnia_usos_users_node', '');
+		if (is_null($user_node)) form_set_error('user_node', t('User node is null.'));
+		
+		$startdate = date('Y-m-d H:i:s', time()-31536000);
+		$enddate = date('Y-m-d H:i:s');
+		
+		//Load activity if it's defined in $_GET
+		$activity = '';
+		if (isset($_GET['aid'])) {
+			$activity = node_load($_GET['aid']);	
+			$activity = $activity->title." [{$_GET['aid']}]";
+		}
+		//Load user if it's defined in $_GET
+		$user = '';
+		if (isset($_GET['uid'])) {
+			$user = node_load($_GET['uid']);
+			$user = $user->title." [{$_GET['uid']}]";
+		}
+		
+		$form['activity'] = array(
+			'#type' => 'textfield',
+			'#title' => t('Activitat'),
+			'#lenght' => 30,
+			'#autocomplete_path' => "omnia_usos/autocomplete/{$activity_node}",
+			'#default_value' => $activity,
+			'#description' => t('Comença a escriure el títol d\'una activitat ja inserida i selecciona-la quan aparegui a la llista
+								<br/>Deixant el camp en blanc se cerca sobre totes les activitats'),
+		);
+		
+		$form['user'] = array(
+			'#type' => 'textfield',
+			'#title' => t('Participant'),
+			'#lenght' => 30,
+			'#autocomplete_path' => "omnia_usos/autocomplete/{$user_node}",
+			'#default_value' => $user,
+			'#description' => t('Comença a escriure el nom d\'un participant ja inserit i selecciona\'l quan aparegui a la llista
+								<br/>Deixant el camp en blanc se cerca sobre tots els participants'),
+		);
+		
+		$form['startdate'] = array(
+			'#type' => 'date_popup',
+			'#title' => t('Inici'),
+			'#format' => 'Y-m-d H:i',
+			'#default_value' => $startdate,
+			'#required' => true,
+		);
+		
+		$form['enddate'] = array(
+			'#type' => 'date_popup',
+			'#title' => t('Final'),
+			'#format' => 'Y-m-d H:i',
+			'#default_value' => $enddate,
+			'#required' => true,
+		);
+		
+		$form['submit'] = array('#type' => 'submit', '#value' => t('Valida'));
+		return $form;
+	}
+	
+	/*
+	 * Export stats form submit
+	 */
+	function omnia_usos_stats_export_form_submit($form, &$form_state) {
+		global $oid;		
+		$usin = strtotime($form_state['values']['startdate']);
+		$usfi = strtotime($form_state['values']['enddate']);
+		
+		$where = "WHERE oid={$oid} AND usin>={$usin} AND usfi<{$usfi}";
+		
+		if (strpos($form_state['values']['activity'], '[') !== FALSE) {
+			$activity = explode('[', $form_state['values']['activity']);
+			$activity = $activity[1];
+			$activity = str_replace(']', '', $activity);
+			$where .= " AND aid={$activity}"; 
+		}
+		
+		if (strpos($form_state['values']['user'], '[') !== FALSE) {
+			$user = explode('[', $form_state['values']['user']);
+			$user = $user[1];
+			$user = str_replace(']', '', $user);
+			$where .= " AND uid={$user}";
+		}
+		
+		$query = "SELECT uid, aid, usin, usgr FROM {omnia_usos} {$where}";
+		$results = db_query($query);
+		
+		if (isset($user)) {
+			//All activities/groups of a user
+			$ass_array = array();
+			$aux_concat = array();
+			while ($row = db_fetch_array($results)) {
+				$concat = $row['aid'].$row['usgr'];
+				if (!isset($aux_concat['concat'])) {
+					$node = node_load($row['aid']);
+					$aux_concat[$concat] = $node->title;
+					if ($row['usgr']) $aux_concat[$concat] .= ' - '.$row['usgr'];
+				}
+				if (!is_array($ass_array[$concat])) $ass_array[$concat] = array();
+				$ass_array[$concat][] = date('d/m/Y', $row['usin']);
+			}
+			asort($ass_array[$concat]);
+			asort($aux_concat);
+			
+			$csv_lines = array();
+			foreach ($aux_concat as $concat => $title) {
+				$csv_lines[] = array_merge(array($title), $ass_array[$concat]);
+			}
+			
+		} elseif ((isset($activity) && !isset($user))) {
+			//All users of an activity
+			//Get activiy data
+			$aux_activity = array();
+			$aux_concat = array();
+			while ($row = db_fetch_array($results)) {
+				$concat = $row['aid'].$row['usgr'];
+				if (!isset($aux_concat['concat'])) {
+					$node = node_load($row['aid']);
+					$aux_concat[$concat] = $node->title;
+					if ($row['usgr']) $aux_concat[$concat] .= ' - '.$row['usgr']; 
+				}
+				$aux_activity[$concat][$row['usin']][] = $row['uid'];
+			}
+			
+			ksort($aux_activity);
+			$aux_sessions = array();
+			$aux_users = array();
+			$act_table = array();
+			foreach ($aux_activity as $concat => $usin_array) {
+				$sessions = array_keys($usin_array);
+				asort($sessions);
+				$aux_sessions[$concat] = array();
+				$aux_sessions[$concat] = array_fill_keys($sessions, 0);
+				
+				foreach ($usin_array as $usin => $uid_array) {
+					foreach ($uid_array as $uid) {
+						if (!is_array($act_table[$concat][$uid])) {
+							$act_table[$concat][$uid] = array();
+							$node = node_load($uid);
+							$aux_users[$concat][$uid] = $node->title;
+							$act_table[$concat][$uid] = $aux_sessions[$concat];
+						}
+						$act_table[$concat][$uid][$usin] = 1;
+					}
+				}
+			}
+			
+			$csv_lines = array();
+			foreach ($act_table as $concat => $act_array) {
+				$act_title = $aux_concat[$concat];
+				$csv_lines[] = array($act_title);
+				$dates_array = array();
+				foreach ($aux_sessions[$concat] as $date => $ass_array) {
+					$dates_array[] = date('d/m/Y', $date);
+				}
+				$csv_lines[] = array_merge(array(''), $dates_array);
+
+				asort($aux_users[$concat]);
+				foreach ($aux_users[$concat] as $uid => $name) {
+					$csv_lines[] = array_merge(array($name), $act_table[$concat][$uid]);
+				}
+				$csv_lines[] = array('');
+				$csv_lines[] = array('');
+			}
+			
+		} else {
+			//All users and activities
+			//Get column headers (Activity + Group)
+			//Make template array
+			$query = "SELECT DISTINCT(CONCAT(aid, IFNULL(usgr, ''))) AS 'concat', aid,  IFNULL(usgr, '') AS usgr FROM {omnia_usos} {$where}";
+			$res = db_query($query);
+			$aux_activity = array();
+			while ($row = db_fetch_array($res)) {
+				$node = node_load($row['aid']);
+				$aux_activity[$row['concat']] = ($row['usgr']) ? $node->title.' - '.$row['usgr'] : $node->title;  
+			}
+			asort($aux_activity);
+			
+			//Template array
+			$template_array = array();
+			foreach ($aux_activity as $key => $value){
+				$template_array[$key] = array();
+			}
+			
+			//Get sessions of Activity + Group 
+			$query = "SELECT COUNT(DISTINCT usin) as 'sessions', CONCAT(aid, IFNULL(usgr, '')) AS 'concat' FROM {omnia_usos} {$where} GROUP BY concat";
+			$res = db_query($query);
+			$aux_sessions = array();
+			while ($row = db_fetch_array($res)) {
+				$aux_sessions[$row['concat']] = $row['sessions'];
+			}
+			
+			//Get user data
+			$aux_users = array();
+			$user_data = array();
+			while ($row = db_fetch_array($results)) {
+				$uid = $row['uid'];
+				if ($uid) {
+					$concat = $row['aid'].$row['usgr']; 
+					if (!isset($user_data[$uid])){
+						$user_data[$uid] = $template_array;
+						$user = node_load($uid);
+						$aux_user[$uid] = ($user->title) ? $user->title : '-- Participant esborrat --';
+					}
+					$user_data[$uid][$concat][] = $row['usin'];
+				}
+			}
+			asort($aux_user);
+			
+			$csv_lines = array();
+			$csv_lines[] = array_merge(array(''), $aux_activity);
+			foreach ($aux_user as $uid => $name) {
+				$user_array = array($name);
+				foreach ($aux_activity as $concat => $value) {
+					$total = $aux_sessions[$concat];
+					$user_sessions = count($user_data[$uid][$concat]);
+					$percent = $user_sessions.'/'.$total;
+					$user_array[] = $percent;
+				}
+				$csv_lines[] = $user_array;
+			}			
+		}	
+		array_to_csv_download($csv_lines);
+	}
+	
+	
+	/*
+	 * Menu item access callback.
+	 */
+	function omnia_usos_stats_export_tab_access($node = NULL) {
+		global $user;
+		$activity_type = variable_get('omnia_usos_activity_node', '');
+		$user_type = variable_get('omnia_usos_users_node', '');
+		
+		if (($node->type == $activity_type) || ($node->type == $user_type)) {
+			if (in_array('dinamitzadors', array_values($user->roles))) {
+				return TRUE;
+			}
+		}
+		return FALSE;
+	}
+	
+	
+	/*
+	 * Menu callback.
+	 */
+	function omnia_usos_stats_export_tab_page($node = NULL) {
+		$activity_type = variable_get('omnia_usos_activity_node', '');
+		$user_type = variable_get('omnia_usos_users_node', '');
+		
+		switch ($node->type) {
+			case $activity_type :
+				$params = array('aid' => $node->nid);
+				break;
+			case $user_type :
+				$params = array('uid' => $node->nid);
+				break;				
+		}
+		drupal_goto('estadistiques_omnia/informes',$params);
+	}
+	
+	
+	/*
+	 * Get user activities participation
+	 */
+	function omnia_usos_print_user_activities ($uid, $starttime = NULL, $endtime = NULL) {
+		$usin = ($starttime) ? $starttime : time()-31536000;
+		$usfi = ($endtime) ? $endtime : time();
+		
+		$query = "SELECT DISTINCT CONCAT(aid, IFNULL(usgr, '')) AS 'concat', aid, usgr FROM {omnia_usos} WHERE uid={$uid} AND usin>={$usin} AND usfi<{$usfi}";
+		$res = db_query($query);
+		$aux = array();
+		while ($row = db_fetch_array($res)) {
+			$aux[$row['concat']] = array('aid' => $row['aid'], 'usgr' => $row['usgr']);
+		}
+		
+		$result = '<p>'.t('Assistència a les activitats del període ').date('d/m/y', $usin).' - '.date('d/m/y', $usfi).'<ul>';
+		foreach ($aux as $concat => $array) {
+			$query = "SELECT COUNT(DISTINCT usin) FROM {omnia_usos} WHERE aid={$array['aid']} AND usgr='{$array['usgr']}' AND usin>={$usin} AND usfi<{$usfi}";
+			$res = db_query($query);
+			$total = db_result($res);
+			$query = "SELECT COUNT(DISTINCT usin) FROM {omnia_usos} WHERE aid={$array['aid']} AND usgr='{$array['usgr']}' AND usin>={$usin} AND usfi<{$usfi} AND uid={$uid}";
+			$res = db_query($query);
+			$user_total = db_result($res);
+			
+			$node = node_load($array['aid']);
+			$title = $node->title;
+			if ($array['usgr'] != '') $title .= ' - '.$array['usgr'];
+			$result .= "<li><a href='/estadistiques_omnia/informes?aid={$array['aid']}'>{$title}</a>: {$user_total}/{$total}</li>";
+		}
+		$result .= '</ul></p>';
+				
+		return $result;
 	}
