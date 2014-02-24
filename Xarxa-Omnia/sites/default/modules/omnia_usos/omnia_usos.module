@@ -523,9 +523,9 @@
 		
 		/**************************/
 		/*global $user;
-		if ($user->name == 'dinamitzadora'){
+		if ($user->name == 'eugimnb'){
 			print_r($query);
-			die('Proves');
+			die('S\'ESTÀ EFECTUANT UNA PROVA TÈCNICA. EN BREU ES REPRENDRÀ EL FUNCIONAMENT NORMAL');
 		}*/
 		/***************************/
 	}
@@ -1116,36 +1116,44 @@
 	 */
 	function omnia_usos_stats_tool_form(&$form_state){
 		
+		global $user;
+		$egest = false;
+		if (in_array('entitat gestora', array_values($user->roles))) $egest = true;
+		
 		ctools_include('dependent');
 		
 		if (isset($form_state['query'])) {
 			$results = db_query($form_state['query']);
 			
-			$form['query'] = array(	'#type' => 'hidden',
-									'#value' => $form_state['query']);
-			
-			$form['title'] = array('#value' => '<h2>'.$form_state['title'].'</h2>');
-			$form['filters'] = array('#value' => $form_state['filters']);
-			$form['new'] = array('#value' => '<p><a href="eina_estadistiques">Nova consulta</a></p>');
-			
-			$table = omnia_usos_stats_tool_table($results);
-			$form['table'] = array(
-					'#type' => 'fieldset',
-					'#title' => t('Resultats'),
-					'#collapsible' => TRUE,
-					'#collapsed' => FALSE,
-					'#attributes' => array('class' => 'table'),
-					'#value' => $table);
-			
-			$results->data_seek(0);
-			$graph = omnia_usos_stats_tool_graph($results);
-			$form['graph'] = array(
-					'#type' => 'fieldset',
-					'#title' => t('Gràfic'),
-					'#collapsible' => TRUE,
-					'#collapsed' => TRUE,
-					'#attributes' => array('class' => 'graph'),
-					'#value' => $graph);
+			if ($form_state['values']['export_csv'] == 1) {
+				omnia_usos_stats_tool_export($results);
+			} else {
+				$form['query'] = array(	'#type' => 'hidden',
+										'#value' => $form_state['query']);
+				
+				$form['title'] = array('#value' => '<h2>'.$form_state['title'].'</h2>');
+				$form['filters'] = array('#value' => $form_state['filters']);
+				$form['new'] = array('#value' => '<p><a href="eina_estadistiques">Nova consulta</a></p>');
+				
+				$table = omnia_usos_stats_tool_table($results);
+				$form['table'] = array(
+						'#type' => 'fieldset',
+						'#title' => t('Resultats'),
+						'#collapsible' => TRUE,
+						'#collapsed' => FALSE,
+						'#attributes' => array('class' => 'table'),
+						'#value' => $table);
+				
+				$results->data_seek(0);
+				$graph = omnia_usos_stats_tool_graph($results);
+				$form['graph'] = array(
+						'#type' => 'fieldset',
+						'#title' => t('Gràfic'),
+						'#collapsible' => TRUE,
+						'#collapsed' => TRUE,
+						'#attributes' => array('class' => 'graph'),
+						'#value' => $graph);
+			}
 						
 		} else {
 			$form['s'] = array (
@@ -1657,12 +1665,20 @@
 					'#collapsible' => TRUE,
 					'#collapsed' => TRUE,
 				);
-			
-				$query = "SELECT nid, title FROM {node} WHERE type='content_punt' AND status=1 ORDER BY title ASC";
-				$results = db_query($query);
-				$po = array();
-				while ($reg = db_fetch_array($results)) {
-					$po[$reg['nid']] = $reg['title']; 
+
+				if ($egest) {
+					$pos = views_get_view_result('poentitatgestora_simple');
+					foreach ($pos as $p) {
+						$node = node_load($p->nid);
+						$po[$p->nid] = $node->title;
+					}
+				} else {
+					$query = "SELECT nid, title FROM {node} WHERE type='content_punt' AND status=1 ORDER BY title ASC";
+					$results = db_query($query);
+					$po = array();
+					while ($reg = db_fetch_array($results)) {
+						$po[$reg['nid']] = $reg['title']; 
+					}
 				}
 			
 				$form['filter']['filter_omnia']['filter_oid'] = array (
@@ -1671,96 +1687,110 @@
 						'#options' => $po,
 						'#multiple' => TRUE
 				);
-			
-				$tax = variable_get('omnia_usos_place_tax', '');
-				if (is_null($tax)) form_set_error('aobj_tax', t('No s\'ha definit la taxonomia de territori del Punt Omnia'));
-				$terms = taxonomy_get_tree($tax);
-				$dem = array();
-				$com = array();
-				$pob = array();
-				foreach ($terms as $term) {
-					switch ($term->depth) {
-						case 0:
-							$dem[$term->tid] = $term->name;
-							break;
-						case 1:
-							$com[$term->tid] = $term->name;
-							break;
-						case 2:
-							$pob[$term->tid] = $term->name;
-							break;
+
+				if (!$egest) {
+					$tax = variable_get('omnia_usos_place_tax', '');
+					if (is_null($tax)) form_set_error('aobj_tax', t('No s\'ha definit la taxonomia de territori del Punt Omnia'));
+					$terms = taxonomy_get_tree($tax);
+					$dem = array();
+					$com = array();
+					$pob = array();
+					foreach ($terms as $term) {
+						switch ($term->depth) {
+							case 0:
+								$dem[$term->tid] = $term->name;
+								break;
+							case 1:
+								$com[$term->tid] = $term->name;
+								break;
+							case 2:
+								$pob[$term->tid] = $term->name;
+								break;
+						}
 					}
+					asort($dem);
+					asort($com);
+					asort($pob);
+					$form['filter']['filter_omnia']['filter_odem'] = array (
+							'#type' => 'select',
+							'#title' => t('Demarcació'),
+							'#options' => $dem,
+							'#multiple' => TRUE
+					);
+					$form['filter']['filter_omnia']['filter_ocom'] = array (
+							'#type' => 'select',
+							'#title' => t('Comarca'),
+							'#options' => $com,
+							'#multiple' => TRUE
+					);
+					$form['filter']['filter_omnia']['filter_opob'] = array (
+							'#type' => 'select',
+							'#title' => t('Població'),
+							'#options' => $pob,
+							'#multiple' => TRUE
+					);
+					
+					$tax = variable_get('omnia_usos_ogen_tax', '');
+					if (is_null($tax)) form_set_error('ogen_tax', t('No s\'ha definit la taxonomia de tipus d\'equipament'));
+					$terms = taxonomy_get_tree($tax);
+					$tax_array = array();
+					foreach ($terms as $term) {
+						$tax_array[$term->tid] = $term->name;
+					}
+					$form['filter']['filter_omnia']['filter_ogen'] = array (
+							'#type' => 'select',
+							'#title' => t('Tipus d\'equipament'),
+							'#options' => $tax_array,
+							'#multiple' => TRUE
+					);
+					
+					$form['filter']['filter_omnia']['filter_omes'] = array (
+							'#type' => 'checkbox',
+							'#title' => t('Població de més de 20 000 hab.'),
+					);
+					
+					$tax = variable_get('omnia_usos_ofin_tax', '');
+					if (is_null($tax)) form_set_error('ofin_tax', t('No s\'ha definit la taxonomia de tipus de finançanment'));
+					$terms = taxonomy_get_tree($tax);
+					$tax_array = array();
+					foreach ($terms as $term) {
+						$tax_array[$term->tid] = $term->name;
+					}
+					$form['filter']['filter_omnia']['filter_ofin'] = array (
+							'#type' => 'select',
+							'#title' => t('Tipus de finançament'),
+							'#options' => $tax_array,
+							'#multiple' => TRUE
+					);
+					
+					$tax = variable_get('omnia_usos_otip_tax', '');
+					if (is_null($tax)) form_set_error('ogen_tax', t('No s\'ha definit la taxonomia de tipus d\'entitat gestora'));
+					$terms = taxonomy_get_tree($tax);
+					$tax_array = array();
+					foreach ($terms as $term) {
+						$tax_array[$term->tid] = $term->name;
+					}
+					$form['filter']['filter_omnia']['filter_otip'] = array (
+							'#type' => 'select',
+							'#title' => t('Tipus d\'entitat gestora'),
+							'#options' => $tax_array,
+							'#multiple' => TRUE
+					);
 				}
-				asort($dem);
-				asort($com);
-				asort($pob);
-				$form['filter']['filter_omnia']['filter_odem'] = array (
-						'#type' => 'select',
-						'#title' => t('Demarcació'),
-						'#options' => $dem,
-						'#multiple' => TRUE
-				);
-				$form['filter']['filter_omnia']['filter_ocom'] = array (
-						'#type' => 'select',
-						'#title' => t('Comarca'),
-						'#options' => $com,
-						'#multiple' => TRUE
-				);
-				$form['filter']['filter_omnia']['filter_opob'] = array (
-						'#type' => 'select',
-						'#title' => t('Població'),
-						'#options' => $pob,
-						'#multiple' => TRUE
-				);
-				
-				$tax = variable_get('omnia_usos_ogen_tax', '');
-				if (is_null($tax)) form_set_error('ogen_tax', t('No s\'ha definit la taxonomia de tipus d\'equipament'));
-				$terms = taxonomy_get_tree($tax);
-				$tax_array = array();
-				foreach ($terms as $term) {
-					$tax_array[$term->tid] = $term->name;
-				}
-				$form['filter']['filter_omnia']['filter_ogen'] = array (
-						'#type' => 'select',
-						'#title' => t('Tipus d\'equipament'),
-						'#options' => $tax_array,
-						'#multiple' => TRUE
-				);
-				
-				$form['filter']['filter_omnia']['filter_omes'] = array (
-						'#type' => 'checkbox',
-						'#title' => t('Població de més de 20 000 hab.'),
-				);
-				
-				$tax = variable_get('omnia_usos_ofin_tax', '');
-				if (is_null($tax)) form_set_error('ofin_tax', t('No s\'ha definit la taxonomia de tipus de finançanment'));
-				$terms = taxonomy_get_tree($tax);
-				$tax_array = array();
-				foreach ($terms as $term) {
-					$tax_array[$term->tid] = $term->name;
-				}
-				$form['filter']['filter_omnia']['filter_ofin'] = array (
-						'#type' => 'select',
-						'#title' => t('Tipus de finançament'),
-						'#options' => $tax_array,
-						'#multiple' => TRUE
-				);
-				
-				$tax = variable_get('omnia_usos_otip_tax', '');
-				if (is_null($tax)) form_set_error('ogen_tax', t('No s\'ha definit la taxonomia de tipus d\'entitat gestora'));
-				$terms = taxonomy_get_tree($tax);
-				$tax_array = array();
-				foreach ($terms as $term) {
-					$tax_array[$term->tid] = $term->name;
-				}
-				$form['filter']['filter_omnia']['filter_otip'] = array (
-						'#type' => 'select',
-						'#title' => t('Tipus d\'entitat gestora'),
-						'#options' => $tax_array,
-						'#multiple' => TRUE
-				);
-			
 			}
+			
+			$form['export'] = array (
+					'#type' => 'fieldset',
+					'#title' => t('Exportar'),
+			);
+			$form['export']['text'] = array(
+					'#value' => '<p>Marca la casella per exportar els resultats a un document de tipus CSV</p>'
+			);
+			$form['export']['export_csv'] = array (
+					'#type' => 'checkbox',
+					'#title' => t('Exportar directament a CSV'),
+			);
+			
 			$form['submit'] = array('#type' => 'submit', '#value' => t('Valida'));	
 		}
 		return $form;
@@ -2307,6 +2337,47 @@
 		
 		drupal_add_js($javascript, 'inline', 'footer');
 		return '<div id="scatterplot"></div>';
+	}
+	
+	/**
+	 * Export to CSV stats tool results
+	 */
+	function omnia_usos_stats_tool_export($results) {
+		global $checkbox_fields, $taxonomy_fields, $field_translate, $reference_fields;
+		
+		$fields = $results->fetch_fields();
+		$first = $fields[1]->name;
+		$second = $fields[0]->name;		
+		
+		$header = array();
+		$header[] = $field_translate[$fields[1]->name];
+		$header[] = $field_translate[$fields[0]->name];
+		
+		$rows = array();
+		$rows[] = $header;		
+		
+		$values = array();
+		while ($reg = db_fetch_array($results)) {
+			$row = array();
+			if (in_array($first, $taxonomy_fields)) {
+				$name = taxonomy_get_term($reg[$first]);
+				$row[] = $name->name;
+			} elseif (in_array($first, $checkbox_fields)) {
+				$row[] = ($reg[$first] == 1) ? 'Sí' : 'No';
+			} elseif (in_array($first, $reference_fields)) {
+				$node = node_load($reg[$first]);
+				$row[] = $node->title;
+			} elseif ($first == 'usex') {
+				$row[] = ($reg[$first] == 1) ? 'Home' : 'Dona';
+			} else {
+				$row[] = $reg[$first];
+			}
+			$row[] = $reg[$second];
+			$values[] = $reg[$second];
+			$rows[] = $row;
+		}
+		
+		array_to_csv_download($rows);
 	}
 	
 	/**
