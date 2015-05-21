@@ -99,6 +99,11 @@
 			'access arguments' => array('access omnia_usos'),
 			'type' => MENU_CALLBACK,
 		);
+		$items['estadistiques_omnia/usos_activitat'] = array(
+				'page callback' => 'omnia_usos_get_from_activity',
+				'access arguments' => array('access omnia_usos'),
+				'type' => MENU_CALLBACK,
+		);
 		$items['node/%node/omnia_usos_export'] = array(
 				'title' => t('Informes'),
 				'type' => MENU_LOCAL_TASK,
@@ -1099,6 +1104,136 @@
 		}
 	}
 	
+	/**
+	 * Get usos from activity
+	 */
+	function omnia_usos_get_from_activity() {
+		global $user;
+		global $oid;
+		$aid = $_GET['aid'];
+		$dina = false;
+		
+		if (in_array('dinamitzadors', array_values($user->roles))) $dina = true;
+		
+		if ($_REQUEST['oid']){
+			$post = explode('::', $_REQUEST['oid']);
+			if (sha1($user->uid.$post[0].'H35rD83X7z') == $post[1]) {
+				$oid_ = (string)$post[0];
+			}
+		}else{
+			$oid_ = $oid;
+		}
+		
+		$oidurl = '';
+		if ($_REQUEST['oid']) $oidurl = '&oid='.$_REQUEST['oid'];
+		$activity_node = node_load($aid);
+		
+		drupal_add_css(drupal_get_path('module', 'omnia_usos') . '/css/omnia_usos.css');
+		$output = t("<h1>Estadístiques - Usos per activitat</h1>");
+		$output .= '<h2>'.$activity_node->title.'</h2>';
+				
+		if (array_key_exists ('usgr', $_GET)) $output .='<div id="allgroups"><a href="/estadistiques_omnia/usos_activitat?aid='.$aid.$oidurl.'">'.t('Mostra tots els grups').'</a></div>';
+		$output .= '	<form action="/node/add/omnia-usos-type">
+						<input type="submit" value="Afegeix ús d\'aquesta activitat" />&nbsp;
+						<input type="hidden" name="aid" value="'.$aid.'">
+						</form>';
+		
+		if (array_key_exists ('usgr', $_GET)){
+			$group = urldecode($_REQUEST['usgr']);
+			if ($group=='') {
+				$query = "SELECT `nid`, `usin`, COUNT(DISTINCT `usid`) AS participants, `usgr`, `usca` FROM `omnia_usos` WHERE `oid`={$oid_} AND `aid`={$aid} AND (`usgr`='{$group}' OR `usgr` IS NULL) GROUP BY `nid` ORDER BY `usin` DESC";
+				$counter_query = "SELECT COUNT(DISTINCT `nid`) FROM `omnia_usos` WHERE `oid`={$oid_} AND `aid`={$aid} AND (`usgr`='{$group}' OR `usgr` IS NULL)";
+			} else {
+				$query = "SELECT `nid`, `usin`, COUNT(DISTINCT `usid`) AS participants, `usgr`, `usca` FROM `omnia_usos` WHERE `oid`={$oid_} AND `aid`={$aid} AND `usgr`='{$group}' GROUP BY `nid` ORDER BY `usin` DESC";
+				$counter_query = "SELECT COUNT(DISTINCT `nid`) FROM `omnia_usos` WHERE `oid`={$oid_} AND `aid`={$aid} AND `usgr`='{$group}'";
+			} 
+			$results = pager_query($query, 15, 0 , $counter_query);
+			
+			while ($reg = db_fetch_array($results)) {
+				$campaign = taxonomy_get_term($reg['usca']);
+				$url = url(drupal_get_path_alias( 'node/' . $reg['nid']));
+			
+				$actions = "<a href='{$url}'><img src='http://{$_SERVER['HTTP_HOST']}/".drupal_get_path('module', 'omnia_usos') . "/pics/view.png' alt='mostra' class='icon'></a>
+							<a href='/node/{$reg['nid']}/edit'><img src='http://{$_SERVER['HTTP_HOST']}/".drupal_get_path('module', 'omnia_usos')."/pics/edit.png' alt='edita' class='icon'></a>
+							<a href='/node/add/omnia-usos-type?usid={$reg['nid']}'><img src='http://{$_SERVER['HTTP_HOST']}/".drupal_get_path('module', 'omnia_usos')."/pics/clone.png' alt='clona' class='icon'></a>" ;
+				
+				$newrow = array(date('d/m/y', $reg['usin']), $group, $campaign->name, $reg['participants']);
+				if ($dina) $newrow[] = $actions;
+				$tablerows[] = $newrow;
+			}
+			
+			$st_header = array(
+					array('data' => t('Data'), 'class' => 'th1'),
+					array('data' => t('Grup/Edició'), 'class' => 'th2'),
+					array('data' => t('Campanya'), 'class' => 'th3'),
+					array('data' => t('Participants'), 'class' => 'th4'),
+			);
+			if ($dina) $st_header[] = array('data' => t('Accions'), 'class' => 'th5');
+			
+		} else {
+			$groups = array();
+			$query = "	SELECT COUNT(DISTINCT `nid`) AS sessions, 
+						CASE
+    						WHEN `usgr` IS NULL OR `usgr` = '' THEN null
+    						ELSE `usgr`
+							END AS usgr_ 
+						FROM `omnia_usos` WHERE `oid`={$oid_} AND `aid`={$aid} GROUP BY usgr_";
+			$results = db_query($query);
+			while ($reg = db_fetch_array($results)) {
+				$groups[$reg['usgr_']] = $reg['sessions'];
+			}
+									
+			$tablerows = array();
+			foreach ($groups as $group => $sessions) {
+				if ($group=='') {
+					$query = "SELECT `nid`, `usin`, COUNT(DISTINCT `usid`) AS participants, `usgr`, `usca` FROM `omnia_usos` WHERE `oid`={$oid_} AND `aid`={$aid} AND (`usgr`='{$group}' OR `usgr`IS NULL) GROUP BY `nid` ORDER BY `usin` DESC LIMIT 3";
+				} else {
+					$query = "SELECT `nid`, `usin`, COUNT(DISTINCT `usid`) AS participants, `usgr`, `usca` FROM `omnia_usos` WHERE `oid`={$oid_} AND `aid`={$aid} AND `usgr`='{$group}' GROUP BY `nid` ORDER BY `usin` DESC LIMIT 3";
+				}
+				$results = db_query($query);
+				
+				$first = true;
+					
+				while ($reg = db_fetch_array($results)) {
+					$campaign = taxonomy_get_term($reg['usca']);
+					$url = url(drupal_get_path_alias( 'node/' . $reg['nid']));
+						
+					$actions = "<a href='{$url}'><img src='http://{$_SERVER['HTTP_HOST']}/".drupal_get_path('module', 'omnia_usos') . "/pics/view.png' alt='mostra' class='icon'></a>
+								<a href='/node/{$reg['nid']}/edit'><img src='http://{$_SERVER['HTTP_HOST']}/".drupal_get_path('module', 'omnia_usos')."/pics/edit.png' alt='edita' class='icon'></a>
+								<a href='/node/add/omnia-usos-type?usid={$reg['nid']}'><img src='http://{$_SERVER['HTTP_HOST']}/".drupal_get_path('module', 'omnia_usos')."/pics/clone.png' alt='clona' class='icon'></a>" ;
+					if ($first) {
+						$rowspan = ($sessions > 3) ? 4 : $sessions+1;
+						$newrow = array(array('data' => $group, 'rowspan' => $rowspan, 'class' => 'td1 td1_'.$sha),
+										array('data' => date('d/m/y', $reg['usin']), 'class' => 'td2'),
+										array('data' => $campaign->name, 'class' => 'td3'),
+										array('data' => $reg['participants'], 'class' => 'td4'));
+						if ($dina) $newrow[] = array('data' => $actions, 'class' => 'td5');
+						$first = false;
+					} else {
+						$newrow = array(date('d/m/y', $reg['usin']), $campaign->name, $reg['participants']);
+						if ($dina) $newrow[] = $actions;
+					}
+					$tablerows[] = $newrow;
+				}
+				$enc_group = urlencode($group);
+				$button = "<a href=\"/estadistiques_omnia/usos_activitat?aid={$aid}{$oidurl}&usgr={$enc_group}\"'>Mostra tots els usos</a>";
+				$columns = ($dina) ? 4 : 3;
+				$tablerows[] = array(array('data' => $button, 'colspan' => $columns, 'class' => 'rowsbutton'));
+			}
+			$st_header = array(
+					array('data' => t('Grup/Edició'), 'class' => 'th1'),
+					array('data' => t('Data'), 'class' => 'th2'),
+					array('data' => t('Campanya'), 'class' => 'th3'),
+					array('data' => t('Participants'), 'class' => 'th4'),
+			);
+			if ($dina) $st_header[] = array('data' => t('Accions'), 'class' => 'th5');
+		}
+		
+		$output .= theme_table($st_header, $tablerows, array('class' => 'medsize usos-omnia'));
+		$output .= theme_pager();
+		
+		return $output;
+	}
 	
 	/**
 	 * Stats Tool Page
@@ -2014,6 +2149,27 @@
 	}
 	
 	/**
+	 * Stats tool table first col generator
+	 */
+	function omnia_usos_stats_tool_first_col($col) {
+		$col_fields = array();
+		if (in_array($col, $taxonomy_fields)) {
+			return $col_fields;
+		} elseif (in_array($first, $reference_fields)) {
+			//Per defecte "Punt òmnia", en cas que n'hi hagi més s'haurà de veure
+			$nodetype = 'content_punt';
+			$query = "SELECT `nid`, `title` FROM {node} WHERE type='{$nodetype}' AND status=1 ORDER BY `title` ASC";
+			$results = db_query($query);
+			while ($reg = db_fetch_array($results)) {
+				$col_fields[$reg['nid']] = $reg['title']; 
+			}
+			return $col_fields;
+		} else {
+			return false;
+		}
+	}
+	
+	/**
 	 * Stats tool table generator
 	 */
 	function omnia_usos_stats_tool_table($results) {
@@ -2030,6 +2186,17 @@
 		
 		$rows = array();
 		$values = array();
+		
+		/**********************************************/
+		global $user;
+		if ($user->name == 'felixcb') {
+			die('hola');
+			if($col_fields = omnia_usos_stats_tool_first_col($first)) {
+				
+			}
+		} 
+		/**********************************************/
+		
 		while ($reg = db_fetch_array($results)) {
 			$row = array();
 			if (in_array($first, $taxonomy_fields)) {

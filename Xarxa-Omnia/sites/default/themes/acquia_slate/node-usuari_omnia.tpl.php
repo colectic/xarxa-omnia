@@ -3,12 +3,6 @@ drupal_add_css(drupal_get_path('module', 'omnia_usos') . '/css/omnia_usos.css');
 
 echo '<p><b>Identificador:</b> '.$node->nid.'</p>';
 
-global $user;
-if ($user->name=='admin') {
-	print_r($node->field_usuari_omnia_arribada[0]);
-	die();
-}
-
 $date = new DateTime($node->field_usuari_omnia_naixement[0]['value'], new DateTimeZone('UTC'));
 $date->setTimeZone(new DateTimeZone('Europe/Madrid'));
 $born = $date->format('Y');
