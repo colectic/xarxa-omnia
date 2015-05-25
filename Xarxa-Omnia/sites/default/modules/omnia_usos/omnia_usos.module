@@ -1,10 +1,31 @@
 <?php
-	global $checkbox_fields, $date_fields, $taxonomy_fields, $reference_fields, $field_translate;
+	global $checkbox_fields, $date_fields, $taxonomy_fields, $reference_fields, $field_translate, $taxonomy_vid;
 	
 	$checkbox_fields = array('upct', 'uect', 'upcs', 'uecs', 'omes');
 	$date_fields = array('usin', 'usfi');
 	$taxonomy_fields = array('odem', 'ocom', 'opob', 'ogen', 'ofin', 'otip', 'upai', 'uest', 'aobj', 'acom', 'astd', 'acol', 'afor', 'aorg', 'aixp', 'aixs', 'astc', 'etip', 'efre', 'usca');
 	$reference_fields = array('oid');
+	$taxonomy_vid = array(
+			'odem' => array(18,1), 
+			'ocom' => array(18,2), 
+			'ogen' => 30, 
+			'ofin' => 31, 
+			'otip' => 40, 
+			'upai' => 38, 
+			'uest' => 47, 
+			'aobj' => 48, 
+			'acom' => 44, 
+			'astd' => 45, 
+			'acol' => 43, 
+			'afor' => 46, 
+			'aorg' => 49, 
+			'aixp' => 36, 
+			'aixs' => 36, 
+			'astc' => 45, 
+			'etip' => 39, 
+			'efre' => 41, 
+			'usca' => 42
+	);
 	$field_translate = array(
 			'usca' => 'Campanya',
 			'usin' => 'Data d\'inici',
@@ -2152,28 +2173,38 @@
 	 * Stats tool table first col generator
 	 */
 	function omnia_usos_stats_tool_first_col($col) {
+		global $reference_fields, $taxonomy_fields, $taxonomy_vid;
 		$col_fields = array();
-		if (in_array($col, $taxonomy_fields)) {
-			return $col_fields;
-		} elseif (in_array($first, $reference_fields)) {
+		
+		if (in_array($col, $reference_fields)) {
 			//Per defecte "Punt òmnia", en cas que n'hi hagi més s'haurà de veure
 			$nodetype = 'content_punt';
 			$query = "SELECT `nid`, `title` FROM {node} WHERE type='{$nodetype}' AND status=1 ORDER BY `title` ASC";
 			$results = db_query($query);
 			while ($reg = db_fetch_array($results)) {
-				$col_fields[$reg['nid']] = $reg['title']; 
+				$col_fields[$reg['nid']] = array($reg['title']); 
 			}
-			return $col_fields;
-		} else {
-			return false;
+		} elseif (array_key_exists($col, $taxonomy_vid)) {
+			$vid = $taxonomy_vid[$col];
+			$depth = null;
+			if (is_array($vid)) {
+				$depth = $vid[1];
+				$vid = $vid[0];
+			}
+			$tree = taxonomy_get_tree($vid, 0, -1, $depth);
+			foreach ($tree as $term) {
+				if((!is_null($depth)) && ($term->depth==($depth-1))) $col_fields[$term->tid] = array($term->name);
+			}		
 		}
+		
+		return $col_fields;
 	}
 	
 	/**
 	 * Stats tool table generator
 	 */
 	function omnia_usos_stats_tool_table($results) {
-		global $checkbox_fields, $taxonomy_fields, $field_translate, $reference_fields;
+		global $checkbox_fields, $taxonomy_fields, $field_translate, $reference_fields, $taxonomy_vid;
 		
 		$fields = $results->fetch_fields();
 		$st_header = array();
@@ -2187,34 +2218,38 @@
 		$rows = array();
 		$values = array();
 		
-		/**********************************************/
-		global $user;
-		if ($user->name == 'felixcb') {
-			die('hola');
-			if($col_fields = omnia_usos_stats_tool_first_col($first)) {
-				
+		$rows = omnia_usos_stats_tool_first_col($first);
+		if (empty($rows)) {
+			while ($reg = db_fetch_array($results)) {
+				$row = array();
+				if (in_array($first, $taxonomy_fields)) {
+					$name = taxonomy_get_term($reg[$first]);
+					$row[] = $name->name;
+				} elseif (in_array($first, $checkbox_fields)) {
+					$row[] = ($reg[$first] == 1) ? 'Sí' : 'No';
+				} elseif (in_array($first, $reference_fields)) {
+					$node = node_load($reg[$first]);
+					$row[] = $node->title;
+				} elseif ($first == 'usex') {
+					$row[] = ($reg[$first] == 1) ? 'Home' : 'Dona';
+				} else {
+					$row[] = $reg[$first];
+				}
+				$row[] = $reg[$second];
+				$values[] = $reg[$second];
+				$rows[] = $row;
 			}
-		} 
-		/**********************************************/
-		
-		while ($reg = db_fetch_array($results)) {
-			$row = array();
-			if (in_array($first, $taxonomy_fields)) {
-				$name = taxonomy_get_term($reg[$first]);
-				$row[] = $name->name;
-			} elseif (in_array($first, $checkbox_fields)) {
-				$row[] = ($reg[$first] == 1) ? 'Sí' : 'No';
-			} elseif (in_array($first, $reference_fields)) {
-				$node = node_load($reg[$first]);
-				$row[] = $node->title;
-			} elseif ($first == 'usex') {
-				$row[] = ($reg[$first] == 1) ? 'Home' : 'Dona';
-			} else {
-				$row[] = $reg[$first];
+		} else {
+			while ($reg = db_fetch_array($results)) {
+				if (in_array($first, $reference_fields)) {
+					$node = node_load($reg[$first]);
+					$rows[$node->nid][] = $reg[$second];
+				} elseif (array_key_exists($first, $taxonomy_vid)) {
+					$name = taxonomy_get_term($reg[$first]);					
+					$rows[$name->tid][] = $reg[$second];
+				}
+				$values[] = $reg[$second];
 			}
-			$row[] = $reg[$second];
-			$values[] = $reg[$second];
-			$rows[] = $row;
 		}
 		
 		$table = '';
@@ -2510,41 +2545,48 @@
 	 * Export to CSV stats tool results
 	 */
 	function omnia_usos_stats_tool_export($results) {
-		global $checkbox_fields, $taxonomy_fields, $field_translate, $reference_fields;
+		global $checkbox_fields, $taxonomy_fields, $field_translate, $reference_fields, $taxonomy_vid;
 		
 		$fields = $results->fetch_fields();
 		$first = $fields[1]->name;
 		$second = $fields[0]->name;		
 		
-		$header = array();
-		$header[] = $field_translate[$fields[1]->name];
-		$header[] = $field_translate[$fields[0]->name];
+		$header = array(array($field_translate[$fields[1]->name], $field_translate[$fields[0]->name]));		
+		$rows = array();	
 		
-		$rows = array();
-		$rows[] = $header;		
-		
-		$values = array();
-		while ($reg = db_fetch_array($results)) {
-			$row = array();
-			if (in_array($first, $taxonomy_fields)) {
-				$name = taxonomy_get_term($reg[$first]);
-				$row[] = $name->name;
-			} elseif (in_array($first, $checkbox_fields)) {
-				$row[] = ($reg[$first] == 1) ? 'Sí' : 'No';
-			} elseif (in_array($first, $reference_fields)) {
-				$node = node_load($reg[$first]);
-				$row[] = $node->title;
-			} elseif ($first == 'usex') {
-				$row[] = ($reg[$first] == 1) ? 'Home' : 'Dona';
-			} else {
-				$row[] = $reg[$first];
+		$rows = omnia_usos_stats_tool_first_col($first);
+		if (empty($rows)) {
+			while ($reg = db_fetch_array($results)) {
+				$row = array();
+				if (in_array($first, $taxonomy_fields)) {
+					$name = taxonomy_get_term($reg[$first]);
+					$row[] = $name->name;
+				} elseif (in_array($first, $checkbox_fields)) {
+					$row[] = ($reg[$first] == 1) ? 'Sí' : 'No';
+				} elseif (in_array($first, $reference_fields)) {
+					$node = node_load($reg[$first]);
+					$row[] = $node->title;
+				} elseif ($first == 'usex') {
+					$row[] = ($reg[$first] == 1) ? 'Home' : 'Dona';
+				} else {
+					$row[] = $reg[$first];
+				}
+				$row[] = $reg[$second];
+				$rows[] = $row;
 			}
-			$row[] = $reg[$second];
-			$values[] = $reg[$second];
-			$rows[] = $row;
+		} else {
+			while ($reg = db_fetch_array($results)) {
+				if (in_array($first, $reference_fields)) {
+					$node = node_load($reg[$first]);
+					$rows[$node->nid][] = $reg[$second];
+				} elseif (array_key_exists($first, $taxonomy_vid)) {
+					$name = taxonomy_get_term($reg[$first]);
+					$rows[$name->tid][] = $reg[$second];
+				}
+			}
 		}
 		
-		array_to_csv_download($rows);
+		array_to_csv_download(array_merge($header,$rows));
 	}
 	
 	/**
