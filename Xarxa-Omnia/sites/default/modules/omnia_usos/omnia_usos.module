@@ -1162,11 +1162,11 @@
 		if (array_key_exists ('usgr', $_GET)){
 			$group = urldecode($_REQUEST['usgr']);
 			if ($group=='') {
-				$query = "SELECT `nid`, `usin`, COUNT(DISTINCT `usid`) AS participants, `usgr`, `usca` FROM `omnia_usos` WHERE `oid`={$oid_} AND `aid`={$aid} AND (`usgr`='{$group}' OR `usgr` IS NULL) GROUP BY `nid` ORDER BY `usin` DESC";
-				$counter_query = "SELECT COUNT(DISTINCT `nid`) FROM `omnia_usos` WHERE `oid`={$oid_} AND `aid`={$aid} AND (`usgr`='{$group}' OR `usgr` IS NULL)";
+				$query = "SELECT `nid`, `usin`, COUNT(DISTINCT `usid`) AS participants, `usgr`, `usca` FROM `omnia_usos` WHERE `oid`={$oid_} AND `aid`={$aid} AND (`usgr`=\"{$group}\" OR `usgr` IS NULL) GROUP BY `nid` ORDER BY `usin` DESC";
+				$counter_query = "SELECT COUNT(DISTINCT `nid`) FROM `omnia_usos` WHERE `oid`={$oid_} AND `aid`={$aid} AND (`usgr`=\"{$group}\" OR `usgr` IS NULL)";
 			} else {
-				$query = "SELECT `nid`, `usin`, COUNT(DISTINCT `usid`) AS participants, `usgr`, `usca` FROM `omnia_usos` WHERE `oid`={$oid_} AND `aid`={$aid} AND `usgr`='{$group}' GROUP BY `nid` ORDER BY `usin` DESC";
-				$counter_query = "SELECT COUNT(DISTINCT `nid`) FROM `omnia_usos` WHERE `oid`={$oid_} AND `aid`={$aid} AND `usgr`='{$group}'";
+				$query = "SELECT `nid`, `usin`, COUNT(DISTINCT `usid`) AS participants, `usgr`, `usca` FROM `omnia_usos` WHERE `oid`={$oid_} AND `aid`={$aid} AND `usgr`=\"{$group}\" GROUP BY `nid` ORDER BY `usin` DESC";
+				$counter_query = "SELECT COUNT(DISTINCT `nid`) FROM `omnia_usos` WHERE `oid`={$oid_} AND `aid`={$aid} AND `usgr`=\"{$group}\"";
 			} 
 			$results = pager_query($query, 15, 0 , $counter_query);
 			
@@ -1207,9 +1207,9 @@
 			$tablerows = array();
 			foreach ($groups as $group => $sessions) {
 				if ($group=='') {
-					$query = "SELECT `nid`, `usin`, COUNT(DISTINCT `usid`) AS participants, `usgr`, `usca` FROM `omnia_usos` WHERE `oid`={$oid_} AND `aid`={$aid} AND (`usgr`='{$group}' OR `usgr`IS NULL) GROUP BY `nid` ORDER BY `usin` DESC LIMIT 3";
+					$query = "SELECT `nid`, `usin`, COUNT(DISTINCT `usid`) AS participants, `usgr`, `usca` FROM `omnia_usos` WHERE `oid`={$oid_} AND `aid`={$aid} AND (`usgr`=\"{$group}\" OR `usgr`IS NULL) GROUP BY `nid` ORDER BY `usin` DESC LIMIT 3";
 				} else {
-					$query = "SELECT `nid`, `usin`, COUNT(DISTINCT `usid`) AS participants, `usgr`, `usca` FROM `omnia_usos` WHERE `oid`={$oid_} AND `aid`={$aid} AND `usgr`='{$group}' GROUP BY `nid` ORDER BY `usin` DESC LIMIT 3";
+					$query = "SELECT `nid`, `usin`, COUNT(DISTINCT `usid`) AS participants, `usgr`, `usca` FROM `omnia_usos` WHERE `oid`={$oid_} AND `aid`={$aid} AND `usgr`=\"{$group}\" GROUP BY `nid` ORDER BY `usin` DESC LIMIT 3";
 				}
 				$results = db_query($query);
 				
